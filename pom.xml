@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.melonbase</groupId>
   <artifactId>microquark</artifactId>
@@ -17,7 +18,14 @@
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>1.11.1.Final</quarkus.platform.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
+    <microstream.version>04.01.00-MS-GA</microstream.version>
   </properties>
+  <repositories>
+    <repository>
+      <id>microstream-releases</id>
+      <url>https://repo.microstream.one/repository/maven-public/</url>
+    </repository>
+  </repositories>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -38,6 +46,18 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy</artifactId>
     </dependency>
+    <dependency>
+      <groupId>one.microstream</groupId>
+      <artifactId>storage.embedded</artifactId>
+      <version>${microstream.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>one.microstream</groupId>
+      <artifactId>storage.embedded.configuration</artifactId>
+      <version>${microstream.version}</version>
+    </dependency>
+
+    <!-- TEST -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
