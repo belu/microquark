@@ -47,6 +47,10 @@
       <artifactId>quarkus-resteasy</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-container-image-docker</artifactId>
+    </dependency>
+    <dependency>
       <groupId>one.microstream</groupId>
       <artifactId>storage.embedded</artifactId>
       <version>${microstream.version}</version>
