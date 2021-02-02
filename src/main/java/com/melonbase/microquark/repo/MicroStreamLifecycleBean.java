@@ -2,7 +2,6 @@ package com.melonbase.microquark.repo;
 
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
-import one.microstream.storage.types.StorageManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,16 +15,15 @@ public class MicroStreamLifecycleBean {
   private static final Logger LOG = LoggerFactory.getLogger(MicroStreamLifecycleBean.class);
 
   @Inject
-  StorageManager storage;
+  MicroStreamStorage storage;
 
   void onStart(@Observes StartupEvent ev) {
-    LOG.info("microstream storage active: {}", storage.isActive());
-    LOG.info("microstream storage running: {}", storage.isRunning());
+    LOG.info("microstream storage active: {}", storage.getStorage().isActive());
+    LOG.info("microstream storage running: {}", storage.getStorage().isRunning());
   }
 
   void onStop(@Observes ShutdownEvent ev) {
     LOG.info("Shutting down microstream storage.");
-
 
     storage.shutdown();
 
