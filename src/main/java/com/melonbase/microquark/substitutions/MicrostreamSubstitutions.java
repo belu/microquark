@@ -2,9 +2,8 @@ package com.melonbase.microquark.substitutions;
 
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.RecomputeFieldValue;
+import com.oracle.svm.core.annotate.RecomputeFieldValue.Kind;
 import com.oracle.svm.core.annotate.TargetClass;
-
-import static com.oracle.svm.core.annotate.RecomputeFieldValue.Kind;
 
 @TargetClass(className = "one.microstream.memory.sun.JdkInternals")
 final class Target_one_microstream_memory_sun_JdkInternals0 {
