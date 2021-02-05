@@ -1,5 +1,7 @@
 package com.melonbase.microquark.repo;
 
+import com.melonbase.microquark.microstream.MicroStreamStorage;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 

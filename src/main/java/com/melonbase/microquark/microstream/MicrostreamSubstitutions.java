@@ -1,4 +1,4 @@
-package com.melonbase.microquark.substitutions;
+package com.melonbase.microquark.microstream;
 
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.RecomputeFieldValue;
@@ -32,7 +32,7 @@ final class Target_one_microstream_memory_sun_JdkInternals2 {
   @Alias
   @RecomputeFieldValue(
       kind = Kind.FieldOffset,
-      declClassName = "jdk.internal.ref.Cleaner", // "sun.misc.Cleaner"
+      declClassName = "jdk.internal.ref.Cleaner",
       name = "thunk"
   )
   static long FIELD_OFFSET_Cleaner_thunk;

@@ -1,4 +1,4 @@
-package com.melonbase.microquark.repo;
+package com.melonbase.microquark.microstream;
 
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;

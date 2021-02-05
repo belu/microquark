@@ -1,5 +1,6 @@
-package com.melonbase.microquark.repo;
+package com.melonbase.microquark.microstream;
 
+import com.melonbase.microquark.repo.DataRoot;
 import one.microstream.reflect.ClassLoaderProvider;
 import one.microstream.storage.types.EmbeddedStorage;
 import one.microstream.storage.types.StorageManager;
