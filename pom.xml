@@ -19,6 +19,7 @@
     <quarkus.platform.version>1.11.1.Final</quarkus.platform.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <microstream.version>04.01.00-MS-GA</microstream.version>
+    <substratevm.version>19.2.1</substratevm.version>
   </properties>
   <repositories>
     <repository>
@@ -63,6 +64,12 @@
       <groupId>one.microstream</groupId>
       <artifactId>storage.embedded.configuration</artifactId>
       <version>${microstream.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.substratevm</groupId>
+      <artifactId>svm</artifactId>
+      <version>${substratevm.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <!-- TEST -->
