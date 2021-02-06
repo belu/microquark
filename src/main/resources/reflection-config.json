@@ -16,5 +16,73 @@
     "allPublicMethods": true,
     "allDeclaredFields": true,
     "allPublicFields": true
+  },
+  {
+    "name": "one.microstream.collections.EmptyTable",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "fields": [
+      {
+        "name": "keys",
+        "allowWrite": true
+      },
+      {
+        "name": "keys",
+        "allowUnsafeAccess": true
+      },
+      {
+        "name": "values",
+        "allowWrite": true
+      },
+      {
+        "name": "values",
+        "allowUnsafeAccess": true
+      }
+    ]
+  },
+  {
+    "name": "one.microstream.collections.EmptyTable$Keys",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "fields": [
+      {
+        "name": "this$0",
+        "allowWrite": true
+      },
+      {
+        "name": "this$0",
+        "allowUnsafeAccess": true
+      }
+    ]
+  },
+  {
+    "name": "one.microstream.collections.EmptyTable$Values",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "fields": [
+      {
+        "name": "this$0",
+        "allowWrite": true
+      },
+      {
+        "name": "this$0",
+        "allowUnsafeAccess": true
+      }
+    ]
+  },
+  {
+    "name": "com.melonbase.microquark.repo.DataRoot",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "fields": [
+      {
+        "name": "message",
+        "allowWrite": true
+      },
+      {
+        "name": "message",
+        "allowUnsafeAccess": true
+      }
+    ]
   }
 ]
