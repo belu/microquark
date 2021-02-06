@@ -1,0 +1,13 @@
+[
+  {
+    "name": "java.util.Optional",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "fields": [
+      {
+        "name": "value",
+        "allowUnsafeAccess": true
+      }
+    ]
+  }
+]
