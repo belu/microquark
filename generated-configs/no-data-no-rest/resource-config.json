@@ -1,0 +1,13 @@
+{
+  "resources":{
+  "includes":[
+    {"pattern":"\\QMETA-INF/services/io.smallrye.config.ConfigSourceFactory\\E"}, 
+    {"pattern":"\\QMETA-INF/services/io.smallrye.config.SmallRyeConfigFactory\\E"}, 
+    {"pattern":"\\QMETA-INF/services/io.vertx.core.spi.FutureFactory\\E"}, 
+    {"pattern":"\\QMETA-INF/services/org.eclipse.microprofile.config.spi.ConfigSource\\E"}, 
+    {"pattern":"\\QMETA-INF/services/org.eclipse.microprofile.config.spi.Converter\\E"}, 
+    {"pattern":"\\Qapplication.properties\\E"}, 
+    {"pattern":"\\Qorg/jboss/threads/Version.properties\\E"}
+  ]},
+  "bundles":[]
+}
