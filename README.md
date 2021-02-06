@@ -11,5 +11,5 @@ curl http://0.0.0.0:8080/hello
 Post new message:
 
 ```shell script
-curl -X POST -H "Content-Type: text/plain" -d 'new message' http://0.0.0.0:8080/hello
+curl -X POST -H "Content-Type: text/plain" -d "Hello @ `date`" http://0.0.0.0:8080/hello
 ```
