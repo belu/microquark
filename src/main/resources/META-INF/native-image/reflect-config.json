@@ -1,9 +1,57 @@
 [
 {
+  "name":"boolean",
+  "allDeclaredMethods":true
+},
+{
+  "name":"boolean[]",
+  "allDeclaredMethods":true
+},
+{
+  "name":"byte",
+  "allDeclaredMethods":true
+},
+{
+  "name":"byte[]",
+  "allDeclaredMethods":true
+},
+{
+  "name":"char",
+  "allDeclaredMethods":true
+},
+{
+  "name":"char[]",
+  "allDeclaredMethods":true
+},
+{
   "name":"com.melonbase.microquark.repo.DataRoot",
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
   "fields":[{"name":"message", "allowUnsafeAccess":true}]
+},
+{
+  "name":"double",
+  "allDeclaredMethods":true
+},
+{
+  "name":"double[]",
+  "allDeclaredMethods":true
+},
+{
+  "name":"float",
+  "allDeclaredMethods":true
+},
+{
+  "name":"float[]",
+  "allDeclaredMethods":true
+},
+{
+  "name":"int",
+  "allDeclaredMethods":true
+},
+{
+  "name":"int[]",
+  "allDeclaredMethods":true
 },
 {
   "name":"io.netty.bootstrap.ServerBootstrap$1"
@@ -214,11 +262,64 @@
   ]
 },
 {
+  "name":"java.io.File",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.Boolean",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.Byte",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.Character",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.Class",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.Double",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.Float",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.Integer",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.Long",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.Object",
+  "allDeclaredMethods":true
+},
+{
   "name":"java.lang.Object[]",
   "allDeclaredMethods":true
 },
 {
-  "name":"java.lang.String[]"
+  "name":"java.lang.Short",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.String",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.StringBuffer",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.StringBuilder",
+  "allDeclaredMethods":true
 },
 {
   "name":"java.lang.Thread",
@@ -227,6 +328,10 @@
     {"name":"inheritableThreadLocals", "allowUnsafeAccess":true}, 
     {"name":"threadLocals", "allowUnsafeAccess":true}
   ]
+},
+{
+  "name":"java.lang.Void",
+  "allDeclaredMethods":true
 },
 {
   "name":"java.lang.management.ManagementFactory",
@@ -244,6 +349,38 @@
 },
 {
   "name":"java.lang.reflect.Field[]"
+},
+{
+  "name":"java.math.BigDecimal",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.math.BigInteger",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.net.Inet4Address",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.net.Inet6Address",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.net.InetAddress",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.net.InetSocketAddress",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.net.URI",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.net.URL",
+  "allDeclaredMethods":true
 },
 {
   "name":"java.nio.Bits",
@@ -264,7 +401,23 @@
   "name":"java.nio.file.OpenOption[]"
 },
 {
+  "name":"java.nio.file.Path",
+  "allDeclaredMethods":true
+},
+{
   "name":"java.security.SecureRandomParameters"
+},
+{
+  "name":"java.sql.Date",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.sql.Time",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.sql.Timestamp",
+  "allDeclaredMethods":true
 },
 {
   "name":"java.util.AbstractCollection",
@@ -283,6 +436,14 @@
   "allDeclaredFields":true
 },
 {
+  "name":"java.util.ArrayDeque",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.ArrayList",
+  "allDeclaredMethods":true
+},
+{
   "name":"java.util.Collections$EmptyList",
   "allDeclaredFields":true,
   "allDeclaredMethods":true
@@ -298,9 +459,136 @@
   "allDeclaredMethods":true
 },
 {
+  "name":"java.util.Collections$ReverseComparator",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Collections$UnmodifiableNavigableMap$EmptyNavigableMap",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Collections$UnmodifiableNavigableSet$EmptyNavigableSet",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Comparator"
+},
+{
+  "name":"java.util.Comparators$NaturalOrderComparator",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Currency",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Date",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.HashMap",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.HashSet",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Hashtable",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.IdentityHashMap",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.LinkedHashMap",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.LinkedHashSet",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.LinkedList",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Locale",
+  "allDeclaredMethods":true
+},
+{
   "name":"java.util.Optional",
   "allDeclaredFields":true,
-  "fields":[{"name":"value", "allowUnsafeAccess":true}]
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.OptionalDouble",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.OptionalInt",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.OptionalLong",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.PriorityQueue",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Properties",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Stack",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.TreeMap",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.TreeSet",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Vector",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.WeakHashMap",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.concurrent.ConcurrentHashMap",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.concurrent.ConcurrentLinkedDeque",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.concurrent.ConcurrentLinkedQueue",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.concurrent.ConcurrentSkipListMap",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.concurrent.ConcurrentSkipListSet",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.concurrent.CopyOnWriteArrayList",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.regex.Pattern",
+  "allDeclaredMethods":true
 },
 {
   "name":"javax.enterprise.context.BeforeDestroyed",
@@ -331,8 +619,38 @@
   "fields":[{"name":"thunk", "allowUnsafeAccess":true}]
 },
 {
+  "name":"long",
+  "allDeclaredMethods":true
+},
+{
+  "name":"long[]",
+  "allDeclaredMethods":true
+},
+{
+  "name":"one.microstream.afs.nio.NioReadableFile$Default[]"
+},
+{
+  "name":"one.microstream.collections.BulkList",
+  "allDeclaredMethods":true
+},
+{
+  "name":"one.microstream.collections.ConstHashEnum",
+  "allDeclaredMethods":true
+},
+{
   "name":"one.microstream.collections.ConstHashTable",
-  "allDeclaredFields":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true
+},
+{
+  "name":"one.microstream.collections.ConstHashTable$Keys"
+},
+{
+  "name":"one.microstream.collections.ConstHashTable$Values"
+},
+{
+  "name":"one.microstream.collections.ConstList",
+  "allDeclaredMethods":true
 },
 {
   "name":"one.microstream.collections.Empty",
@@ -362,27 +680,70 @@
 },
 {
   "name":"one.microstream.collections.EqBulkList",
-  "allDeclaredFields":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true
 },
 {
   "name":"one.microstream.collections.EqConstHashEnum",
-  "allDeclaredFields":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true
 },
 {
   "name":"one.microstream.collections.EqConstHashTable",
-  "allDeclaredFields":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true
+},
+{
+  "name":"one.microstream.collections.EqConstHashTable$Keys"
+},
+{
+  "name":"one.microstream.collections.EqConstHashTable$Values"
 },
 {
   "name":"one.microstream.collections.EqHashEnum",
-  "allDeclaredFields":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true
 },
 {
   "name":"one.microstream.collections.EqHashTable",
-  "allDeclaredFields":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true
+},
+{
+  "name":"one.microstream.collections.EqHashTable$Keys"
+},
+{
+  "name":"one.microstream.collections.EqHashTable$Values"
+},
+{
+  "name":"one.microstream.collections.FixedList",
+  "allDeclaredMethods":true
+},
+{
+  "name":"one.microstream.collections.HashEnum",
+  "allDeclaredMethods":true
 },
 {
   "name":"one.microstream.collections.HashTable",
-  "allDeclaredFields":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true
+},
+{
+  "name":"one.microstream.collections.HashTable$Keys"
+},
+{
+  "name":"one.microstream.collections.HashTable$Values"
+},
+{
+  "name":"one.microstream.collections.LimitList",
+  "allDeclaredMethods":true
+},
+{
+  "name":"one.microstream.collections.Singleton",
+  "allDeclaredMethods":true
+},
+{
+  "name":"one.microstream.hashing.HashEqualator"
 },
 {
   "name":"one.microstream.hashing.XHashing$SingletonIdentityHashEqualator",
@@ -418,13 +779,29 @@
   "name":"one.microstream.persistence.binary.types.LoadItemsChain$Entry[]"
 },
 {
+  "name":"one.microstream.persistence.types.PersistenceRootReference$Default",
+  "allDeclaredMethods":true
+},
+{
+  "name":"one.microstream.persistence.types.PersistenceRoots$Default",
+  "allDeclaredMethods":true
+},
+{
   "name":"one.microstream.persistence.types.PersistenceTypeDefinitionMemberFieldGeneric[]"
 },
 {
   "name":"one.microstream.persistence.types.PersistenceTypeDescription[]"
 },
 {
+  "name":"one.microstream.reference.Lazy$Default",
+  "allDeclaredMethods":true
+},
+{
   "name":"one.microstream.storage.types.StorageChannel$HousekeepingTask[]"
+},
+{
+  "name":"one.microstream.util.Substituter$Default",
+  "allDeclaredMethods":true
 },
 {
   "name":"org.jboss.resteasy.core.AcceptHeaderByFileSuffixFilter",
@@ -468,6 +845,14 @@
 {
   "name":"org.jboss.threads.Messages_$logger",
   "methods":[{"name":"<init>","parameterTypes":["org.jboss.logging.Logger"] }]
+},
+{
+  "name":"short",
+  "allDeclaredMethods":true
+},
+{
+  "name":"short[]",
+  "allDeclaredMethods":true
 },
 {
   "name":"sun.misc.Unsafe",
