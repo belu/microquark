@@ -4,9 +4,6 @@
   "methods":[{"name":"getPlatformClassLoader","parameterTypes":[] }]
 },
 {
-  "name":"java.lang.NoSuchMethodError"
-},
-{
   "name":"sun.management.VMManagementImpl",
   "fields":[
     {"name":"compTimeMonitoringSupport"}, 
