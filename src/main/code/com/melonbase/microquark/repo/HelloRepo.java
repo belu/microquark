@@ -1,6 +1,6 @@
 package com.melonbase.microquark.repo;
 
-import com.melonbase.microquark.microstream.MicroStreamStorage;
+import one.microstream.storage.types.StorageManager;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -9,14 +9,17 @@ import javax.inject.Inject;
 public class HelloRepo {
 
   @Inject
-  MicroStreamStorage storage;
+  StorageManager storage;
+
+  @Inject
+  DataRoot root;
 
   public String getHello() {
-    return storage.getRoot().getMessage();
+    return root.getMessage();
   }
 
   public void setHello(final String msg) {
-    storage.getRoot().setMessage(msg);
+    root.setMessage(msg);
     storage.storeRoot();
   }
 }
