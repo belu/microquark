@@ -8,9 +8,11 @@
   <version>1.0.0-SNAPSHOT</version>
   <properties>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
+    <kotlin.version>1.4.20</kotlin.version>
     <maven.compiler.parameters>true</maven.compiler.parameters>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
+    <maven.test.skip>false</maven.test.skip>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus-plugin.version>1.11.1.Final</quarkus-plugin.version>
@@ -20,12 +22,6 @@
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <microstream.version>04.01.00-MS-GA</microstream.version>
   </properties>
-  <repositories>
-    <repository>
-      <id>microstream-releases</id>
-      <url>https://repo.microstream.one/repository/maven-public/</url>
-    </repository>
-  </repositories>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -38,6 +34,10 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-kotlin</artifactId>
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
@@ -82,6 +82,12 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <id>microstream-releases</id>
+      <url>https://repo.microstream.one/repository/maven-public/</url>
+    </repository>
+  </repositories>
   <build>
     <plugins>
       <plugin>
@@ -99,10 +105,94 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${compiler-plugin.version}</version>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <sourceDirs>
+                <!-- <sourceDir>${project.basedir}/src/main/kotlin</sourceDir> -->
+                <sourceDir>${project.basedir}/src/main/java</sourceDir>
+              </sourceDirs>
+            </configuration>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+            <configuration>
+              <sourceDirs>
+                <!-- <sourceDir>${project.basedir}/src/test/kotlin</sourceDir> -->
+                <sourceDir>${project.basedir}/src/test/java</sourceDir>
+              </sourceDirs>
+              <skip>${maven.test.skip}</skip>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <compilerPlugins>
+            <plugin>all-open</plugin>
+          </compilerPlugins>
+
+          <pluginOptions>
+            <!-- Each annotation is placed on its own line -->
+            <option>all-open:annotation=javax.ws.rs.Path</option>
+            <option>all-open:annotation=javax.enterprise.context.ApplicationScoped</option>
+          </pluginOptions>
+        </configuration>
+
+        <dependencies>
+          <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-allopen</artifactId>
+            <version>${kotlin.version}</version>
+          </dependency>
+        </dependencies>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <executions>
+          <!-- Replacing default-compile as it is treated specially by maven -->
+          <execution>
+            <id>default-compile</id>
+            <phase>none</phase>
+          </execution>
+          <!-- Replacing default-testCompile as it is treated specially by maven -->
+          <execution>
+            <id>default-testCompile</id>
+            <phase>none</phase>
+          </execution>
+          <execution>
+            <id>java-compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>java-test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+            <configuration>
+              <skip>${maven.test.skip}</skip>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
