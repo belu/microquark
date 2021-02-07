@@ -21,6 +21,7 @@
     <quarkus.platform.version>1.11.1.Final</quarkus.platform.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <microstream.version>04.01.00-MS-GA</microstream.version>
+    <jimfs.version>1.2</jimfs.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -69,6 +70,11 @@
       <artifactId>svm</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>com.google.jimfs</groupId>
+      <artifactId>jimfs</artifactId>
+      <version>${jimfs.version}</version>
+    </dependency>
 
     <!-- TEST -->
     <dependency>
@@ -89,6 +95,8 @@
     </repository>
   </repositories>
   <build>
+    <sourceDirectory>src/main/code</sourceDirectory>
+    <testSourceDirectory>src/test/code</testSourceDirectory>
     <plugins>
       <plugin>
         <groupId>io.quarkus</groupId>
@@ -119,7 +127,7 @@
             <configuration>
               <sourceDirs>
                 <!-- <sourceDir>${project.basedir}/src/main/kotlin</sourceDir> -->
-                <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                <sourceDir>src/main/code</sourceDir>
               </sourceDirs>
             </configuration>
           </execution>
@@ -131,7 +139,7 @@
             <configuration>
               <sourceDirs>
                 <!-- <sourceDir>${project.basedir}/src/test/kotlin</sourceDir> -->
-                <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                <sourceDir>${project.basedir}/src/test/code</sourceDir>
               </sourceDirs>
               <skip>${maven.test.skip}</skip>
             </configuration>
