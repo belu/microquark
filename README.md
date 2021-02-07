@@ -33,7 +33,7 @@ mvn clean compile package
 2. Run the application JAR and let Graal do the heavy work to create the native build configs: 
 
 ```shell script
-java -agentlib:native-image-agent=merge-config-dir=src/main/resources/META-INF/native-image -jar target/*-runner.jar
+java -agentlib:native-image-agent=config-merge-dir=src/main/resources/META-INF/native-image -jar target/*-runner.jar
 ```
 
 Note that whilst your application is running, you should enter every possible code path that
