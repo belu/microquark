@@ -1,0 +1,19 @@
+version: '3'
+services:
+  postgres:
+    image: "postgres"
+    ports:
+      - "45432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    ports:
+      - "53603:53603"
+      - "48080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: root

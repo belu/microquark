@@ -1,5 +1,37 @@
 # microquark
 
+## Build & run
+
+### Run application in dev mode
+```shell script
+mvn clean quarkus:dev
+```
+
+### Run application as native executable
+
+```shell script
+mvn clean package -Pnative
+```
+
+## Storage types
+
+### Mem
+
+Stores data in-memory. This means after restarting the application
+the store is empty again.
+
+### Filesystem
+
+Stores data to your local file system.
+
+### Datasources
+
+Use docker-compose to start a PostgreSQL instance.
+
+```shell script
+docker-compose up
+```
+
 ## REST API
 
 Get current message:
