@@ -11,6 +11,16 @@ services:
       MYSQL_PASSWORD: stream
       MYSQL_DATABASE: microstream
 
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo-volume:/data/db
+
   postgres:
     image: postgres
     ports:

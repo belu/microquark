@@ -72,6 +72,15 @@
       <version>${microstream.version}</version>
     </dependency>
     <dependency>
+      <groupId>one.microstream</groupId>
+      <artifactId>filesystem.mongodb</artifactId>
+      <version>${microstream.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-mongodb-client</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jdbc-mariadb</artifactId>
     </dependency>
