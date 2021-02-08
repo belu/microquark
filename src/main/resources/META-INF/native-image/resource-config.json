@@ -10,6 +10,7 @@
     {"pattern":"\\QMETA-INF/services/org.eclipse.microprofile.config.spi.Converter\\E"}, 
     {"pattern":"\\Qapplication.properties\\E"}, 
     {"pattern":"\\Qjbossts-properties.xml\\E"}, 
+    {"pattern":"\\Qmariadb.properties\\E"}, 
     {"pattern":"\\Qorg/jboss/threads/Version.properties\\E"}
   ]},
   "bundles":[{"name":"org.postgresql.translation.messages"}]

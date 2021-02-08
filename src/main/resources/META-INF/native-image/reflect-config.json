@@ -476,6 +476,13 @@
   "allDeclaredMethods":true
 },
 {
+  "name":"java.lang.ProcessHandle",
+  "methods":[
+    {"name":"current","parameterTypes":[] }, 
+    {"name":"pid","parameterTypes":[] }
+  ]
+},
+{
   "name":"java.lang.Short",
   "allDeclaredMethods":true
 },
@@ -1021,6 +1028,17 @@
 {
   "name":"org.jboss.threads.Messages_$logger",
   "methods":[{"name":"<init>","parameterTypes":["org.jboss.logging.Logger"] }]
+},
+{
+  "name":"org.mariadb.jdbc.Driver",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.mariadb.jdbc.util.Options",
+  "fields":[
+    {"name":"password"}, 
+    {"name":"user"}
+  ]
 },
 {
   "name":"org.postgresql.Driver",

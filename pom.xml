@@ -73,12 +73,22 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jdbc-mariadb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jdbc-postgresql</artifactId>
     </dependency>
     <dependency>
-      <!-- Without this, native build fails. See https://github.com/quarkusio/quarkus/issues/6327 -->
+      <!-- Native build with PostgreSQL requires this. See https://github.com/quarkusio/quarkus/issues/6327 -->
       <groupId>net.java.dev.jna</groupId>
       <artifactId>jna</artifactId>
+      <version>${jna.version}</version>
+    </dependency>
+    <dependency>
+      <!-- Native build with MariaDB requires com.sun.jna.platform.win32.WinNT$HANDLE -->
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna-platform</artifactId>
       <version>${jna.version}</version>
     </dependency>
     <dependency>

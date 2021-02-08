@@ -5,6 +5,7 @@ import com.melonbase.microquark.repo.DataRoot;
 import one.microstream.afs.sql.SqlConnector;
 import one.microstream.afs.sql.SqlFileSystem;
 import one.microstream.afs.sql.SqlProvider;
+import one.microstream.afs.sql.SqlProviderMariaDb;
 import one.microstream.afs.sql.SqlProviderPostgres;
 import one.microstream.reflect.ClassLoaderProvider;
 import one.microstream.storage.types.EmbeddedStorage;
@@ -78,8 +79,11 @@ public class StorageManagerFactory {
       case "pg":
         sqlProvider = SqlProviderPostgres.New(datasource);
         break;
+      case "mariadb":
+        sqlProvider = SqlProviderMariaDb.New(datasource);
+        break;
       default:
-        throw new IllegalArgumentException("");
+        throw new IllegalArgumentException("Unsupported DB kind: " + dbKind.get());
     }
 
     var sqlFileSystem = SqlFileSystem.New(SqlConnector.Caching(sqlProvider));
@@ -87,6 +91,7 @@ public class StorageManagerFactory {
         .onConnectionFoundation(it ->
             it.setClassLoaderProvider(ClassLoaderProvider.New(Thread.currentThread().getContextClassLoader()))
         )
+        .setDataBaseName("microstream@" + dbKind.get())
         .start(root);
     sm.storeRoot();
     return sm;
@@ -97,6 +102,7 @@ public class StorageManagerFactory {
         .onConnectionFoundation(it ->
             it.setClassLoaderProvider(ClassLoaderProvider.New(Thread.currentThread().getContextClassLoader()))
         )
+        .setDataBaseName("microstream@filesystem:" + storageFilesystemPath)
         .start(root);
     sm.storeRoot();
     return sm;
@@ -109,7 +115,7 @@ public class StorageManagerFactory {
         .onConnectionFoundation(it ->
             it.setClassLoaderProvider(ClassLoaderProvider.New(Thread.currentThread().getContextClassLoader()))
         )
-        .setDataBaseName("in-memory by jimfs")
+        .setDataBaseName("microstream@in-memory")
         .start(root);
     sm.storeRoot();
     return sm;

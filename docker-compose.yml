@@ -1,7 +1,18 @@
 version: '3'
 services:
+  mariadb:
+    image: mariadb
+    restart: always
+    ports:
+    - "53306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: micro
+      MYSQL_PASSWORD: stream
+      MYSQL_DATABASE: microstream
+
   postgres:
-    image: "postgres"
+    image: postgres
     ports:
       - "45432:5432"
     environment:
