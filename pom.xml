@@ -23,6 +23,7 @@
     <microstream.version>04.01.00-MS-GA</microstream.version>
     <jimfs.version>1.2</jimfs.version>
     <jna.version>5.6.0</jna.version>
+    <jnr.unixsocket.version>0.38.5</jnr.unixsocket.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -99,6 +100,12 @@
       <groupId>net.java.dev.jna</groupId>
       <artifactId>jna-platform</artifactId>
       <version>${jna.version}</version>
+    </dependency>
+    <dependency>
+      <!-- Native build with MongoDB requires jnr.unixsocket.UnixSocket -->
+      <groupId>com.github.jnr</groupId>
+      <artifactId>jnr-unixsocket</artifactId>
+      <version>${jnr.unixsocket.version}</version>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>

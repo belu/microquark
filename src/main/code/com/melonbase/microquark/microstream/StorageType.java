@@ -6,5 +6,7 @@ public interface StorageType {
 
   String FILESYSTEM = "fs";
 
-  String DATASOURCE = "datasource";
+  String JDBC = "jdbc";
+
+  String MONGODB = "mongodb";
 }

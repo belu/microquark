@@ -2,6 +2,9 @@ package com.melonbase.microquark.microstream;
 
 import com.google.common.jimfs.Jimfs;
 import com.melonbase.microquark.repo.DataRoot;
+import com.mongodb.client.MongoClients;
+import one.microstream.afs.blobstore.BlobStoreFileSystem;
+import one.microstream.afs.mongodb.MongoDbConnector;
 import one.microstream.afs.sql.SqlConnector;
 import one.microstream.afs.sql.SqlFileSystem;
 import one.microstream.afs.sql.SqlProvider;
@@ -49,8 +52,11 @@ public class StorageManagerFactory {
       case StorageType.FILESYSTEM:
         sm = loadStorageFilesystem();
         break;
-      case StorageType.DATASOURCE:
-        sm = loadStorageDataSource();
+      case StorageType.JDBC:
+        sm = loadStorageJdbc();
+        break;
+      case StorageType.MONGODB:
+        sm = loadStorageMongoDb();
         break;
       default:
         throw new IllegalArgumentException("Unsupported storage type: '" + storageType + "'");
@@ -60,16 +66,39 @@ public class StorageManagerFactory {
     LOG.info("StorageManager started. Database name={}", storage.databaseName());
   }
 
+  private static final String CONFIG_MONGODB_CONNECTION_STRING = "quarkus.mongodb.connection-string";
+
+  private StorageManager loadStorageMongoDb() {
+    var conn = ConfigProvider.getConfig().getOptionalValue(CONFIG_MONGODB_CONNECTION_STRING, String.class);
+    if (conn.isEmpty()) {
+      throw new IllegalStateException("Storage type '" + StorageType.MONGODB + "', but no MongoDB connection defined.");
+    }
+
+    var mongoClient = MongoClients.create();
+    var db = mongoClient.getDatabase("db");
+    var fileSystem = BlobStoreFileSystem.New(
+        MongoDbConnector.Caching(db)
+    );
+
+    final StorageManager sm = EmbeddedStorage.Foundation(fileSystem.ensureDirectoryPath("microstream_storage"))
+        .onConnectionFoundation(it ->
+            it.setClassLoaderProvider(ClassLoaderProvider.New(Thread.currentThread().getContextClassLoader()))
+        )
+        .setDataBaseName("microstream@" + StorageType.MONGODB)
+        .start(root);
+    sm.storeRoot();
+    return sm;
+  }
+
   private static final String CONFIG_DATASOURCE_DB_KIND = "quarkus.datasource.db-kind";
 
-  private StorageManager loadStorageDataSource() {
+  private StorageManager loadStorageJdbc() {
     var datasource = CDI.current().select(DataSource.class).get();
 
     var dbKind = ConfigProvider.getConfig()
         .getOptionalValue(CONFIG_DATASOURCE_DB_KIND, String.class);
     if (dbKind.isEmpty()) {
-      throw new IllegalStateException("Storage type 'datasource', but no database type defined with config property '" +
-          CONFIG_DATASOURCE_DB_KIND + "'.");
+      throw new IllegalStateException("Storage type '" + StorageType.JDBC + "', but no datasource defined.");
     }
 
     final SqlProvider sqlProvider;

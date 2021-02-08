@@ -193,6 +193,10 @@
   "fields":[{"name":"message", "allowUnsafeAccess":true}]
 },
 {
+  "name":"com.mongodb.WriteConcern",
+  "allPublicFields":true
+},
+{
   "name":"double",
   "allDeclaredMethods":true
 },
@@ -555,6 +559,12 @@
   "allDeclaredMethods":true
 },
 {
+  "name":"java.net.Socket",
+  "methods":[
+    {"name":"setOption","parameterTypes":["java.net.SocketOption","java.lang.Object"] }
+  ]
+},
+{
   "name":"java.net.URI",
   "allDeclaredMethods":true
 },
@@ -598,6 +608,9 @@
 {
   "name":"java.sql.Timestamp",
   "allDeclaredMethods":true
+},
+{
+  "name":"java.time.Instant"
 },
 {
   "name":"java.util.AbstractCollection",
@@ -799,12 +812,19 @@
   "fields":[{"name":"thunk", "allowUnsafeAccess":true}]
 },
 {
+  "name":"jdk.net.ExtendedSocketOptions",
+  "allDeclaredFields":true
+},
+{
   "name":"long",
   "allDeclaredMethods":true
 },
 {
   "name":"long[]",
   "allDeclaredMethods":true
+},
+{
+  "name":"one.microstream.afs.blobstore.BlobStoreReadableFile$Default[]"
 },
 {
   "name":"one.microstream.afs.nio.NioReadableFile$Default[]"
@@ -1115,6 +1135,9 @@
     {"name":"USE_SPNEGO"}, 
     {"name":"XML_FACTORY_FACTORY"}
   ]
+},
+{
+  "name":"org.slf4j.Logger"
 },
 {
   "name":"short",
