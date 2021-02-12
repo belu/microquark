@@ -1,4 +1,4 @@
-package com.melonbase.microquark.microstream;
+package com.melonbase.microquark.microstream.graal;
 
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.RecomputeFieldValue;
