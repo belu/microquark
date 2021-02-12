@@ -4,6 +4,8 @@ import one.microstream.storage.types.StorageManager;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @ApplicationScoped
 public class HelloRepo {
@@ -14,12 +16,26 @@ public class HelloRepo {
   @Inject
   DataRoot root;
 
+  private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+  private final Lock r = readWriteLock.readLock();
+  private final Lock w = readWriteLock.writeLock();
+
   public String getHello() {
-    return root.getMessage();
+    r.lock();
+    try {
+      return root.getMessage();
+    } finally {
+      r.unlock();
+    }
   }
 
   public void setHello(final String msg) {
-    root.setMessage(msg);
-    storage.storeRoot();
+    w.lock();
+    try {
+      root.setMessage(msg);
+      storage.storeRoot();
+    } finally {
+      w.unlock();
+    }
   }
 }
