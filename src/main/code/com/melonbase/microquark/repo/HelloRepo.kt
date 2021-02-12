@@ -1,41 +1,31 @@
-package com.melonbase.microquark.repo;
+package com.melonbase.microquark.repo
 
-import one.microstream.storage.types.StorageManager;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import one.microstream.storage.types.StorageManager
+import java.util.concurrent.locks.ReentrantReadWriteLock
+import javax.enterprise.context.ApplicationScoped
+import javax.inject.Inject
+import kotlin.concurrent.withLock
 
 @ApplicationScoped
-public class HelloRepo {
+class HelloRepo @Inject constructor(
+  private val storage: StorageManager,
+  private val root: DataRoot
+) {
 
-  @Inject
-  StorageManager storage;
+  private val readWriteLock = ReentrantReadWriteLock()
+  private val r = readWriteLock.readLock()
+  private val w = readWriteLock.writeLock()
 
-  @Inject
-  DataRoot root;
-
-  private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
-  private final Lock r = readWriteLock.readLock();
-  private final Lock w = readWriteLock.writeLock();
-
-  public String getHello() {
-    r.lock();
-    try {
-      return root.getMessage();
-    } finally {
-      r.unlock();
+  fun getHello(): String? {
+    r.withLock {
+      return root.message
     }
   }
 
-  public void setHello(final String msg) {
-    w.lock();
-    try {
-      root.setMessage(msg);
-      storage.storeRoot();
-    } finally {
-      w.unlock();
+  fun setHello(msg: String) {
+    w.withLock {
+      root.message = msg
+      storage.storeRoot()
     }
   }
 }

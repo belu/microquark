@@ -1,21 +1,17 @@
-package com.melonbase.microquark.service;
+package com.melonbase.microquark.service
 
-import com.melonbase.microquark.repo.HelloRepo;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import com.melonbase.microquark.repo.HelloRepo
+import javax.enterprise.context.ApplicationScoped
+import javax.inject.Inject
 
 @ApplicationScoped
-public class HelloService {
+class HelloService @Inject constructor(private val helloRepo: HelloRepo) {
 
-  @Inject
-  HelloRepo helloRepo;
-
-  public String getHello() {
-    return helloRepo.getHello();
+  fun getHello(): String? {
+    return helloRepo.getHello()
   }
 
-  public void setHello(final String msg) {
-    helloRepo.setHello(msg);
+  fun setHello(msg: String) {
+    helloRepo.setHello(msg)
   }
 }
