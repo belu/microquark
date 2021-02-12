@@ -9,7 +9,7 @@ import java.util.Arrays;
  * Prints names of all static fields in JdkInternals.
  * <p>
  * As Decompilation of the microstream source code is not (yet) allowed,
- * this is a way to identify the fields hat have to be substituted for native build.
+ * this is a way to identify the fields that have to be substituted for native build.
  */
 class JdkInternalsHelper {
 
