@@ -4,7 +4,7 @@ public interface StorageType {
 
   String MEM = "mem";
 
-  String FILESYSTEM = "fs";
+  String FILESYSTEM = "filesystem";
 
   String JDBC = "jdbc";
 
