@@ -1,6 +1,6 @@
 package com.melonbase.microquark.repo;
 
-public enum Kanton {
+public enum Canton {
 
   AARGAU(685_424),
   APPENZELL_AUSSERRHODEN(55_234),
@@ -31,7 +31,7 @@ public enum Kanton {
 
   private long inhabitants;
 
-  Kanton(long inhabitants) {
+  Canton(long inhabitants) {
     this.inhabitants = inhabitants;
   }
 

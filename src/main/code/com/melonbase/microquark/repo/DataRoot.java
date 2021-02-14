@@ -1,21 +1,17 @@
 package com.melonbase.microquark.repo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class DataRoot {
 
-  private String message;
+  private final Set<Election> elections = new HashSet<>();
 
-  public String getMessage() {
-    return message;
+  public Set<Election> getElections() {
+    return elections;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  @Override
-  public String toString() {
-    return "DataRoot{" +
-        "message='" + message + '\'' +
-        '}';
+  public void addElection(Election election) {
+    elections.add(election);
   }
 }

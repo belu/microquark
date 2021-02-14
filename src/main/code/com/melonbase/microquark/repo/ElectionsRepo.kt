@@ -7,7 +7,7 @@ import javax.inject.Inject
 import kotlin.concurrent.withLock
 
 @ApplicationScoped
-class HelloRepo @Inject constructor(
+class ElectionsRepo @Inject constructor(
   private val storage: StorageManager,
   private val root: DataRoot
 ) {
@@ -16,16 +16,16 @@ class HelloRepo @Inject constructor(
   private val r = readWriteLock.readLock()
   private val w = readWriteLock.writeLock()
 
-  fun getHello(): String? {
+  fun getElections(): Set<Election> {
     r.withLock {
-      return root.message
+      return root.elections
     }
   }
 
-  fun setHello(msg: String) {
+  fun addElection(election: Election) {
     w.withLock {
-      root.message = msg
-      storage.storeRoot()
+      root.elections.add(election)
+      storage.store(root.elections)
     }
   }
 }
