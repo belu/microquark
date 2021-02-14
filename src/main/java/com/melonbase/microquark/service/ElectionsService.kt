@@ -21,4 +21,12 @@ class ElectionsService @Inject constructor(val repo: ElectionsRepo) {
   fun getVolksabstimmung(id: Int): VolksabstimmungWithIdDto? {
     return repo.getVolksabstimmung(id)?.mapToDto()
   }
+
+  fun performAbstimmung(id: Int): ServiceResult {
+    return repo.performAbstimmung(id)
+  }
+
+  fun getResult(id: Int): ServiceResult {
+    return repo.getResult(id)
+  }
 }

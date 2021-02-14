@@ -191,19 +191,16 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.melonbase.microquark.repo.data.Canton",
-  "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "fields":[{"name":"inhabitants", "allowUnsafeAccess":true}]
-},
-{
   "name":"com.melonbase.microquark.repo.data.DataRoot",
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
-  "fields":[
-    {"name":"elections", "allowUnsafeAccess":true}, 
-    {"name":"volksabstimmungen", "allowUnsafeAccess":true}
-  ]
+  "fields":[{"name":"volksabstimmungen", "allowUnsafeAccess":true}]
+},
+{
+  "name":"com.melonbase.microquark.repo.data.Kanton",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[{"name":"numberOfInhabitants", "allowUnsafeAccess":true}]
 },
 {
   "name":"com.melonbase.microquark.repo.data.Volksabstimmung",
@@ -222,7 +219,8 @@
   "fields":[
     {"name":"beschreibung", "allowUnsafeAccess":true}, 
     {"name":"id", "allowUnsafeAccess":true}, 
-    {"name":"stimmbeteiligung", "allowUnsafeAccess":true}
+    {"name":"stimmbeteiligung", "allowUnsafeAccess":true}, 
+    {"name":"stimmenByKanton", "allowUnsafeAccess":true}
   ]
 },
 {
@@ -545,6 +543,9 @@
   "allDeclaredMethods":true
 },
 {
+  "name":"java.lang.Long[]"
+},
+{
   "name":"java.lang.Number",
   "allDeclaredFields":true,
   "allDeclaredMethods":true
@@ -812,6 +813,12 @@
   ]
 },
 {
+  "name":"java.util.ImmutableCollections$ListN",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[{"name":"elements", "allowUnsafeAccess":true}]
+},
+{
   "name":"java.util.LinkedHashMap",
   "allDeclaredMethods":true
 },
@@ -838,8 +845,7 @@
 {
   "name":"java.util.Optional",
   "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "fields":[{"name":"value", "allowUnsafeAccess":true}]
+  "allDeclaredMethods":true
 },
 {
   "name":"java.util.OptionalDouble",
@@ -944,6 +950,10 @@
 {
   "name":"jdk.net.ExtendedSocketOptions",
   "allDeclaredFields":true
+},
+{
+  "name":"kotlin.internal.jdk8.JDK8PlatformImplementations",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"long",
@@ -1107,6 +1117,9 @@
 },
 {
   "name":"one.microstream.persistence.binary.types.BinaryReferenceTraverser[]"
+},
+{
+  "name":"one.microstream.persistence.binary.types.BinaryValueSetter[]"
 },
 {
   "name":"one.microstream.persistence.binary.types.LoadItemsChain$Entry[]"
