@@ -191,21 +191,6 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.melonbase.microquark.repo.DataRoot",
-  "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "fields":[{"name":"message", "allowUnsafeAccess":true}]
-},
-{
-  "name":"com.melonbase.microquark.repo.data.Abstimmung",
-  "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "fields":[
-    {"name":"description", "allowUnsafeAccess":true}, 
-    {"name":"id", "allowUnsafeAccess":true}
-  ]
-},
-{
   "name":"com.melonbase.microquark.repo.data.Canton",
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
@@ -218,17 +203,6 @@
   "fields":[
     {"name":"elections", "allowUnsafeAccess":true}, 
     {"name":"volksabstimmungen", "allowUnsafeAccess":true}
-  ]
-},
-{
-  "name":"com.melonbase.microquark.repo.data.Election",
-  "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "fields":[
-    {"name":"abstimmungen", "allowUnsafeAccess":true}, 
-    {"name":"date", "allowUnsafeAccess":true}, 
-    {"name":"id", "allowUnsafeAccess":true}, 
-    {"name":"resultsByCanton", "allowUnsafeAccess":true}
   ]
 },
 {
@@ -271,24 +245,6 @@
 },
 {
   "name":"com.melonbase.microquark.rest.dto.VorlageWithIdDto",
-  "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "allDeclaredConstructors":true
-},
-{
-  "name":"com.melonbase.microquark.rest.dto.in.NewAbstimmung",
-  "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "allDeclaredConstructors":true
-},
-{
-  "name":"com.melonbase.microquark.rest.dto.in.NewElection",
-  "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "allDeclaredConstructors":true
-},
-{
-  "name":"com.melonbase.microquark.rest.dto.out.ElectionOverview",
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
   "allDeclaredConstructors":true
