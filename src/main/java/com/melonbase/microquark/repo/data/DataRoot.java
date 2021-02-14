@@ -5,13 +5,13 @@ import java.util.Set;
 
 public class DataRoot {
 
-  private final Set<Election> elections = new HashSet<>();
+  private Set<Volksabstimmung> volksabstimmungen = new HashSet<>();
 
-  public Set<Election> getElections() {
-    return elections;
+  public Set<Volksabstimmung> getVolksabstimmungen() {
+    return volksabstimmungen;
   }
 
-  public void addElection(Election election) {
-    elections.add(election);
+  public void setVolksabstimmungen(Set<Volksabstimmung> volksabstimmungen) {
+    this.volksabstimmungen = volksabstimmungen;
   }
 }
