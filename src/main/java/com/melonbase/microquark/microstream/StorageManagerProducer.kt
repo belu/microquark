@@ -1,9 +1,9 @@
 package com.melonbase.microquark.microstream
 
-import com.melonbase.microquark.microstream.target.loadStorageFilesystem
-import com.melonbase.microquark.microstream.target.loadStorageJdbc
-import com.melonbase.microquark.microstream.target.loadStorageMem
-import com.melonbase.microquark.microstream.target.loadStorageMongoDb
+import com.melonbase.microquark.microstream.storage.loadStorageFilesystem
+import com.melonbase.microquark.microstream.storage.loadStorageJdbc
+import com.melonbase.microquark.microstream.storage.loadStorageMem
+import com.melonbase.microquark.microstream.storage.loadStorageMongoDb
 import com.melonbase.microquark.repo.data.DataRoot
 import one.microstream.storage.types.StorageManager
 import org.eclipse.microprofile.config.inject.ConfigProperty
