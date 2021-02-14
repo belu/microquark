@@ -16,9 +16,6 @@ import javax.inject.Singleton
 class StorageManagerProducer {
 
   @get:Produces
-  val dataRoot = DataRoot()
-
-  @get:Produces
   lateinit var storage: StorageManager
     private set
 
@@ -30,10 +27,10 @@ class StorageManagerProducer {
     LOG.info("Starting StorageManager.")
 
     storage = when (storageType) {
-      StorageType.MEM -> loadStorageMem(dataRoot)
-      StorageType.FILESYSTEM -> loadStorageFilesystem(dataRoot)
-      StorageType.JDBC -> loadStorageJdbc(dataRoot)
-      StorageType.MONGODB -> loadStorageMongoDb(dataRoot)
+      StorageType.MEM -> loadStorageMem()
+      StorageType.FILESYSTEM -> loadStorageFilesystem()
+      StorageType.JDBC -> loadStorageJdbc()
+      StorageType.MONGODB -> loadStorageMongoDb()
       else -> throw IllegalArgumentException("Unsupported storage type: '$storageType'")
     }
 

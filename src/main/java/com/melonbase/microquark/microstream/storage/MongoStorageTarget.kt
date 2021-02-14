@@ -12,7 +12,7 @@ private const val CONFIG_MONGODB_CONNECTION_STRING = "quarkus.mongodb.connection
 
 private const val DATABASE_NAME = "microstream@mongodb"
 
-fun loadStorageMongoDb(dataRoot: DataRoot): StorageManager {
+fun loadStorageMongoDb(): StorageManager {
   val connectionString = ConfigProvider.getConfig()
     .getOptionalValue(CONFIG_MONGODB_CONNECTION_STRING, String::class.java)
     .orElseThrow {
@@ -25,5 +25,5 @@ fun loadStorageMongoDb(dataRoot: DataRoot): StorageManager {
     MongoDbConnector.Caching(db)
   ).ensureDirectoryPath("microstream_storage")
 
-  return createStorageManager(path, dataRoot, DATABASE_NAME)
+  return createStorageManager(path, DATABASE_NAME)
 }

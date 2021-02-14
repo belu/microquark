@@ -1,7 +1,6 @@
 package com.melonbase.microquark.microstream.storage
 
 import com.melonbase.microquark.microstream.StorageType
-import com.melonbase.microquark.repo.data.DataRoot
 import one.microstream.afs.sql.SqlConnector
 import one.microstream.afs.sql.SqlFileSystem
 import one.microstream.afs.sql.SqlProviderMariaDb
@@ -15,7 +14,7 @@ private const val CONFIG_DATASOURCE_DB_KIND = "quarkus.datasource.db-kind"
 
 private const val DATABASE_NAME = "microstream@jdbc"
 
-fun loadStorageJdbc(dataRoot: DataRoot): StorageManager {
+fun loadStorageJdbc(): StorageManager {
   val datasource = CDI.current().select(DataSource::class.java).get()
 
   val dbKind = ConfigProvider.getConfig()
@@ -32,5 +31,5 @@ fun loadStorageJdbc(dataRoot: DataRoot): StorageManager {
   val sqlFileSystem = SqlFileSystem.New(SqlConnector.Caching(sqlProvider))
     .ensureDirectoryPath("microstream")
 
-  return createStorageManager(sqlFileSystem, dataRoot, "$DATABASE_NAME:${dbKind}")
+  return createStorageManager(sqlFileSystem, "$DATABASE_NAME:${dbKind}")
 }

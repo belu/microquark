@@ -8,12 +8,12 @@ import one.microstream.storage.types.EmbeddedStorageFoundation
 import one.microstream.storage.types.StorageManager
 import java.nio.file.Path
 
-fun createStorageManager(path: Path, dataRoot: DataRoot, dataBaseName: String): StorageManager {
-  return EmbeddedStorage.Foundation(path).withAppClassLoader().setup(dataRoot, dataBaseName)
+fun createStorageManager(path: Path, dataBaseName: String): StorageManager {
+  return EmbeddedStorage.Foundation(path).withAppClassLoader().setup(dataBaseName)
 }
 
-fun createStorageManager(path: ADirectory, dataRoot: DataRoot, dataBaseName: String): StorageManager {
-  return EmbeddedStorage.Foundation(path).withAppClassLoader().setup(dataRoot, dataBaseName)
+fun createStorageManager(path: ADirectory, dataBaseName: String): StorageManager {
+  return EmbeddedStorage.Foundation(path).withAppClassLoader().setup(dataBaseName)
 }
 
 private fun EmbeddedStorageFoundation<*>.withAppClassLoader(): EmbeddedStorageFoundation<*> {
@@ -26,11 +26,8 @@ private fun EmbeddedStorageFoundation<*>.withAppClassLoader(): EmbeddedStorageFo
   }
 }
 
-private fun EmbeddedStorageFoundation<*>.setup(
-  dataRoot: DataRoot,
-  dataBaseName: String
-): StorageManager {
+private fun EmbeddedStorageFoundation<*>.setup(dataBaseName: String): StorageManager {
   return this.setDataBaseName(dataBaseName)
-    .start(dataRoot)
+    .start(DataRoot())
     .apply { storeRoot() }
 }
