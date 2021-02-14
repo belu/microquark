@@ -1,7 +1,6 @@
 package com.melonbase.microquark.microstream.storage
 
 import com.melonbase.microquark.microstream.StorageType
-import com.melonbase.microquark.repo.data.DataRoot
 import com.mongodb.client.MongoClients
 import one.microstream.afs.blobstore.BlobStoreFileSystem
 import one.microstream.afs.mongodb.MongoDbConnector
