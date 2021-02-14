@@ -1,4 +1,4 @@
-package com.melonbase.microquark.repo;
+package com.melonbase.microquark.repo.data;
 
 public enum Canton {
 

@@ -33,6 +33,3 @@ final class Target_one_microstream_memory_sun_JdkInternals {
   )
   static long FIELD_OFFSET_Cleaner_thunk;
 }
-
-public class MicrostreamSubstitutions {
-}

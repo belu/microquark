@@ -1,4 +1,4 @@
-package com.melonbase.microquark.repo;
+package com.melonbase.microquark.repo.data;
 
 import java.util.ArrayList;
 import java.util.List;

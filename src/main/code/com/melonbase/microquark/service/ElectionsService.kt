@@ -1,7 +1,7 @@
 package com.melonbase.microquark.service
 
-import com.melonbase.microquark.repo.Abstimmung
-import com.melonbase.microquark.repo.Election
+import com.melonbase.microquark.repo.data.Abstimmung
+import com.melonbase.microquark.repo.data.Election
 import com.melonbase.microquark.repo.ElectionsRepo
 import com.melonbase.microquark.rest.dto.out.ElectionOverview
 import com.melonbase.microquark.rest.dto.`in`.NewElection

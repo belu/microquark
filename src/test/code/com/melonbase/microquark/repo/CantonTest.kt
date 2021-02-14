@@ -1,5 +1,6 @@
 package com.melonbase.microquark.repo
 
+import com.melonbase.microquark.repo.data.Canton
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -1,6 +1,6 @@
 package com.melonbase.microquark.rest.mapping
 
-import com.melonbase.microquark.repo.Election
+import com.melonbase.microquark.repo.data.Election
 import com.melonbase.microquark.rest.dto.out.ElectionOverview
 import java.util.stream.Collectors
 

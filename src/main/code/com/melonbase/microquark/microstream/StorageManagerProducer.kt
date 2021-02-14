@@ -4,7 +4,7 @@ import com.melonbase.microquark.microstream.target.loadStorageFilesystem
 import com.melonbase.microquark.microstream.target.loadStorageJdbc
 import com.melonbase.microquark.microstream.target.loadStorageMem
 import com.melonbase.microquark.microstream.target.loadStorageMongoDb
-import com.melonbase.microquark.repo.DataRoot
+import com.melonbase.microquark.repo.data.DataRoot
 import one.microstream.storage.types.StorageManager
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.slf4j.LoggerFactory

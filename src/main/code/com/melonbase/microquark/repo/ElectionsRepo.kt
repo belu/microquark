@@ -1,5 +1,7 @@
 package com.melonbase.microquark.repo
 
+import com.melonbase.microquark.repo.data.DataRoot
+import com.melonbase.microquark.repo.data.Election
 import one.microstream.storage.types.StorageManager
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import javax.enterprise.context.ApplicationScoped
