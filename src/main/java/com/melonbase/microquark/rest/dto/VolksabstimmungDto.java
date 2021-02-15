@@ -6,13 +6,13 @@ import java.util.List;
 public class VolksabstimmungDto {
 
   private LocalDate datum;
-  private List<VorlageDto> vorlagen;
+  private List<String> vorlagen;
 
   public VolksabstimmungDto() {
     // Jackson
   }
 
-  public VolksabstimmungDto(LocalDate datum, List<VorlageDto> vorlagen) {
+  public VolksabstimmungDto(LocalDate datum, List<String> vorlagen) {
     this.datum = datum;
     this.vorlagen = vorlagen;
   }
@@ -21,7 +21,7 @@ public class VolksabstimmungDto {
     return datum;
   }
 
-  public List<VorlageDto> getVorlagen() {
+  public List<String> getVorlagen() {
     return vorlagen;
   }
 }

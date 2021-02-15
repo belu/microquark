@@ -2,9 +2,7 @@ package com.melonbase.microquark.rest.mapping
 
 import com.melonbase.microquark.repo.data.Volksabstimmung
 import com.melonbase.microquark.repo.data.Vorlage
-import com.melonbase.microquark.rest.dto.VolksabstimmungDto
 import com.melonbase.microquark.rest.dto.VolksabstimmungWithIdDto
-import com.melonbase.microquark.rest.dto.VorlageDto
 import com.melonbase.microquark.rest.dto.VorlageWithIdDto
 import java.util.stream.Collectors
 
@@ -21,5 +19,5 @@ fun List<Vorlage>.mapToDto(): List<VorlageWithIdDto> {
 }
 
 fun Vorlage.mapToDto(): VorlageWithIdDto {
-  return VorlageWithIdDto(this.id, this.beschreibung, this.stimmbeteiligung)
+  return VorlageWithIdDto(this.id, this.beschreibung)
 }

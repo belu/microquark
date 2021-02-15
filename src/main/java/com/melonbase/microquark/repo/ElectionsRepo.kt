@@ -4,12 +4,12 @@ import com.melonbase.microquark.microstream.getDataRoot
 import com.melonbase.microquark.repo.data.Kanton
 import com.melonbase.microquark.repo.data.Volksabstimmung
 import com.melonbase.microquark.repo.data.Vorlage
+import com.melonbase.microquark.repo.data.Wahlresultat
 import com.melonbase.microquark.rest.dto.VolksabstimmungDto
-import com.melonbase.microquark.rest.dto.VorlageDto
 import com.melonbase.microquark.service.*
 import one.microstream.storage.types.StorageManager
+import java.math.RoundingMode
 import java.text.DecimalFormat
-import java.util.*
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import java.util.stream.Collectors
 import javax.enterprise.context.ApplicationScoped
@@ -61,7 +61,7 @@ class ElectionsRepo @Inject constructor(
 
       val volksabstimmung = root.volksabstimmungen.find { it.id == id } ?: return NotFoundResult
 
-      val gewaehlt = volksabstimmung.vorlagen.any { it.stimmenByKanton != null }
+      val gewaehlt = volksabstimmung.vorlagen.any { it.wahlresultat != null }
       if (gewaehlt) {
         return RejectedResult("Es wurde bereits abgestimmt.")
       }
@@ -76,17 +76,21 @@ class ElectionsRepo @Inject constructor(
         """.trimIndent()
         )
 
-        vorlage.stimmenByKanton = HashMap(Kanton.values().size)
-
-        Kanton.values().map { kanton ->
+        val stimmenByKanton = Kanton.values().map { kanton ->
           println("Berechne Stimmen für Kanton $kanton mit ${kanton.numberOfInhabitants} Einwohnern.")
 
-          val numVoters = (kanton.numberOfInhabitants * vorlage.stimmbeteiligung.toDouble() / 100.0).roundToInt()
-          println("Stimmbeteiligung ${vorlage.stimmbeteiligung}% = $numVoters Stimmen")
+          val stimmbeteiligung = Random.nextDouble(10.0, 100.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
 
-          val ergebnis = List(numVoters) { Random.nextBoolean() }
-          vorlage.stimmenByKanton.put(kanton, ergebnis)
-        }
+          val numVoters = (kanton.numberOfInhabitants * stimmbeteiligung.toDouble() / 100.0).roundToInt()
+          println("Stimmbeteiligung $stimmbeteiligung% = $numVoters Stimmen")
+
+          val schwelle = Random.nextDouble(0.0, 100.0)
+          val ergebnis = List(numVoters) { Random.nextDouble(0.0, 100.0) > schwelle }
+
+          Pair(kanton, ergebnis)
+        }.toMap()
+
+        vorlage.wahlresultat = Wahlresultat(stimmenByKanton)
         storage.store(vorlage)
       }
     }
@@ -101,11 +105,8 @@ class ElectionsRepo @Inject constructor(
       val volksabstimmung = getVolksabstimmung(id) ?: return NotFoundResult
 
       val nochNichtAbgestimmt =
-        volksabstimmung.vorlagen.any { it.stimmenByKanton == null || it.stimmenByKanton.isEmpty() }
+        volksabstimmung.vorlagen.any { it.wahlresultat == null }
       if (nochNichtAbgestimmt) {
-        volksabstimmung.vorlagen.forEach {
-          println(it.stimmenByKanton)
-        }
         return RejectedResult("Abstimmung wurde noch nicht durchgeführt.")
       }
 
@@ -120,41 +121,41 @@ class ElectionsRepo @Inject constructor(
         """.trimMargin()
         )
 
-        vorlage.stimmenByKanton.entries.stream()
-          .forEach { entry ->
-            val kanton = entry.key
+        vorlage.wahlresultat.stimmenByKanton.forEach { (kanton, stimmen) ->
+          val einwohner = kanton.numberOfInhabitants
+          val anzahlStimmen = stimmen.size
+          val wahlbeteiligung = 100.0 / einwohner * anzahlStimmen
 
-            val einwohner = kanton.numberOfInhabitants
-            val stimmen = entry.value.size
-            val wahlbeteiligung = 100.0 / einwohner * stimmen
+          val jaStimmen = stimmen.count { it == true }
+          val neinStimmen = anzahlStimmen - jaStimmen
 
-            val jaStimmen = entry.value.count { it == true }
-            val neinStimmen = stimmen - jaStimmen
+          val jaProzent = 100.0 / anzahlStimmen * jaStimmen
+          val neinProzent = 100.0 - jaProzent
 
-            println(
-              """
+          println(
+            """
               |
               |+++++ $kanton +++++
               |
               |Einwohner: ${absolute.format(einwohner)}
-              |Abgegebene Stimmen: ${absolute.format(stimmen)}
+              |Abgegebene Stimmen: ${absolute.format(anzahlStimmen)}
               |Wahlbeteiligung: ${percent.format(wahlbeteiligung)}%
               |
-              |Ja: ${absolute.format(jaStimmen)}
-              |Nein: ${absolute.format(neinStimmen)}
+              |Ja: ${percent.format(jaProzent)}% (${absolute.format(jaStimmen)} Stimmen)
+              |Nein: ${percent.format(neinProzent)}% (${absolute.format(neinStimmen)} Stimmen)
               |
             """.trimMargin()
-            )
-          }
+          )
+        }
       }
       return SuccessWithDataResult("blah")
     }
   }
 
-  private fun convertVorlagen(vorlagen: List<VorlageDto>): List<Vorlage> {
+  private fun convertVorlagen(vorlagen: List<String>): List<Vorlage> {
     return vorlagen
       .mapIndexed { index, vorlage ->
-        Vorlage(index + 1, vorlage.beschreibung, vorlage.stimmbeteiligung)
+        Vorlage(index + 1, vorlage)
       }
       .stream()
       .collect(Collectors.toUnmodifiableList())

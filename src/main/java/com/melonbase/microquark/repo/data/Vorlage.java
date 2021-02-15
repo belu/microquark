@@ -1,20 +1,14 @@
 package com.melonbase.microquark.repo.data;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-
 public class Vorlage {
 
   private int id;
   private String beschreibung;
-  private BigDecimal stimmbeteiligung;
-  private Map<Kanton, List<Boolean>> stimmenByKanton;
+  private Wahlresultat wahlresultat;
 
-  public Vorlage(int id, String beschreibung, BigDecimal stimmbeteiligung) {
+  public Vorlage(int id, String beschreibung) {
     this.id = id;
     this.beschreibung = beschreibung;
-    this.stimmbeteiligung = stimmbeteiligung;
   }
 
   public int getId() {
@@ -25,15 +19,11 @@ public class Vorlage {
     return beschreibung;
   }
 
-  public BigDecimal getStimmbeteiligung() {
-    return stimmbeteiligung;
+  public Wahlresultat getWahlresultat() {
+    return wahlresultat;
   }
 
-  public Map<Kanton, List<Boolean>> getStimmenByKanton() {
-    return stimmenByKanton;
-  }
-
-  public void setStimmenByKanton(Map<Kanton, List<Boolean>> stimmenByKanton) {
-    this.stimmenByKanton = stimmenByKanton;
+  public void setWahlresultat(Wahlresultat wahlresultat) {
+    this.wahlresultat = wahlresultat;
   }
 }
