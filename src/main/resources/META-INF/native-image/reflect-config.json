@@ -187,10 +187,65 @@
   "fields":[{"name":"delegatePropertiesFactory"}]
 },
 {
-  "name":"com.melonbase.microquark.repo.DataRoot",
+  "name":"com.fasterxml.jackson.databind.ext.Java7HandlersImpl",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.melonbase.microquark.repo.data.DataRoot",
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
-  "fields":[{"name":"message", "allowUnsafeAccess":true}]
+  "fields":[{"name":"volksabstimmungen", "allowUnsafeAccess":true}]
+},
+{
+  "name":"com.melonbase.microquark.repo.data.Kanton",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[{"name":"numberOfInhabitants", "allowUnsafeAccess":true}]
+},
+{
+  "name":"com.melonbase.microquark.repo.data.Volksabstimmung",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[
+    {"name":"datum", "allowUnsafeAccess":true}, 
+    {"name":"id", "allowUnsafeAccess":true}, 
+    {"name":"vorlagen", "allowUnsafeAccess":true}
+  ]
+},
+{
+  "name":"com.melonbase.microquark.repo.data.Vorlage",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[
+    {"name":"beschreibung", "allowUnsafeAccess":true}, 
+    {"name":"id", "allowUnsafeAccess":true}, 
+    {"name":"stimmbeteiligung", "allowUnsafeAccess":true}, 
+    {"name":"stimmenByKanton", "allowUnsafeAccess":true}
+  ]
+},
+{
+  "name":"com.melonbase.microquark.rest.dto.VolksabstimmungDto",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
+},
+{
+  "name":"com.melonbase.microquark.rest.dto.VolksabstimmungWithIdDto",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
+},
+{
+  "name":"com.melonbase.microquark.rest.dto.VorlageDto",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
+},
+{
+  "name":"com.melonbase.microquark.rest.dto.VorlageWithIdDto",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
 },
 {
   "name":"com.mongodb.WriteConcern",
@@ -440,6 +495,10 @@
   "allDeclaredMethods":true
 },
 {
+  "name":"java.io.Serializable",
+  "allDeclaredMethods":true
+},
+{
   "name":"java.lang.Boolean",
   "allDeclaredMethods":true
 },
@@ -456,8 +515,20 @@
   "allDeclaredMethods":true
 },
 {
+  "name":"java.lang.Comparable",
+  "allDeclaredMethods":true
+},
+{
   "name":"java.lang.Double",
   "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.Enum",
+  "allDeclaredFields":true,
+  "fields":[
+    {"name":"name", "allowUnsafeAccess":true}, 
+    {"name":"ordinal", "allowUnsafeAccess":true}
+  ]
 },
 {
   "name":"java.lang.Float",
@@ -469,6 +540,14 @@
 },
 {
   "name":"java.lang.Long",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.lang.Long[]"
+},
+{
+  "name":"java.lang.Number",
+  "allDeclaredFields":true,
   "allDeclaredMethods":true
 },
 {
@@ -536,7 +615,12 @@
 },
 {
   "name":"java.math.BigDecimal",
-  "allDeclaredMethods":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
+},
+{
+  "name":"java.math.BigDecimal[]"
 },
 {
   "name":"java.math.BigInteger",
@@ -560,9 +644,7 @@
 },
 {
   "name":"java.net.Socket",
-  "methods":[
-    {"name":"setOption","parameterTypes":["java.net.SocketOption","java.lang.Object"] }
-  ]
+  "methods":[{"name":"setOption","parameterTypes":["java.net.SocketOption","java.lang.Object"] }]
 },
 {
   "name":"java.net.URI",
@@ -595,6 +677,9 @@
   "allDeclaredMethods":true
 },
 {
+  "name":"java.security.MessageDigestSpi"
+},
+{
   "name":"java.security.SecureRandomParameters"
 },
 {
@@ -611,6 +696,16 @@
 },
 {
   "name":"java.time.Instant"
+},
+{
+  "name":"java.time.LocalDate",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[
+    {"name":"day", "allowUnsafeAccess":true}, 
+    {"name":"month", "allowUnsafeAccess":true}, 
+    {"name":"year", "allowUnsafeAccess":true}
+  ]
 },
 {
   "name":"java.util.AbstractCollection",
@@ -679,6 +774,12 @@
   "allDeclaredMethods":true
 },
 {
+  "name":"java.util.EnumMap",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[{"name":"keyType", "allowUnsafeAccess":true}]
+},
+{
   "name":"java.util.HashMap",
   "allDeclaredMethods":true
 },
@@ -695,6 +796,29 @@
   "allDeclaredMethods":true
 },
 {
+  "name":"java.util.ImmutableCollections$AbstractImmutableCollection",
+  "allDeclaredFields":true
+},
+{
+  "name":"java.util.ImmutableCollections$AbstractImmutableList",
+  "allDeclaredFields":true
+},
+{
+  "name":"java.util.ImmutableCollections$List12",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[
+    {"name":"e0", "allowUnsafeAccess":true}, 
+    {"name":"e1", "allowUnsafeAccess":true}
+  ]
+},
+{
+  "name":"java.util.ImmutableCollections$ListN",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[{"name":"elements", "allowUnsafeAccess":true}]
+},
+{
   "name":"java.util.LinkedHashMap",
   "allDeclaredMethods":true
 },
@@ -707,7 +831,15 @@
   "allDeclaredMethods":true
 },
 {
+  "name":"java.util.List",
+  "allDeclaredMethods":true
+},
+{
   "name":"java.util.Locale",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Map",
   "allDeclaredMethods":true
 },
 {
@@ -733,6 +865,10 @@
 },
 {
   "name":"java.util.Properties",
+  "allDeclaredMethods":true
+},
+{
+  "name":"java.util.Set",
   "allDeclaredMethods":true
 },
 {
@@ -814,6 +950,10 @@
 {
   "name":"jdk.net.ExtendedSocketOptions",
   "allDeclaredFields":true
+},
+{
+  "name":"kotlin.internal.jdk8.JDK8PlatformImplementations",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"long",
@@ -977,6 +1117,9 @@
 },
 {
   "name":"one.microstream.persistence.binary.types.BinaryReferenceTraverser[]"
+},
+{
+  "name":"one.microstream.persistence.binary.types.BinaryValueSetter[]"
 },
 {
   "name":"one.microstream.persistence.binary.types.LoadItemsChain$Entry[]"
