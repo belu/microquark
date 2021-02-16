@@ -218,9 +218,7 @@
   "allDeclaredMethods":true,
   "fields":[
     {"name":"beschreibung", "allowUnsafeAccess":true}, 
-    {"name":"id", "allowUnsafeAccess":true}, 
-    {"name":"stimmbeteiligung", "allowUnsafeAccess":true}, 
-    {"name":"stimmenByKanton", "allowUnsafeAccess":true}
+    {"name":"id", "allowUnsafeAccess":true}
   ]
 },
 {
@@ -231,12 +229,6 @@
 },
 {
   "name":"com.melonbase.microquark.rest.dto.VolksabstimmungWithIdDto",
-  "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "allDeclaredConstructors":true
-},
-{
-  "name":"com.melonbase.microquark.rest.dto.VorlageDto",
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
   "allDeclaredConstructors":true
