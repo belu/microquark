@@ -2,6 +2,7 @@ package com.melonbase.microquark.microstream.storage
 
 import com.melonbase.microquark.repo.data.DataRoot
 import one.microstream.afs.ADirectory
+import one.microstream.jdk8.java.util.BinaryHandlersJDK8.registerJDK8TypeHandlers
 import one.microstream.reflect.ClassLoaderProvider
 import one.microstream.storage.types.EmbeddedStorage
 import one.microstream.storage.types.EmbeddedStorageFoundation
@@ -18,11 +19,8 @@ fun createStorageManager(path: ADirectory, dataBaseName: String): StorageManager
 
 private fun EmbeddedStorageFoundation<*>.withAppClassLoader(): EmbeddedStorageFoundation<*> {
   return this.onConnectionFoundation {
-    it.setClassLoaderProvider(
-      ClassLoaderProvider.New(
-        Thread.currentThread().contextClassLoader
-      )
-    )
+    it.classLoaderProvider = ClassLoaderProvider.New(Thread.currentThread().contextClassLoader)
+    registerJDK8TypeHandlers(it)
   }
 }
 
