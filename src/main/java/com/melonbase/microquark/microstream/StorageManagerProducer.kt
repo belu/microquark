@@ -4,15 +4,17 @@ import com.melonbase.microquark.microstream.storage.loadStorageFilesystem
 import com.melonbase.microquark.microstream.storage.loadStorageJdbc
 import com.melonbase.microquark.microstream.storage.loadStorageMem
 import com.melonbase.microquark.microstream.storage.loadStorageMongoDb
+import mu.KotlinLogging
 import one.microstream.storage.types.StorageManager
 import org.eclipse.microprofile.config.ConfigProvider
-import org.slf4j.LoggerFactory
 import javax.annotation.PostConstruct
 import javax.enterprise.inject.Produces
 import javax.inject.Singleton
 
 internal const val CONFIG_STORAGE_TYPE = "microstream.storage.type"
 internal const val DEFAULT_STORAGE_TYPE = "mem"
+
+private val log = KotlinLogging.logger {}
 
 @Singleton
 class StorageManagerProducer {
@@ -23,7 +25,9 @@ class StorageManagerProducer {
 
   @PostConstruct
   fun init() {
-    LOG.info("Starting StorageManager.")
+    customizeLazyReferenceManager()
+
+    log.info("Starting StorageManager.")
 
     val storageType = getStorageType()
     storage = when (storageType) {
@@ -34,16 +38,12 @@ class StorageManagerProducer {
       else -> throw IllegalArgumentException("Unsupported storage type: '$storageType'")
     }
 
-    LOG.info("StorageManager started. Database name={}", storage.databaseName())
+    log.info("StorageManager started. Database name={}", storage.databaseName())
   }
 
   private fun getStorageType(): String {
     return ConfigProvider.getConfig()
       .getOptionalValue(CONFIG_STORAGE_TYPE, String::class.java)
       .orElse(DEFAULT_STORAGE_TYPE)
-  }
-
-  companion object {
-    private val LOG = LoggerFactory.getLogger(StorageManagerProducer::class.java)
   }
 }
