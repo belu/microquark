@@ -218,8 +218,15 @@
   "allDeclaredMethods":true,
   "fields":[
     {"name":"beschreibung", "allowUnsafeAccess":true}, 
-    {"name":"id", "allowUnsafeAccess":true}
+    {"name":"id", "allowUnsafeAccess":true}, 
+    {"name":"wahlresultat", "allowUnsafeAccess":true}
   ]
+},
+{
+  "name":"com.melonbase.microquark.repo.data.Wahlresultat",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[{"name":"stimmenByKanton", "allowUnsafeAccess":true}]
 },
 {
   "name":"com.melonbase.microquark.rest.dto.VolksabstimmungDto",
@@ -443,6 +450,10 @@
 {
   "name":"io.quarkus.runner.ApplicationImpl",
   "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"io.smallrye.openapi.runtime.io.IoLogging_$logger",
+  "methods":[{"name":"<init>","parameterTypes":["org.jboss.logging.Logger"] }]
 },
 {
   "name":"io.vertx.core.http.impl.Http1xOrH2CHandler",
@@ -721,7 +732,12 @@
 },
 {
   "name":"java.util.ArrayList",
-  "allDeclaredMethods":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[
+    {"name":"elementData", "allowUnsafeAccess":true}, 
+    {"name":"size", "allowUnsafeAccess":true}
+  ]
 },
 {
   "name":"java.util.Collections$EmptyList",
@@ -773,15 +789,21 @@
 },
 {
   "name":"java.util.HashMap",
-  "allDeclaredMethods":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[{"name":"loadFactor", "allowUnsafeAccess":true}]
 },
 {
   "name":"java.util.HashSet",
-  "allDeclaredMethods":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[{"name":"map", "allowUnsafeAccess":true}]
 },
 {
   "name":"java.util.Hashtable",
-  "allDeclaredMethods":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[{"name":"loadFactor", "allowUnsafeAccess":true}]
 },
 {
   "name":"java.util.IdentityHashMap",
@@ -812,7 +834,9 @@
 },
 {
   "name":"java.util.LinkedHashMap",
-  "allDeclaredMethods":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[{"name":"accessOrder", "allowUnsafeAccess":true}]
 },
 {
   "name":"java.util.LinkedHashSet",
@@ -853,11 +877,18 @@
 },
 {
   "name":"java.util.PriorityQueue",
-  "allDeclaredMethods":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[
+    {"name":"queue", "allowUnsafeAccess":true}, 
+    {"name":"size", "allowUnsafeAccess":true}
+  ]
 },
 {
   "name":"java.util.Properties",
-  "allDeclaredMethods":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[{"name":"defaults", "allowUnsafeAccess":true}]
 },
 {
   "name":"java.util.Set",
@@ -877,7 +908,13 @@
 },
 {
   "name":"java.util.Vector",
-  "allDeclaredMethods":true
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "fields":[
+    {"name":"capacityIncrement", "allowUnsafeAccess":true}, 
+    {"name":"elementCount", "allowUnsafeAccess":true}, 
+    {"name":"elementData", "allowUnsafeAccess":true}
+  ]
 },
 {
   "name":"java.util.WeakHashMap",
@@ -929,6 +966,12 @@
 },
 {
   "name":"javax.ws.rs.container.ContainerRequestFilter[]"
+},
+{
+  "name":"javax.ws.rs.container.ContainerResponseFilter[]"
+},
+{
+  "name":"javax.ws.rs.ext.WriterInterceptor[]"
 },
 {
   "name":"jdk.internal.misc.Unsafe",
@@ -1147,6 +1190,10 @@
   "allDeclaredMethods":true
 },
 {
+  "name":"org.jboss.resteasy.resteasy_jaxrs.i18n.Messages_$bundle",
+  "fields":[{"name":"INSTANCE"}]
+},
+{
   "name":"org.jboss.threads.EnhancedQueueExecutor",
   "fields":[
     {"name":"activeCount", "allowUnsafeAccess":true}, 
@@ -1270,6 +1317,10 @@
     {"name":"USE_SPNEGO"}, 
     {"name":"XML_FACTORY_FACTORY"}
   ]
+},
+{
+  "name":"org.postgresql.core.Oid",
+  "allPublicFields":true
 },
 {
   "name":"org.slf4j.Logger"

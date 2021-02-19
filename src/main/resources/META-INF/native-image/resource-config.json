@@ -1,6 +1,8 @@
 {
   "resources":{
   "includes":[
+    {"pattern":"\\QMETA-INF/quarkus-generated-openapi-doc.JSON\\E"}, 
+    {"pattern":"\\QMETA-INF/services/io.quarkus.vertx.http.runtime.attribute.ExchangeAttributeBuilder\\E"}, 
     {"pattern":"\\QMETA-INF/services/io.smallrye.config.ConfigSourceFactory\\E"}, 
     {"pattern":"\\QMETA-INF/services/io.smallrye.config.SmallRyeConfigFactory\\E"}, 
     {"pattern":"\\QMETA-INF/services/io.vertx.core.spi.BufferFactory\\E"}, 
