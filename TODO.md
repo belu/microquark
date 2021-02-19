@@ -3,13 +3,11 @@
 * Quarkus @NativeImageTest
 * Lazy Loading of results
 * return results in JSON
-* LazyReferenceManager + Lazy.Checker
-
+* Swagger Doku verbessern
 
 ## Questions
 
 - Support for java.util.EnumMap? A first test did not work
-
 
 ## Open Source contributions
 
