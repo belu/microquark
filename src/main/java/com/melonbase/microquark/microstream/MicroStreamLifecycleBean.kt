@@ -12,7 +12,6 @@ import javax.inject.Inject
 class MicroStreamLifecycleBean @Inject constructor(val storage: StorageManager) {
 
   fun onStart(@Observes ev: StartupEvent) {
-    LOG.info("MicroStream storage active: {}", storage.isActive)
     LOG.info("MicroStream storage running: {}", storage.isRunning)
   }
 
