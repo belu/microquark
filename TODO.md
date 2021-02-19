@@ -1,13 +1,15 @@
 # TODO
 
-- Quarkus @NativeImageTest
-- Lazy Loading
-- LazyReferenceManager + Lazy.Checker
+* Quarkus @NativeImageTest
+* Lazy Loading of results
+* return results in JSON
+* LazyReferenceManager + Lazy.Checker
 
-## Open issues
+
+## Questions
 
 - Support for java.util.EnumMap? A first test did not work
-- 
+
 
 ## Open Source contributions
 
