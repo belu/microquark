@@ -13,11 +13,11 @@
 
 ## Open Source contributions
 
-Some issues, feature- and pull-requests submitted during this project.
+Issues, feature- and pull-requests submitted during this project.
 
 ### MicroStream
 
-- ...
+- [Typo in RuntimeException for memory quota outside valid range](https://github.com/microstream-one/microstream/issues/3)
 
 ### Quarkus
 
