@@ -4,6 +4,8 @@
 * Lazy Loading of results
 * return results in JSON
 * Swagger Doku verbessern
+* MicroStream Properties nicht 'gelb' (werden vom System erkannt)
+* /health fuer MicroStream (insbes. wenn ready!)
 
 ## Questions
 
