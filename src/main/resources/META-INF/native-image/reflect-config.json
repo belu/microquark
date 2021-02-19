@@ -1174,6 +1174,10 @@
   "name":"one.microstream.persistence.types.PersistenceTypeDescription[]"
 },
 {
+  "name":"one.microstream.reference.Lazy",
+  "allDeclaredMethods":true
+},
+{
   "name":"one.microstream.reference.Lazy$Default",
   "allDeclaredMethods":true
 },
