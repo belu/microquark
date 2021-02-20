@@ -65,7 +65,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
     write.withLock {
       val successful = storage.getDataRoot().volksabstimmungen.removeIf { v -> v.datum == datum }
       if (successful) {
-        storage.storeRoot()
+        storage.store(storage.getDataRoot().volksabstimmungen)
         return SuccessResult
       }
       return NotFoundResult
