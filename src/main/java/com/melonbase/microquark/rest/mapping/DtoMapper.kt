@@ -3,7 +3,11 @@ package com.melonbase.microquark.rest.mapping
 import com.melonbase.microquark.repo.data.Volksabstimmung
 import com.melonbase.microquark.repo.data.Vorlage
 import com.melonbase.microquark.rest.dto.VolksabstimmungDto
-import com.melonbase.microquark.service.*
+import com.melonbase.microquark.service.NotFoundResult
+import com.melonbase.microquark.service.RejectedResult
+import com.melonbase.microquark.service.ServiceResult
+import com.melonbase.microquark.service.SuccessResult
+import com.melonbase.microquark.service.SuccessWithDataResult
 import java.util.stream.Collectors
 
 fun Set<Volksabstimmung>.mapToDto(): Set<VolksabstimmungDto> {
