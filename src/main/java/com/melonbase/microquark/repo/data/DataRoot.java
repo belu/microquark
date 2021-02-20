@@ -10,8 +10,4 @@ public class DataRoot {
   public Set<Volksabstimmung> getVolksabstimmungen() {
     return volksabstimmungen;
   }
-
-  public void setVolksabstimmungen(Set<Volksabstimmung> volksabstimmungen) {
-    this.volksabstimmungen = volksabstimmungen;
-  }
 }
