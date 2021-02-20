@@ -208,7 +208,6 @@
   "allDeclaredMethods":true,
   "fields":[
     {"name":"datum", "allowUnsafeAccess":true}, 
-    {"name":"id", "allowUnsafeAccess":true}, 
     {"name":"vorlagen", "allowUnsafeAccess":true}
   ]
 },
@@ -218,7 +217,6 @@
   "allDeclaredMethods":true,
   "fields":[
     {"name":"beschreibung", "allowUnsafeAccess":true}, 
-    {"name":"id", "allowUnsafeAccess":true}, 
     {"name":"wahlresultat", "allowUnsafeAccess":true}
   ]
 },
@@ -230,18 +228,6 @@
 },
 {
   "name":"com.melonbase.microquark.rest.dto.VolksabstimmungDto",
-  "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "allDeclaredConstructors":true
-},
-{
-  "name":"com.melonbase.microquark.rest.dto.VolksabstimmungWithIdDto",
-  "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "allDeclaredConstructors":true
-},
-{
-  "name":"com.melonbase.microquark.rest.dto.VorlageWithIdDto",
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
   "allDeclaredConstructors":true
@@ -865,7 +851,8 @@
 {
   "name":"java.util.Optional",
   "allDeclaredFields":true,
-  "allDeclaredMethods":true
+  "allDeclaredMethods":true,
+  "fields":[{"name":"value", "allowUnsafeAccess":true}]
 },
 {
   "name":"java.util.OptionalDouble",
