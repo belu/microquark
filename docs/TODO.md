@@ -8,6 +8,8 @@
 * Wahlresultate in JSON-Format zurückgeben
 * Swagger Doku verbessern
 * MicroStream Properties nicht 'gelb' (werden vom System erkannt)
+* ScreenCast mit asciinema
+* Bilder zur Visualisierung
 
 ## Questions
 
