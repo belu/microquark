@@ -9,11 +9,11 @@ A pet project to explore the integration of [MicroStream](http://microstream.one
 
 For details see the separate integration docs:
 
-- [MicroStream integration](MICROSTREAM.md)
-- [Quarkus integration](QUARKUS.md)
-- [GraalVM Native Image integration](GRAALVM.md)
+- [MicroStream integration](docs/MICROSTREAM.md)
+- [Quarkus integration](docs/QUARKUS.md)
+- [GraalVM Native Image integration](docs/GRAALVM.md)
 
 Further docs:
 
-- [Data model](MODEL.md)
-- [REST API](REST.md) with cURL examples
+- [Data model](docs/MODEL.md)
+- [REST API](docs/REST.md) with cURL examples
