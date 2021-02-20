@@ -1,8 +1,19 @@
 # Quarkus integration
 
-## Storage targets
+## Features
 
-- Support for different storage targets (memory, filesystem, JDBC, MongoDB)
+* Configuration via `application.properties`
+
+* Support for different storage targets:
+  * in-memory
+  * filesystem
+  * JDBC (PostgreSQL, MariaDB)
+  * MongoDB
+  
+* Health checks
+  * [readiness](http://localhost:8080/q/health/ready)
+  * [liveness](http://localhost:8080/q/health/live)
+  
 
 ## Live-Reload & Hot-Deployment
 

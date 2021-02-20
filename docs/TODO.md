@@ -8,7 +8,6 @@
 * Wahlresultate in JSON-Format zurückgeben
 * Swagger Doku verbessern
 * MicroStream Properties nicht 'gelb' (werden vom System erkannt)
-* /health fuer MicroStream (insbes. wenn ready!)
 
 ## Questions
 
