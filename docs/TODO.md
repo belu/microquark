@@ -10,7 +10,6 @@
 * MicroStream Properties nicht 'gelb' (werden vom System erkannt)
 * ScreenCast mit asciinema
 * Bilder zur Visualisierung
-* Kotlin Programm um historische Volksabstimmungen zu laden
 
 ## Questions
 
