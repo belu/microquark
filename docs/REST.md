@@ -1,15 +1,15 @@
 ## REST API
 
-FIXME New data model.
-
-Get current message:
+Get current Volksabstimmungen:
 
 ```shell script
-curl http://0.0.0.0:8080/hello
+curl http://0.0.0.0:8080/volksabstimmungen
 ```
 
-Post new message:
+Create a new Volksabstimmung:
 
 ```shell script
-curl -X POST -H "Content-Type: text/plain" -d "Hello @ $(date)" http://0.0.0.0:8080/hello
+curl -X POST -H "Content-Type: text/plain" -d "TODO" http://0.0.0.0:8080/volksabstimmungen
 ```
+
+...
