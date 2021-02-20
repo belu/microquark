@@ -6,6 +6,10 @@ import io.quarkus.jackson.ObjectMapperCustomizer;
 
 import javax.inject.Singleton;
 
+/*
+ * Obsolete when Quarkus 1.13 is released
+ * https://github.com/quarkusio/quarkus/pull/15139
+ */
 @Singleton
 public class JacksonCustomizer implements ObjectMapperCustomizer {
 

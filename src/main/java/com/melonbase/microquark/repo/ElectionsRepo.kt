@@ -6,10 +6,15 @@ import com.melonbase.microquark.repo.data.Volksabstimmung
 import com.melonbase.microquark.repo.data.Vorlage
 import com.melonbase.microquark.repo.data.Wahlresultat
 import com.melonbase.microquark.rest.dto.VolksabstimmungDto
-import com.melonbase.microquark.service.*
+import com.melonbase.microquark.service.NotFoundResult
+import com.melonbase.microquark.service.RejectedResult
+import com.melonbase.microquark.service.ServiceResult
+import com.melonbase.microquark.service.SuccessResult
+import com.melonbase.microquark.service.SuccessWithDataResult
 import one.microstream.storage.types.StorageManager
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.time.LocalDate
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import java.util.stream.Collectors
 import javax.enterprise.context.ApplicationScoped
@@ -19,9 +24,7 @@ import kotlin.math.roundToInt
 import kotlin.random.Random
 
 @ApplicationScoped
-class ElectionsRepo @Inject constructor(
-  private val storage: StorageManager
-) {
+class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
 
   private val readWriteLock = ReentrantReadWriteLock()
   private val read = readWriteLock.readLock()
@@ -33,16 +36,19 @@ class ElectionsRepo @Inject constructor(
     }
   }
 
-  fun getVolksabstimmung(id: Int): Volksabstimmung? {
+  fun getVolksabstimmung(datum: LocalDate): Volksabstimmung? {
     read.withLock {
-      return storage.getDataRoot().volksabstimmungen.find { it.id == id }
+      return storage.getDataRoot().volksabstimmungen.find { it.datum == datum }
     }
   }
 
-  fun addVolksabstimmung(volksabstimmung: VolksabstimmungDto): Volksabstimmung {
+  fun addVolksabstimmung(volksabstimmung: VolksabstimmungDto): ServiceResult<Volksabstimmung> {
     write.withLock {
+      if (getVolksabstimmung(volksabstimmung.datum) != null) {
+        return RejectedResult("Es existiert bereits eine Volksabstimmung am '${volksabstimmung.datum}'.")
+      }
+
       val neueVolksabstimmung = Volksabstimmung().apply {
-        id = getMaxVolksabstimmungId() + 1
         datum = volksabstimmung.datum
         vorlagen = convertVorlagen(volksabstimmung.vorlagen)
       }
@@ -51,15 +57,26 @@ class ElectionsRepo @Inject constructor(
       root.volksabstimmungen.add(neueVolksabstimmung)
       storage.store(root.volksabstimmungen)
 
-      return neueVolksabstimmung
+      return SuccessWithDataResult(neueVolksabstimmung)
     }
   }
 
-  fun performAbstimmung(id: Int): ServiceResult {
+  fun deleteVolksabstimmung(datum: LocalDate): ServiceResult<Nothing> {
+    write.withLock {
+      val successful = storage.getDataRoot().volksabstimmungen.removeIf { v -> v.datum == datum }
+      if (successful) {
+        storage.storeRoot()
+        return SuccessResult
+      }
+      return NotFoundResult
+    }
+  }
+
+  fun performAbstimmung(datum: LocalDate): ServiceResult<Nothing> {
     write.withLock {
       val root = storage.getDataRoot()
 
-      val volksabstimmung = root.volksabstimmungen.find { it.id == id } ?: return NotFoundResult
+      val volksabstimmung = root.volksabstimmungen.find { it.datum == datum } ?: return NotFoundResult
 
       val gewaehlt = volksabstimmung.vorlagen.any { it.wahlresultat != null }
       if (gewaehlt) {
@@ -100,9 +117,9 @@ class ElectionsRepo @Inject constructor(
   val absolute = DecimalFormat("#,###.##")
   val percent = DecimalFormat("#,###.00")
 
-  fun getResult(id: Int): ServiceResult {
+  fun getResult(datum: LocalDate): ServiceResult<String> {
     read.withLock {
-      val volksabstimmung = getVolksabstimmung(id) ?: return NotFoundResult
+      val volksabstimmung = getVolksabstimmung(datum) ?: return NotFoundResult
 
       val nochNichtAbgestimmt =
         volksabstimmung.vorlagen.any { it.wahlresultat == null }
@@ -148,23 +165,14 @@ class ElectionsRepo @Inject constructor(
           )
         }
       }
-      return SuccessWithDataResult("blah")
+      return SuccessWithDataResult("TODO")
     }
   }
 
   private fun convertVorlagen(vorlagen: List<String>): List<Vorlage> {
     return vorlagen
-      .mapIndexed { index, vorlage ->
-        Vorlage(index + 1, vorlage)
-      }
+      .map { vorlage -> Vorlage(vorlage) }
       .stream()
       .collect(Collectors.toUnmodifiableList())
-  }
-
-  private fun getMaxVolksabstimmungId(): Int {
-    return storage.getDataRoot().volksabstimmungen.stream()
-      .mapToInt { it.id }
-      .max()
-      .orElse(0)
   }
 }

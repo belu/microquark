@@ -5,17 +5,8 @@ import java.util.List;
 
 public class Volksabstimmung {
 
-  private int id;
   private LocalDate datum;
   private List<Vorlage> vorlagen;
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public LocalDate getDatum() {
     return datum;

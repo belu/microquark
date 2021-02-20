@@ -2,17 +2,11 @@ package com.melonbase.microquark.repo.data;
 
 public class Vorlage {
 
-  private int id;
   private String beschreibung;
   private Wahlresultat wahlresultat;
 
-  public Vorlage(int id, String beschreibung) {
-    this.id = id;
+  public Vorlage(String beschreibung) {
     this.beschreibung = beschreibung;
-  }
-
-  public int getId() {
-    return id;
   }
 
   public String getBeschreibung() {

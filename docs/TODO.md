@@ -10,6 +10,7 @@
 * MicroStream Properties nicht 'gelb' (werden vom System erkannt)
 * ScreenCast mit asciinema
 * Bilder zur Visualisierung
+* Kotlin Programm um historische Volksabstimmungen zu laden
 
 ## Questions
 
@@ -28,6 +29,7 @@ Issues, feature- and pull-requests submitted during this project.
 - [Fix typos in Kotlin guide](https://github.com/quarkusio/quarkus/pull/15134)
 - [Jackson - Disable WRITE_DATES_AS_TIMESTAMPS by default](https://github.com/quarkusio/quarkus/pull/15139)
 - [Dev UI config editor with filtering capabilities](https://github.com/quarkusio/quarkus/issues/15196)
+- [REST-JSON guide: Add note on new default date/time format for Jackson](https://github.com/quarkusio/quarkus/pull/15217)
 
 ### GraalVM
 

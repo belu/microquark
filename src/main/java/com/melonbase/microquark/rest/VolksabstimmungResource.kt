@@ -1,8 +1,8 @@
 package com.melonbase.microquark.rest
 
 import com.melonbase.microquark.rest.dto.VolksabstimmungDto
-import com.melonbase.microquark.rest.dto.VolksabstimmungWithIdDto
 import com.melonbase.microquark.service.*
+import java.time.LocalDate
 import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -18,44 +18,60 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  fun getVolksabstimmungen(): Set<VolksabstimmungWithIdDto> {
+  fun getVolksabstimmungen(): Set<VolksabstimmungDto> {
     return service.getVolksabstimmungen()
   }
 
   @GET
-  @Path("{id}")
+  @Path("{datum}")
   @Produces(MediaType.APPLICATION_JSON)
-  fun getVolksabstimmung(@PathParam("id") id: Int): Response {
-    val volksabstimmung = service.getVolksabstimmung(id) ?: return notFound()
+  fun getVolksabstimmung(@PathParam("datum") datum: LocalDate): Response {
+    val volksabstimmung = service.getVolksabstimmung(datum) ?: return notFound()
     return Response.ok(volksabstimmung).build()
   }
 
   @POST
-  fun addVolksabstimmung(volksabstimmungDto: VolksabstimmungDto): Response {
-    val volksabstimmung = service.addVolksabstimmung(volksabstimmungDto)
+  fun addVolksabstimmung(volksabstimmung: VolksabstimmungDto): Response {
+    fun success(result: SuccessWithDataResult<VolksabstimmungDto>): Response {
+      val location = uriInfo.absolutePathBuilder.path(result.entity.datum.toString()).build()
+      return Response.created(location).build()
+    }
 
-    val location = uriInfo.absolutePathBuilder.path(volksabstimmung.id.toString()).build()
-    return Response.created(location).build()
+    return when (val result = service.addVolksabstimmung(volksabstimmung)) {
+      NotFoundResult -> notFound()
+      is RejectedResult -> badRequest(result.reason)
+      SuccessResult -> accepted()
+      is SuccessWithDataResult -> success(result)
+    }
+  }
+
+  @DELETE
+  @Path("{datum}")
+  fun deleteVolksabstimmung(@PathParam("datum") datum: LocalDate): Response {
+    return when (val result = service.deleteVolksabstimmung(datum)) {
+      NotFoundResult -> notFound()
+      is RejectedResult -> badRequest(result.reason)
+      SuccessResult -> noContent()
+      is SuccessWithDataResult -> noContent()
+    }
   }
 
   @POST
-  @Path("{id}/abstimmen")
-  fun performAbstimmung(@PathParam("id") id: Int): Response {
-    val result = service.performAbstimmung(id)
-    return when (result) {
+  @Path("{datum}/abstimmen")
+  fun performAbstimmung(@PathParam("datum") datum: LocalDate): Response {
+    return when (val result = service.performAbstimmung(datum)) {
       is SuccessResult -> accepted()
-      is SuccessWithDataResult<*> -> ok(result.entity)
+      is SuccessWithDataResult -> noContent()
       is NotFoundResult -> notFound()
       is RejectedResult -> badRequest(result.reason)
     }
   }
 
   @GET
-  @Path("{id}/result")
+  @Path("{datum}/result")
   @Produces(MediaType.TEXT_PLAIN)
-  fun getResult(@PathParam("id") id: Int): Response {
-    val result = service.getResult(id)
-    return when (result) {
+  fun getResult(@PathParam("datum") datum: LocalDate): Response {
+    return when (val result = service.getResult(datum)) {
       is SuccessResult -> accepted()
       is SuccessWithDataResult<*> -> ok(result.entity)
       is NotFoundResult -> notFound()
@@ -69,6 +85,10 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
 
   private fun accepted(): Response {
     return Response.accepted().build()
+  }
+
+  private fun noContent(): Response {
+    return Response.noContent().build()
   }
 
   private fun badRequest(reason: String): Response {

@@ -2,31 +2,35 @@ package com.melonbase.microquark.service
 
 import com.melonbase.microquark.repo.ElectionsRepo
 import com.melonbase.microquark.rest.dto.VolksabstimmungDto
-import com.melonbase.microquark.rest.dto.VolksabstimmungWithIdDto
 import com.melonbase.microquark.rest.mapping.mapToDto
+import java.time.LocalDate
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
 
 @ApplicationScoped
 class ElectionsService @Inject constructor(val repo: ElectionsRepo) {
 
-  fun getVolksabstimmungen(): Set<VolksabstimmungWithIdDto> {
+  fun getVolksabstimmungen(): Set<VolksabstimmungDto> {
     return repo.getVolksabstimmungen().mapToDto()
   }
 
-  fun addVolksabstimmung(volksabstimmung: VolksabstimmungDto): VolksabstimmungWithIdDto {
+  fun getVolksabstimmung(datum: LocalDate): VolksabstimmungDto? {
+    return repo.getVolksabstimmung(datum)?.mapToDto()
+  }
+
+  fun deleteVolksabstimmung(datum: LocalDate): ServiceResult<Nothing> {
+    return repo.deleteVolksabstimmung(datum)
+  }
+
+  fun addVolksabstimmung(volksabstimmung: VolksabstimmungDto): ServiceResult<VolksabstimmungDto> {
     return repo.addVolksabstimmung(volksabstimmung).mapToDto()
   }
 
-  fun getVolksabstimmung(id: Int): VolksabstimmungWithIdDto? {
-    return repo.getVolksabstimmung(id)?.mapToDto()
+  fun performAbstimmung(datum: LocalDate): ServiceResult<Nothing> {
+    return repo.performAbstimmung(datum)
   }
 
-  fun performAbstimmung(id: Int): ServiceResult {
-    return repo.performAbstimmung(id)
-  }
-
-  fun getResult(id: Int): ServiceResult {
-    return repo.getResult(id)
+  fun getResult(datum: LocalDate): ServiceResult<String> {
+    return repo.getResult(datum)
   }
 }
