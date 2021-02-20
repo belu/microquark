@@ -24,4 +24,11 @@ public class VolksabstimmungDto {
   public List<String> getVorlagen() {
     return vorlagen;
   }
+
+  @Override
+  public String toString() {
+    return "VolksabstimmungDto{" +
+        "datum=" + datum +
+        '}';
+  }
 }
