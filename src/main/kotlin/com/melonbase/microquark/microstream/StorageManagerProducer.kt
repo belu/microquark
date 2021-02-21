@@ -31,10 +31,10 @@ class StorageManagerProducer {
 
     val storageType = getStorageType()
     storage = when (storageType) {
-      StorageType.MEM -> loadStorageMem()
-      StorageType.FILESYSTEM -> loadStorageFilesystem()
-      StorageType.JDBC -> loadStorageJdbc()
-      StorageType.MONGODB -> loadStorageMongoDb()
+      MEM -> loadStorageMem()
+      FILESYSTEM -> loadStorageFilesystem()
+      JDBC -> loadStorageJdbc()
+      MONGODB -> loadStorageMongoDb()
       else -> throw IllegalArgumentException("Unsupported storage type: '$storageType'")
     }
 

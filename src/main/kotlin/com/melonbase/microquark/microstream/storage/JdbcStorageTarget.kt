@@ -1,6 +1,6 @@
 package com.melonbase.microquark.microstream.storage
 
-import com.melonbase.microquark.microstream.StorageType
+import com.melonbase.microquark.microstream.JDBC
 import one.microstream.afs.sql.SqlConnector
 import one.microstream.afs.sql.SqlFileSystem
 import one.microstream.afs.sql.SqlProviderMariaDb
@@ -20,7 +20,7 @@ fun loadStorageJdbc(): StorageManager {
   val dbKind = ConfigProvider.getConfig()
     .getOptionalValue(CONFIG_DATASOURCE_DB_KIND, String::class.java)
     .orElseThrow {
-      IllegalStateException("Storage type '${StorageType.JDBC}', but no datasource defined.")
+      IllegalStateException("Storage type '$JDBC', but no datasource defined.")
     }
 
   val sqlProvider = when (dbKind) {

@@ -1,6 +1,6 @@
 package com.melonbase.microquark.microstream.storage
 
-import com.melonbase.microquark.microstream.StorageType
+import com.melonbase.microquark.microstream.MONGODB
 import com.mongodb.client.MongoClients
 import one.microstream.afs.blobstore.BlobStoreFileSystem
 import one.microstream.afs.mongodb.MongoDbConnector
@@ -15,7 +15,7 @@ fun loadStorageMongoDb(): StorageManager {
   val connectionString = ConfigProvider.getConfig()
     .getOptionalValue(CONFIG_MONGODB_CONNECTION_STRING, String::class.java)
     .orElseThrow {
-      IllegalStateException("Storage type '${StorageType.MONGODB}', but no MongoDB connection defined.")
+      IllegalStateException("Storage type '$MONGODB', but no MongoDB connection defined.")
     }
 
   val db = MongoClients.create(connectionString).getDatabase("db")

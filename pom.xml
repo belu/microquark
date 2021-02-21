@@ -163,6 +163,9 @@
     </repository>
   </repositories>
   <build>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+
     <plugins>
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
@@ -176,7 +179,7 @@
             </goals>
             <configuration>
               <sourceDirs>
-                <sourceDir>src/main/java</sourceDir>
+                <sourceDir>src/main/kotlin</sourceDir>
               </sourceDirs>
             </configuration>
           </execution>
@@ -187,7 +190,7 @@
             </goals>
             <configuration>
               <sourceDirs>
-                <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
               </sourceDirs>
               <skip>${maven.test.skip}</skip>
             </configuration>
