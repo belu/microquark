@@ -13,6 +13,8 @@
 * ScreenCast mit asciinema
 * Bilder zur Visualisierung
 
+* Quarkus-Extension für MicroStream
+
 ## Questions
 
 - Support for java.util.EnumMap? A first test did not work
