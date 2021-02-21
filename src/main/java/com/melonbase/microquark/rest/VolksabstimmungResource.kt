@@ -9,6 +9,7 @@ import com.melonbase.microquark.service.SuccessResult
 import com.melonbase.microquark.service.SuccessWithDataResult
 import java.time.LocalDate
 import javax.inject.Inject
+import javax.ws.rs.Consumes
 import javax.ws.rs.DELETE
 import javax.ws.rs.GET
 import javax.ws.rs.POST
@@ -41,6 +42,7 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
   }
 
   @POST
+  @Consumes(MediaType.APPLICATION_JSON)
   fun addVolksabstimmung(volksabstimmung: VolksabstimmungDto): Response {
     fun success(result: SuccessWithDataResult<VolksabstimmungDto>): Response {
       val location = uriInfo.absolutePathBuilder.path(result.entity.datum.toString()).build()
