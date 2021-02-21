@@ -64,3 +64,6 @@ are calculated on-the-fly directly from the MicroStream storage data root!
   e. g. `curl -v "http://127.0.0.1:8080/volksabstimmungen"`
   
 * To time the requests, add `time` at the beginning. E. g. `time curl "http://127.0.0.1:8080/volksabstimmungen"`
+
+* If you want to pretty-print a JSON result, pipe it through `json_pp`,
+  e. g. `curl "http://127.0.0.1:8080/volksabstimmungen/2021-02-28/result" | json_pp`
