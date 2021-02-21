@@ -2,66 +2,44 @@ package com.melonbase.microquark.rest.dto.outbound
 
 import java.math.BigDecimal
 
-data class Resultat(
-  val einwohner: Int,
-  val abgegebeneStimmen: Int,
-  val wahlbeteiligungProzent: BigDecimal,
-  val jaStimmen: Int,
-  val neinStimmen: Int,
-  val jaProzent: BigDecimal,
-  val neinProzent: BigDecimal
+data class Resultat private constructor(
+  val einwohner: Int?,
+  val abgegebeneStimmen: Int?,
+  val wahlbeteiligungProzent: BigDecimal?,
+  val jaStimmen: Int?,
+  val neinStimmen: Int?,
+  val jaProzent: BigDecimal?,
+  val neinProzent: BigDecimal?
 ) {
 
-  class Builder {
+  data class Builder(
+    var einwohner: Int? = null,
+    var abgegebeneStimmen: Int? = null,
+    var wahlbeteiligungProzent: BigDecimal? = null,
+    var jaStimmen: Int? = null,
+    var neinStimmen: Int? = null,
+    var jaProzent: BigDecimal? = null,
+    var neinProzent: BigDecimal? = null
+  ) {
 
-    private var einwohner: Int? = null
-    private var abgegebeneStimmen: Int? = null
-    private var wahlbeteiligungProzent: BigDecimal? = null
-    private var jaStimmen: Int? = null
-    private var neinStimmen: Int? = null
-    private var jaProzent: BigDecimal? = null
-    private var neinProzent: BigDecimal? = null
+    fun einwohner(einwohner: Int) = apply { this.einwohner = einwohner }
 
-    fun einwohner(einwohner: Int?): Builder {
-      this.einwohner = einwohner
-      return this
-    }
+    fun abgegebeneStimmen(abgegebeneStimmen: Int) = apply { this.abgegebeneStimmen = abgegebeneStimmen }
 
-    fun abgegebeneStimmen(abgegebeneStimmen: Int?): Builder {
-      this.abgegebeneStimmen = abgegebeneStimmen
-      return this
-    }
+    fun wahlbeteiligungProzent(wahlbeteiligungProzent: BigDecimal) =
+      apply { this.wahlbeteiligungProzent = wahlbeteiligungProzent }
 
-    fun wahlbeteiligungProzent(wahlbeteiligungProzent: BigDecimal?): Builder {
-      this.wahlbeteiligungProzent = wahlbeteiligungProzent
-      return this
-    }
+    fun jaStimmen(jaStimmen: Int) = apply { this.jaStimmen = jaStimmen }
 
-    fun jaStimmen(jaStimmen: Int?): Builder {
-      this.jaStimmen = jaStimmen
-      return this
-    }
+    fun neinStimmen(neinStimmen: Int) = apply { this.neinStimmen = neinStimmen }
 
-    fun neinStimmen(neinStimmen: Int?): Builder {
-      this.neinStimmen = neinStimmen
-      return this
-    }
+    fun jaProzent(jaProzent: BigDecimal) = apply { this.jaProzent = jaProzent }
 
-    fun jaProzent(jaProzent: BigDecimal?): Builder {
-      this.jaProzent = jaProzent
-      return this
-    }
+    fun neinProzent(neinProzent: BigDecimal) = apply { this.neinProzent = neinProzent }
 
-    fun neinProzent(neinProzent: BigDecimal?): Builder {
-      this.neinProzent = neinProzent
-      return this
-    }
-
-    fun build(): Resultat {
-      return Resultat(
-        einwohner!!, abgegebeneStimmen!!, wahlbeteiligungProzent!!,
-        jaStimmen!!, neinStimmen!!, jaProzent!!, neinProzent!!
-      )
-    }
+    fun build() = Resultat(
+      einwohner, abgegebeneStimmen, wahlbeteiligungProzent,
+      jaStimmen, neinStimmen, jaProzent, neinProzent
+    )
   }
 }
