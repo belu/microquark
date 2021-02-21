@@ -3,14 +3,14 @@
 ## Features
 
 * Configuration via `application.properties`
-* Support for different storage targets:
+* Support for different storage targets
   * in-memory
   * filesystem
   * JDBC (PostgreSQL, MariaDB)
   * MongoDB
 * Health checks
-  * [readiness](http://localhost:8080/q/health/ready)
-  * [liveness](http://localhost:8080/q/health/live)
+  * [readiness](http://127.0.0.1:8080/q/health/ready)
+  * [liveness](http://127.0.0.1:8080/q/health/live)
 
 ## Live-Reload & Hot-Deployment
 

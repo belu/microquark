@@ -12,7 +12,7 @@
 * ScreenCast mit asciinema
 * Bilder zur Visualisierung
 
-* Quarkus-Extension für MicroStream
+* Quarkus-Extension für MicroStream (Thema für einen weiteren Hackathon)
 
 ## Questions
 
