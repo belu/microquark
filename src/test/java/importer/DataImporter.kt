@@ -9,11 +9,10 @@ import java.util.stream.Collectors
 import javax.ws.rs.core.MediaType
 
 /*
- * Helper class to import Volksabstimmungen from file 'data.csv'.
- * Furthermore, for every Volksabstimmung the voting (=abstimmen)
- * is peformed.
+ * Helper tool to import Volksabstimmungen from the CSV file 'data.csv'.
+ * Furthermore, for every Volksabstimmung the voting is executed.
  *
- * This lets you fill your MicroStream storage with ease.
+ * This way you easily get some data into your MicroStream storage!
  *
  * The data has been taken from:
  * https://www.bk.admin.ch/ch/d/pore/va/vab_2_2_4_1_gesamt.html
