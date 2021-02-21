@@ -8,6 +8,8 @@
 * Doc: GraalVM integration
 * Doc: Movation (README)
 
+* GitHub Actions: Maven Cache to speed up build
+
 * ScreenCast mit asciinema
 
 * Swagger Doku verbessern
