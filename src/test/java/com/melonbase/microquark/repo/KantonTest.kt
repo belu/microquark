@@ -1,23 +1,18 @@
-package com.melonbase.microquark.repo;
+package com.melonbase.microquark.repo
 
-import com.melonbase.microquark.repo.data.Kanton;
-import org.junit.jupiter.api.Test;
+import com.melonbase.microquark.repo.data.Kanton
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public class KantonTest {
+class KantonTest {
 
   @Test
-  void correctNumberOfCantons() {
-    assertEquals(26, Kanton.values().length);
+  fun correctNumberOfCantons() {
+    assertEquals(26, Kanton.values().size)
   }
 
   @Test
-  void correctTotalInhabitants() {
-    assertEquals(8_551_744, Stream.of(Kanton.values())
-        .mapToLong(Kanton::getEinwohner)
-        .sum());
+  fun correctTotalInhabitants() {
+    assertEquals(8_551_744, Kanton.values().sumOf { it.einwohner })
   }
 }

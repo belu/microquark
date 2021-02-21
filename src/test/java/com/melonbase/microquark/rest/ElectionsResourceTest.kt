@@ -1,84 +1,66 @@
-package com.melonbase.microquark.rest;
+package com.melonbase.microquark.rest
 
-import com.melonbase.microquark.repo.data.DataRoot;
-import com.melonbase.microquark.rest.dto.inbound.NeueVolksabstimmung;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.http.ContentType;
-import one.microstream.storage.types.StorageManager;
-import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import javax.inject.Inject;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.List;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.is;
+import com.melonbase.microquark.repo.data.DataRoot
+import com.melonbase.microquark.rest.dto.inbound.NeueVolksabstimmung
+import io.quarkus.test.common.http.TestHTTPEndpoint
+import io.quarkus.test.junit.QuarkusTest
+import io.restassured.RestAssured.given
+import io.restassured.http.ContentType
+import one.microstream.storage.types.StorageManager
+import org.apache.http.HttpStatus
+import org.hamcrest.Matchers
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import java.time.LocalDate
+import java.time.Month
+import javax.inject.Inject
 
 @QuarkusTest
-@TestHTTPEndpoint(VolksabstimmungResource.class)
-public class ElectionsResourceTest {
+@TestHTTPEndpoint(VolksabstimmungResource::class)
+class ElectionsResourceTest {
 
   @Inject
-  StorageManager storage;
+  lateinit var storage: StorageManager
 
   @BeforeEach
-  void setUp() {
-    storage.setRoot(new DataRoot());
-    storage.storeRoot();
+  fun setUp() {
+    storage.setRoot(DataRoot())
+    storage.storeRoot()
   }
 
   @Test
-  void getElection_forUnknownId_resultNotFound() {
-    // given
-    var id = 42;
-
-    // when
-    var response = given()
-        .when()
-        .get(Integer.toString(id));
-
-    // then
-    response.then()
-        .statusCode(HttpStatus.SC_NOT_FOUND);
+  fun election_forUnknownId_resultNotFound() {
+    given()
+      .`when`()
+      .get("1980-07-03")
+      .then()
+      .statusCode(HttpStatus.SC_NOT_FOUND)
   }
 
   @Test
-  void addElection_returnsCorrectStatusCode() {
-    // given
+  fun addElection_returnsCorrectStatusCode() {
     // https://www.bk.admin.ch/ch/d/pore/va/18930820/index.html
-    var volksabstimmung = new NeueVolksabstimmung(
-        LocalDate.of(1893, Month.AUGUST, 20),
-        List.of("Eidgenössische Volksinitiative 'für ein Verbot des Schlachtens ohne vorherige Betäubung'")
-    );
-    var given = given()
-        .body(volksabstimmung)
-        .contentType(ContentType.JSON);
+    val volksabstimmung = NeueVolksabstimmung(
+      LocalDate.of(1893, Month.AUGUST, 20),
+      listOf("Eidgenössische Volksinitiative 'für ein Verbot des Schlachtens ohne vorherige Betäubung'")
+    )
 
-    // when
-    var response = given.when()
-        .post();
-
-    // then
-    response.then()
-        .statusCode(HttpStatus.SC_CREATED);
+    given()
+      .body(volksabstimmung)
+      .contentType(ContentType.JSON)
+      .`when`()
+      .post()
+      .then()
+      .statusCode(HttpStatus.SC_CREATED)
   }
 
   @Test
-  void getElections_noElections_resultEmpty() {
-    // given
-    var given = given();
-
-    // when
-    var response = given.when()
-        .get();
-
-    // then
-    response.then()
-        .statusCode(HttpStatus.SC_OK)
-        .body(is("[]"));
+  fun elections_noElections_resultEmpty() {
+    given()
+      .`when`()
+      .get()
+      .then()
+      .statusCode(HttpStatus.SC_OK)
+      .body(Matchers.`is`("[]"))
   }
 }
