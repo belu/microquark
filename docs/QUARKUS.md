@@ -19,11 +19,11 @@ MicroStream storage.
 
 ## Testing
 
-For testing you can use the supported in-memory filesystem. Every `QuarkusTest` is
-will use the in-memory filesystem by default. This is configured in the file
+For testing you can use the supported in-memory filesystem. Every `QuarkusTest` will use
+the in-memory filesystem by default. This is configured in the file
 `application.properties` under the test resources.
 
-The in-memory filesystem is using [JimFS](https://github.com/google/jimfs/).
+The in-memory filesystem is provided by [JimFS](https://github.com/google/jimfs/).
 
 ## Build & run
 
