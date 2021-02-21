@@ -1,4 +1,4 @@
-package com.melonbase.microquark.importer
+package importer
 
 import com.melonbase.microquark.rest.dto.VolksabstimmungDto
 import io.restassured.RestAssured.given
