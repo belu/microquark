@@ -3,26 +3,27 @@
 ## Features
 
 * Configuration via `application.properties`
-
 * Support for different storage targets:
   * in-memory
   * filesystem
   * JDBC (PostgreSQL, MariaDB)
   * MongoDB
-  
 * Health checks
   * [readiness](http://localhost:8080/q/health/ready)
   * [liveness](http://localhost:8080/q/health/live)
-  
 
 ## Live-Reload & Hot-Deployment
 
-Full support for Live-Reload and Hot-Deployment. Clean shutdown and re-opening of MicroStream.
+Full support for Live-Reload and Hot-Deployment. Clean shutdown and re-opening of the
+MicroStream storage.
 
 ## Testing
 
-For testing you can use the supported in-memory filesystem. This is made possible by the
-great [JimFS](https://github.com/google/jimfs/).
+For testing you can use the supported in-memory filesystem. Every `QuarkusTest` is
+will use the in-memory filesystem by default. This is configured in the file
+`application.properties` under the test resources.
+
+The in-memory filesystem is using [JimFS](https://github.com/google/jimfs/).
 
 ## Build & run
 

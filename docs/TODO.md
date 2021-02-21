@@ -1,12 +1,14 @@
 # TODO
 
-* Quarkus @NativeImageTest
+* Wahlresultate in JSON-Format zurückgeben
 * Lazy Loading of results -> warum dauert Storage-Start so lange (5 Sekunden)? Evtl. besser Wahlergebnis
   Lazy machen anstatt die Map<>?
+* Swagger Doku verbessern
+
+* Quarkus @NativeImageTest
 * Storage-Laden erst nachdem Quarkus vollständig geladen ist? Und dann Health-Ready melden wenn
   vollständig geladen. Erst danach werden Requests akzeptiert.
-* Wahlresultate in JSON-Format zurückgeben
-* Swagger Doku verbessern
+
 * MicroStream Properties nicht 'gelb' (werden vom System erkannt)
 * ScreenCast mit asciinema
 * Bilder zur Visualisierung
