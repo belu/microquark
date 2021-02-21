@@ -1,24 +1,21 @@
-package com.melonbase.microquark.rest.mapping;
+package com.melonbase.microquark.rest.mapping
 
-import javax.ws.rs.ext.ParamConverter;
-import javax.ws.rs.ext.ParamConverterProvider;
-import javax.ws.rs.ext.Provider;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-import java.time.LocalDate;
+import java.lang.reflect.Type
+import java.time.LocalDate
+import javax.ws.rs.ext.ParamConverter
+import javax.ws.rs.ext.ParamConverterProvider
+import javax.ws.rs.ext.Provider
 
 @Provider
-public class LocalDateParameterConverterProvider implements ParamConverterProvider {
+class LocalDateParameterConverterProvider : ParamConverterProvider {
 
-  @Override
-  public <T> ParamConverter<T> getConverter(
-      final Class<T> rawType,
-      final Type genericType,
-      final Annotation[] annotations
-  ) {
-    if (LocalDate.class.equals(rawType)) {
-      return (ParamConverter<T>) new LocalDateParamConverter();
-    }
-    return null;
+  override fun <T> getConverter(
+    rawType: Class<T>,
+    genericType: Type,
+    annotations: Array<Annotation>
+  ): ParamConverter<T>? {
+    return if (LocalDate::class.java == rawType) {
+      LocalDateParamConverter() as ParamConverter<T>
+    } else null
   }
 }
