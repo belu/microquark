@@ -18,7 +18,7 @@ jobs:
     - name: Install native-image
       run: gu install native-image
     - name: Set version
-      run: ./mvnw versions:set -DnewVersion="${{ github.event.release.tag_name }}"
+      run: ./mvnw --no-transfer-progress versions:set -DnewVersion="${{ github.event.release.tag_name }}"
     - name: Build native executable
       run: ./mvnw --no-transfer-progress package -Dnative
     - name: Upload native executable
