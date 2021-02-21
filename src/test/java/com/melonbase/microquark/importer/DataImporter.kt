@@ -1,4 +1,4 @@
-package com.melonbase.microquark.client
+package com.melonbase.microquark.importer
 
 import com.melonbase.microquark.rest.dto.VolksabstimmungDto
 import io.restassured.RestAssured.given
@@ -8,7 +8,17 @@ import java.time.LocalDate
 import java.util.stream.Collectors
 import javax.ws.rs.core.MediaType
 
-object RestClient {
+/*
+ * Helper class to import Volksabstimmungen from file 'data.csv'.
+ * Furthermore, for every Volksabstimmung the voting (=abstimmen)
+ * is peformed.
+ *
+ * This lets you fill your MicroStream storage with ease.
+ *
+ * The data has been taken from:
+ * https://www.bk.admin.ch/ch/d/pore/va/vab_2_2_4_1_gesamt.html
+ */
+object DataImporter {
 
   @JvmStatic
   fun main(args: Array<String>) {
@@ -30,18 +40,18 @@ object RestClient {
     }
   }
 
-  private fun abstimmen(volksabstimmung: VolksabstimmungDto) {
-    given()
-      .`when`()
-      .post("http://localhost:8080/volksabstimmungen/${volksabstimmung.datum}/abstimmen")
-  }
-
   private fun add(volksabstimmung: VolksabstimmungDto) {
     given()
       .body(volksabstimmung)
       .contentType(MediaType.APPLICATION_JSON)
       .`when`()
       .post("http://localhost:8080/volksabstimmungen")
+  }
+
+  private fun abstimmen(volksabstimmung: VolksabstimmungDto) {
+    given()
+      .`when`()
+      .post("http://localhost:8080/volksabstimmungen/${volksabstimmung.datum}/abstimmen")
   }
 }
 
