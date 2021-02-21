@@ -5,10 +5,10 @@ import com.melonbase.microquark.repo.data.Kanton
 import com.melonbase.microquark.repo.data.Volksabstimmung
 import com.melonbase.microquark.repo.data.Vorlage
 import com.melonbase.microquark.repo.data.Wahlresultat
-import com.melonbase.microquark.rest.dto.ResultatDto
-import com.melonbase.microquark.rest.dto.VolksabstimmungDto
-import com.melonbase.microquark.rest.dto.VolksabstimmungResultatDto
-import com.melonbase.microquark.rest.dto.VorlageResultatDto
+import com.melonbase.microquark.rest.dto.inbound.NeueVolksabstimmung
+import com.melonbase.microquark.rest.dto.outbound.Resultat
+import com.melonbase.microquark.rest.dto.outbound.VolksabstimmungResultat
+import com.melonbase.microquark.rest.dto.outbound.VorlageResultat
 import com.melonbase.microquark.rest.mapping.mapToDto
 import com.melonbase.microquark.service.NotFoundResult
 import com.melonbase.microquark.service.RejectedResult
@@ -36,19 +36,19 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
   private val read = readWriteLock.readLock()
   private val write = readWriteLock.writeLock()
 
-  fun getVolksabstimmungen(): Set<VolksabstimmungDto> {
+  fun getVolksabstimmungen(): Set<com.melonbase.microquark.rest.dto.outbound.Volksabstimmung> {
     read.withLock {
       return storage.getDataRoot().volksabstimmungen.mapToDto()
     }
   }
 
-  fun getVolksabstimmung(datum: LocalDate): VolksabstimmungDto? {
+  fun getVolksabstimmung(datum: LocalDate): com.melonbase.microquark.rest.dto.outbound.Volksabstimmung? {
     read.withLock {
       return getVolksabstimmungUnlocked(datum)?.mapToDto()
     }
   }
 
-  fun addVolksabstimmung(volksabstimmung: VolksabstimmungDto): ServiceResult<VolksabstimmungDto> {
+  fun addVolksabstimmung(volksabstimmung: NeueVolksabstimmung): ServiceResult<com.melonbase.microquark.rest.dto.outbound.Volksabstimmung> {
     write.withLock {
       if (getVolksabstimmung(volksabstimmung.datum) != null) {
         return RejectedResult("Es existiert bereits eine Volksabstimmung am '${volksabstimmung.datum}'.")
@@ -107,7 +107,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
     return SuccessResult
   }
 
-  fun getResult(datum: LocalDate): ServiceResult<VolksabstimmungResultatDto> {
+  fun getResult(datum: LocalDate): ServiceResult<VolksabstimmungResultat> {
     read.withLock {
       val volksabstimmung = getVolksabstimmungUnlocked(datum) ?: return NotFoundResult
 
@@ -131,7 +131,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
             .setScale(2, RoundingMode.HALF_EVEN)
           val neinProzent = BigDecimal.valueOf(100) - jaProzent
 
-          val resultat = ResultatDto.Builder()
+          val resultat = Resultat.Builder()
             .einwohner(einwohner)
             .abgegebeneStimmen(abgegebeneStimmen)
             .wahlbeteiligungProzent(wahlbeteiligungProzent)
@@ -146,14 +146,14 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
 
         val bundesresultat = calculateBundesresultat(vorlage)
 
-        VorlageResultatDto(vorlage.beschreibung, bundesresultat, kantonsresultate)
+        VorlageResultat(vorlage.beschreibung, bundesresultat, kantonsresultate)
       }
 
-      return SuccessWithDataResult(VolksabstimmungResultatDto(datum, vorlageResultate))
+      return SuccessWithDataResult(VolksabstimmungResultat(datum, vorlageResultate))
     }
   }
 
-  private fun calculateBundesresultat(vorlage: Vorlage): ResultatDto {
+  private fun calculateBundesresultat(vorlage: Vorlage): Resultat {
     val gesamtEinwohner = vorlage.wahlresultat.stimmenByKanton.map { (kanton, _) ->
       kanton.numberOfInhabitants
     }.sum()
@@ -172,7 +172,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
       .setScale(2, RoundingMode.HALF_EVEN)
     val gesamtNeinProzent = BigDecimal.valueOf(100) - gesamtJaProzent
 
-    return ResultatDto.Builder()
+    return Resultat.Builder()
       .einwohner(gesamtEinwohner)
       .abgegebeneStimmen(gesamtAbgegebeneStimmen)
       .wahlbeteiligungProzent(gesamtWahlbeteiligungProzent)

@@ -1,7 +1,8 @@
 package com.melonbase.microquark.rest
 
-import com.melonbase.microquark.rest.dto.VolksabstimmungDto
-import com.melonbase.microquark.rest.dto.VolksabstimmungResultatDto
+import com.melonbase.microquark.rest.dto.inbound.NeueVolksabstimmung
+import com.melonbase.microquark.rest.dto.outbound.Volksabstimmung
+import com.melonbase.microquark.rest.dto.outbound.VolksabstimmungResultat
 import com.melonbase.microquark.service.ElectionsService
 import com.melonbase.microquark.service.NotFoundResult
 import com.melonbase.microquark.service.RejectedResult
@@ -29,7 +30,7 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  fun getVolksabstimmungen(): Set<VolksabstimmungDto> {
+  fun getVolksabstimmungen(): Set<Volksabstimmung> {
     return service.getVolksabstimmungen()
   }
 
@@ -43,8 +44,8 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  fun addVolksabstimmung(volksabstimmung: VolksabstimmungDto): Response {
-    fun success(result: SuccessWithDataResult<VolksabstimmungDto>): Response {
+  fun addVolksabstimmung(volksabstimmung: NeueVolksabstimmung): Response {
+    fun success(result: SuccessWithDataResult<Volksabstimmung>): Response {
       val location = uriInfo.absolutePathBuilder.path(result.entity.datum.toString()).build()
       return Response.created(location).build()
     }
@@ -85,7 +86,7 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
   fun getResult(@PathParam("datum") datum: LocalDate): Response {
     return when (val result = service.getResult(datum)) {
       is SuccessResult -> accepted()
-      is SuccessWithDataResult<VolksabstimmungResultatDto> -> ok(result.entity)
+      is SuccessWithDataResult<VolksabstimmungResultat> -> ok(result.entity)
       is NotFoundResult -> notFound()
       is RejectedResult -> badRequest(result.reason)
     }

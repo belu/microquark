@@ -1,8 +1,8 @@
-package com.melonbase.microquark.rest.dto
+package com.melonbase.microquark.rest.dto.outbound
 
 import java.math.BigDecimal
 
-data class ResultatDto(
+data class Resultat(
   val einwohner: Int,
   val abgegebeneStimmen: Int,
   val wahlbeteiligungProzent: BigDecimal,
@@ -57,8 +57,8 @@ data class ResultatDto(
       return this
     }
 
-    fun build(): ResultatDto {
-      return ResultatDto(
+    fun build(): Resultat {
+      return Resultat(
         einwohner!!, abgegebeneStimmen!!, wahlbeteiligungProzent!!,
         jaStimmen!!, neinStimmen!!, jaProzent!!, neinProzent!!
       )

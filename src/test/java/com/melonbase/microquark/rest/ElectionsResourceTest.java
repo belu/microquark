@@ -1,7 +1,7 @@
 package com.melonbase.microquark.rest;
 
 import com.melonbase.microquark.repo.data.DataRoot;
-import com.melonbase.microquark.rest.dto.VolksabstimmungDto;
+import com.melonbase.microquark.rest.dto.inbound.NeueVolksabstimmung;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
@@ -50,7 +50,7 @@ public class ElectionsResourceTest {
   void addElection_returnsCorrectStatusCode() {
     // given
     // https://www.bk.admin.ch/ch/d/pore/va/18930820/index.html
-    var volksabstimmung = new VolksabstimmungDto(
+    var volksabstimmung = new NeueVolksabstimmung(
         LocalDate.of(1893, Month.AUGUST, 20),
         List.of("Eidgenössische Volksinitiative 'für ein Verbot des Schlachtens ohne vorherige Betäubung'")
     );

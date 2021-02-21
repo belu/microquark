@@ -1,6 +1,6 @@
 package importer
 
-import com.melonbase.microquark.rest.dto.VolksabstimmungDto
+import com.melonbase.microquark.rest.dto.inbound.NeueVolksabstimmung
 import io.restassured.RestAssured.given
 import java.nio.file.Files
 import java.nio.file.Path
@@ -30,7 +30,8 @@ object DataImporter {
       val localDate = LocalDate.parse(datum)
       val vorlagen = pairs.map { it.second }
 
-      val volksabstimmung = VolksabstimmungDto(localDate, vorlagen)
+      val volksabstimmung =
+        NeueVolksabstimmung(localDate, vorlagen)
 
       println(volksabstimmung)
 
@@ -39,7 +40,7 @@ object DataImporter {
     }
   }
 
-  private fun add(volksabstimmung: VolksabstimmungDto) {
+  private fun add(volksabstimmung: NeueVolksabstimmung) {
     given()
       .body(volksabstimmung)
       .contentType(MediaType.APPLICATION_JSON)
@@ -47,7 +48,7 @@ object DataImporter {
       .post("http://localhost:8080/volksabstimmungen")
   }
 
-  private fun abstimmen(volksabstimmung: VolksabstimmungDto) {
+  private fun abstimmen(volksabstimmung: NeueVolksabstimmung) {
     given()
       .`when`()
       .post("http://localhost:8080/volksabstimmungen/${volksabstimmung.datum}/abstimmen")

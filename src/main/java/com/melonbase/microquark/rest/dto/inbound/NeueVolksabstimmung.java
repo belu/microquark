@@ -1,18 +1,18 @@
-package com.melonbase.microquark.rest.dto;
+package com.melonbase.microquark.rest.dto.inbound;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class VolksabstimmungDto {
+public class NeueVolksabstimmung {
 
   private LocalDate datum;
   private List<String> vorlagen;
 
-  public VolksabstimmungDto() {
+  public NeueVolksabstimmung() {
     // Jackson
   }
 
-  public VolksabstimmungDto(LocalDate datum, List<String> vorlagen) {
+  public NeueVolksabstimmung(LocalDate datum, List<String> vorlagen) {
     this.datum = datum;
     this.vorlagen = vorlagen;
   }
