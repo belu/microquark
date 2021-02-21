@@ -5,19 +5,19 @@
 Necessary because of Unsafe memory access.
 TODO Show WARNING log.
 
-## How to update the native build configs
+## How to update the native-image configs
 
-If you change code in the application, you probably have to update the configs for
-the native build.
+If you change code in the application, you probably have to update the configs for the
+native-image build.
 
-For this to work you need GraalVM installed locally on your machine. For instructions have
+For this to work, you need GraalVM installed locally on your machine. For instructions have
 a look at the GraalVM documentation:
 https://www.graalvm.org/docs/getting-started/#install-graalvm
 
 1. Build the application JAR:
 
 ```shell script
-mvn clean compile package
+mvn clean package
 ```
 
 2. Run the application JAR and let Graal do the heavy work to create the native build configs:
@@ -29,3 +29,5 @@ java -agentlib:native-image-agent=config-merge-dir=src/main/resources/META-INF/n
 Note that whilst your application is running, you should enter every possible code path that
 could occure. This assures that Graal catches all configs that are required.
 Ideally, this is done with automated tests.
+
+You can stop and start the application JAR several times. The configs will be merged automatically for you.
