@@ -1,19 +1,12 @@
-package com.melonbase.microquark.repo.data;
+package com.melonbase.microquark.repo.data
 
-import one.microstream.reference.Lazy;
+import one.microstream.reference.Lazy
 
-import java.util.List;
-import java.util.Map;
+class Wahlresultat(stimmenByKanton: Map<Kanton, List<Boolean>>) {
 
-public class Wahlresultat {
+  private val stimmenByKanton: Lazy<Map<Kanton, List<Boolean>>> = Lazy.Reference(stimmenByKanton)
 
-  private Lazy<Map<Kanton, List<Boolean>>> stimmenByKanton;
-
-  public Wahlresultat(Map<Kanton, List<Boolean>> stimmenByKanton) {
-    this.stimmenByKanton = Lazy.Reference(stimmenByKanton);
-  }
-
-  public Map<Kanton, List<Boolean>> getStimmenByKanton() {
-    return Lazy.get(stimmenByKanton);
+  fun getStimmenByKanton(): Map<Kanton, List<Boolean>> {
+    return Lazy.get(stimmenByKanton)
   }
 }

@@ -1,6 +1,6 @@
-package com.melonbase.microquark.repo.data;
+package com.melonbase.microquark.repo.data
 
-public enum Kanton {
+enum class Kanton(val einwohner: Int) {
 
   AARGAU(685_424),
   APPENZELL_AUSSERRHODEN(55_234),
@@ -28,14 +28,4 @@ public enum Kanton {
   WALLIS(343_955),
   ZUG(126_837),
   ZUERICH(1_520_968);
-
-  private final int numberOfInhabitants;
-
-  Kanton(int numberOfInhabitants) {
-    this.numberOfInhabitants = numberOfInhabitants;
-  }
-
-  public int getNumberOfInhabitants() {
-    return numberOfInhabitants;
-  }
 }

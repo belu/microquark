@@ -54,10 +54,10 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
         return RejectedResult("Es existiert bereits eine Volksabstimmung am '${volksabstimmung.datum}'.")
       }
 
-      val neueVolksabstimmung = Volksabstimmung().apply {
-        datum = volksabstimmung.datum
-        vorlagen = volksabstimmung.vorlagen.map { vorlage -> Vorlage(vorlage) }
-      }
+      val neueVolksabstimmung = Volksabstimmung(
+        volksabstimmung.datum,
+        volksabstimmung.vorlagen.map { vorlage -> Vorlage(vorlage) }
+      )
 
       val root = storage.getDataRoot()
       root.volksabstimmungen.add(neueVolksabstimmung)
@@ -92,7 +92,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
 
         val stimmenByKanton = Kanton.values().map { kanton ->
           val stimmbeteiligung = Random.nextDouble(10.0, 100.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
-          val numVoters = (kanton.numberOfInhabitants * stimmbeteiligung.toDouble() / 100.0).roundToInt()
+          val numVoters = (kanton.einwohner * stimmbeteiligung.toDouble() / 100.0).roundToInt()
 
           val schwelle = Random.nextDouble(0.0, 100.0)
           val ergebnis = List(numVoters) { Random.nextDouble(0.0, 100.0) > schwelle }
@@ -118,13 +118,13 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
       }
 
       val vorlageResultate = volksabstimmung.vorlagen.map { vorlage ->
-        val kantonsresultate = vorlage.wahlresultat.stimmenByKanton.map { (kanton, stimmen) ->
-          val einwohner = kanton.numberOfInhabitants
+        val kantonsresultate = vorlage.wahlresultat!!.getStimmenByKanton().map { (kanton, stimmen) ->
+          val einwohner = kanton.einwohner
           val abgegebeneStimmen = stimmen.size
           val wahlbeteiligungProzent = BigDecimal.valueOf(100.0 / einwohner * abgegebeneStimmen)
             .setScale(2, RoundingMode.HALF_EVEN)
 
-          val jaStimmen = stimmen.count { it == true }
+          val jaStimmen = stimmen.count { it }
           val neinStimmen = abgegebeneStimmen - jaStimmen
 
           val jaProzent = BigDecimal.valueOf(100.0 / abgegebeneStimmen * jaStimmen)
@@ -154,17 +154,17 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
   }
 
   private fun calculateBundesresultat(vorlage: Vorlage): Resultat {
-    val gesamtEinwohner = vorlage.wahlresultat.stimmenByKanton.map { (kanton, _) ->
-      kanton.numberOfInhabitants
+    val gesamtEinwohner = vorlage.wahlresultat!!.getStimmenByKanton().map { (kanton, _) ->
+      kanton.einwohner
     }.sum()
-    val gesamtAbgegebeneStimmen = vorlage.wahlresultat.stimmenByKanton.map { (_, stimmen) ->
+    val gesamtAbgegebeneStimmen = vorlage.wahlresultat!!.getStimmenByKanton().map { (_, stimmen) ->
       stimmen.size
     }.sum()
     val gesamtWahlbeteiligungProzent = BigDecimal.valueOf(100.0 / gesamtEinwohner * gesamtAbgegebeneStimmen)
       .setScale(2, RoundingMode.HALF_EVEN)
 
-    val gesamtJaStimmen = vorlage.wahlresultat.stimmenByKanton.map { (_, stimmen) ->
-      stimmen.count { it == true }
+    val gesamtJaStimmen = vorlage.wahlresultat!!.getStimmenByKanton().map { (_, stimmen) ->
+      stimmen.count { it }
     }.sum()
     val gesamtNeinStimmen = gesamtAbgegebeneStimmen - gesamtJaStimmen
 

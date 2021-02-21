@@ -17,7 +17,7 @@ public class KantonTest {
   @Test
   void correctTotalInhabitants() {
     assertEquals(8_551_744, Stream.of(Kanton.values())
-        .mapToLong(Kanton::getNumberOfInhabitants)
+        .mapToLong(Kanton::getEinwohner)
         .sum());
   }
 }
