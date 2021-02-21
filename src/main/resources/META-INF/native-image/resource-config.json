@@ -15,6 +15,5 @@
     {"pattern":"\\Qmariadb.properties\\E"}, 
     {"pattern":"\\Qorg/jboss/threads/Version.properties\\E"}, 
     {"pattern":"\\Qorg/slf4j/impl/StaticLoggerBinder.class\\E"}
-  ]},
-  "bundles":[{"name":"org.postgresql.translation.messages"}]
+  ]}
 }
