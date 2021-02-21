@@ -1,4 +1,4 @@
-# GraalVM Native Image integration
+# GraalVM integration
 
 ## Substitutions
 

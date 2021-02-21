@@ -1,6 +1,13 @@
 ## REST API
 
-Some example REST calls with [cURL](https://curl.se/).
+If you start the application in **Dev Mode** with `mvn quarkus:dev` then you can use the included
+[Swagger UI](http://127.0.0.1:8080/q/swagger-ui/) to execute REST calls.
+
+If you run the **Native Image** then Swagger is not available. In this case you can use the following
+[cURL](https://curl.se/) commands.
+
+Use the `DataImporter` (standalone Kotlin program) to automatically import Volksabstimmungen and
+execute the elections. This gives you a good starting ground!
 
 #### Show all Volksabstimmungen
 
@@ -8,7 +15,7 @@ Some example REST calls with [cURL](https://curl.se/).
 curl "http://127.0.0.1:8080/volksabstimmungen"
 ```
 
-This lists all the Volksabstimmungen and show their date and the Vorlagen (topics to vote on).
+This lists all the Volksabstimmungen with date and the topics to vote on.
 
 #### Create a new Volksabstimmung
 
@@ -33,22 +40,23 @@ curl -X DELETE "http://127.0.0.1:8080/volksabstimmungen/2021-02-28"
 
 Removes a Volksabstimmung including all the results if available.
 
-#### Perform (random) election for a Volksabstimmung
+#### Execute an election for a Volksabstimmung
 
 ```shell script
 curl -X POST "http://127.0.0.1:8080/volksabstimmungen/2021-02-28/abstimmen" -H "Content-type: application/json"
 ```
 
-Note that an election can only be performed once per Volksabstimmung. 
+The voter turnout and the votes will be calculated randomly.
+Note that an election can only be executed once per Volksabstimmung.
 
-#### Get election results for a Volksabstimmung
+#### Get results for a Volksabstimmung
 
 ```shell script
 curl "http://127.0.0.1:8080/volksabstimmungen/2021-02-28/result"
 ```
 
-Returns the detailed results of the election. Note that all the results
-are calculated on-the-fly directly from MicroStream storage data root!
+Returns the detailed results of the referendum. Note that all the results
+are calculated on-the-fly directly from the MicroStream storage data root!
 
 ## cURL tips
 
