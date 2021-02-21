@@ -26,5 +26,6 @@ For details see the separate integration docs:
 
 Further docs:
 
-- [Data model](docs/MODEL.md)
+- [Data model](docs/MODEL.md) explains the example data model
 - [REST API](docs/REST.md) with cURL examples
+- [Interactions](docs/CONTRIBUTIONS.md) with Open Source projects
