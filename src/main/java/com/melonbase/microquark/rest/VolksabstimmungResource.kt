@@ -1,10 +1,20 @@
 package com.melonbase.microquark.rest
 
 import com.melonbase.microquark.rest.dto.VolksabstimmungDto
-import com.melonbase.microquark.service.*
+import com.melonbase.microquark.rest.dto.VolksabstimmungResultatDto
+import com.melonbase.microquark.service.ElectionsService
+import com.melonbase.microquark.service.NotFoundResult
+import com.melonbase.microquark.service.RejectedResult
+import com.melonbase.microquark.service.SuccessResult
+import com.melonbase.microquark.service.SuccessWithDataResult
 import java.time.LocalDate
 import javax.inject.Inject
-import javax.ws.rs.*
+import javax.ws.rs.DELETE
+import javax.ws.rs.GET
+import javax.ws.rs.POST
+import javax.ws.rs.Path
+import javax.ws.rs.PathParam
+import javax.ws.rs.Produces
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
@@ -69,11 +79,11 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
 
   @GET
   @Path("{datum}/result")
-  @Produces(MediaType.TEXT_PLAIN)
+  @Produces(MediaType.APPLICATION_JSON)
   fun getResult(@PathParam("datum") datum: LocalDate): Response {
     return when (val result = service.getResult(datum)) {
       is SuccessResult -> accepted()
-      is SuccessWithDataResult<*> -> ok(result.entity)
+      is SuccessWithDataResult<VolksabstimmungResultatDto> -> ok(result.entity)
       is NotFoundResult -> notFound()
       is RejectedResult -> badRequest(result.reason)
     }

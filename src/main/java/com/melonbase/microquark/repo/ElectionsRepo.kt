@@ -5,23 +5,29 @@ import com.melonbase.microquark.repo.data.Kanton
 import com.melonbase.microquark.repo.data.Volksabstimmung
 import com.melonbase.microquark.repo.data.Vorlage
 import com.melonbase.microquark.repo.data.Wahlresultat
+import com.melonbase.microquark.rest.dto.ResultatDto
 import com.melonbase.microquark.rest.dto.VolksabstimmungDto
+import com.melonbase.microquark.rest.dto.VolksabstimmungResultatDto
+import com.melonbase.microquark.rest.dto.VorlageResultatDto
+import com.melonbase.microquark.rest.mapping.mapToDto
 import com.melonbase.microquark.service.NotFoundResult
 import com.melonbase.microquark.service.RejectedResult
 import com.melonbase.microquark.service.ServiceResult
 import com.melonbase.microquark.service.SuccessResult
 import com.melonbase.microquark.service.SuccessWithDataResult
+import mu.KotlinLogging
 import one.microstream.storage.types.StorageManager
+import java.math.BigDecimal
 import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.time.LocalDate
 import java.util.concurrent.locks.ReentrantReadWriteLock
-import java.util.stream.Collectors
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
 import kotlin.concurrent.withLock
 import kotlin.math.roundToInt
 import kotlin.random.Random
+
+private val log = KotlinLogging.logger {}
 
 @ApplicationScoped
 class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
@@ -30,19 +36,19 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
   private val read = readWriteLock.readLock()
   private val write = readWriteLock.writeLock()
 
-  fun getVolksabstimmungen(): Set<Volksabstimmung> {
+  fun getVolksabstimmungen(): Set<VolksabstimmungDto> {
     read.withLock {
-      return storage.getDataRoot().volksabstimmungen
+      return storage.getDataRoot().volksabstimmungen.mapToDto()
     }
   }
 
-  fun getVolksabstimmung(datum: LocalDate): Volksabstimmung? {
+  fun getVolksabstimmung(datum: LocalDate): VolksabstimmungDto? {
     read.withLock {
-      return storage.getDataRoot().volksabstimmungen.find { it.datum == datum }
+      return getVolksabstimmungUnlocked(datum)?.mapToDto()
     }
   }
 
-  fun addVolksabstimmung(volksabstimmung: VolksabstimmungDto): ServiceResult<Volksabstimmung> {
+  fun addVolksabstimmung(volksabstimmung: VolksabstimmungDto): ServiceResult<VolksabstimmungDto> {
     write.withLock {
       if (getVolksabstimmung(volksabstimmung.datum) != null) {
         return RejectedResult("Es existiert bereits eine Volksabstimmung am '${volksabstimmung.datum}'.")
@@ -50,14 +56,14 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
 
       val neueVolksabstimmung = Volksabstimmung().apply {
         datum = volksabstimmung.datum
-        vorlagen = convertVorlagen(volksabstimmung.vorlagen)
+        vorlagen = volksabstimmung.vorlagen.map { vorlage -> Vorlage(vorlage) }
       }
 
       val root = storage.getDataRoot()
       root.volksabstimmungen.add(neueVolksabstimmung)
       storage.store(root.volksabstimmungen)
 
-      return SuccessWithDataResult(neueVolksabstimmung)
+      return SuccessWithDataResult(neueVolksabstimmung.mapToDto())
     }
   }
 
@@ -74,9 +80,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
 
   fun performAbstimmung(datum: LocalDate): ServiceResult<Nothing> {
     write.withLock {
-      val root = storage.getDataRoot()
-
-      val volksabstimmung = root.volksabstimmungen.find { it.datum == datum } ?: return NotFoundResult
+      val volksabstimmung = getVolksabstimmungUnlocked(datum) ?: return NotFoundResult
 
       val gewaehlt = volksabstimmung.vorlagen.any { it.wahlresultat != null }
       if (gewaehlt) {
@@ -84,22 +88,11 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
       }
 
       volksabstimmung.vorlagen.forEach { vorlage ->
-        println(
-          """
-          
-          Abstimmung für Vorlage:
-          ${vorlage.beschreibung}
-          
-        """.trimIndent()
-        )
+        log.info("Abstimmung läuft zu: ${vorlage.beschreibung}")
 
         val stimmenByKanton = Kanton.values().map { kanton ->
-          println("Berechne Stimmen für Kanton $kanton mit ${kanton.numberOfInhabitants} Einwohnern.")
-
           val stimmbeteiligung = Random.nextDouble(10.0, 100.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
-
           val numVoters = (kanton.numberOfInhabitants * stimmbeteiligung.toDouble() / 100.0).roundToInt()
-          println("Stimmbeteiligung $stimmbeteiligung% = $numVoters Stimmen")
 
           val schwelle = Random.nextDouble(0.0, 100.0)
           val ergebnis = List(numVoters) { Random.nextDouble(0.0, 100.0) > schwelle }
@@ -114,12 +107,9 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
     return SuccessResult
   }
 
-  val absolute = DecimalFormat("#,###.##")
-  val percent = DecimalFormat("#,###.00")
-
-  fun getResult(datum: LocalDate): ServiceResult<String> {
+  fun getResult(datum: LocalDate): ServiceResult<VolksabstimmungResultatDto> {
     read.withLock {
-      val volksabstimmung = getVolksabstimmung(datum) ?: return NotFoundResult
+      val volksabstimmung = getVolksabstimmungUnlocked(datum) ?: return NotFoundResult
 
       val nochNichtAbgestimmt =
         volksabstimmung.vorlagen.any { it.wahlresultat == null }
@@ -127,52 +117,73 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
         return RejectedResult("Abstimmung wurde noch nicht durchgeführt.")
       }
 
-      volksabstimmung.vorlagen.forEach { vorlage ->
-        println(
-          """
-           |
-           |################################################################################
-           | ${vorlage.beschreibung}
-           |################################################################################
-           |
-        """.trimMargin()
-        )
-
-        vorlage.wahlresultat.stimmenByKanton.forEach { (kanton, stimmen) ->
+      val vorlageResultate = volksabstimmung.vorlagen.map { vorlage ->
+        val kantonsresultate = vorlage.wahlresultat.stimmenByKanton.map { (kanton, stimmen) ->
           val einwohner = kanton.numberOfInhabitants
-          val anzahlStimmen = stimmen.size
-          val wahlbeteiligung = 100.0 / einwohner * anzahlStimmen
+          val abgegebeneStimmen = stimmen.size
+          val wahlbeteiligungProzent = BigDecimal.valueOf(100.0 / einwohner * abgegebeneStimmen)
+            .setScale(2, RoundingMode.HALF_EVEN)
 
           val jaStimmen = stimmen.count { it == true }
-          val neinStimmen = anzahlStimmen - jaStimmen
+          val neinStimmen = abgegebeneStimmen - jaStimmen
 
-          val jaProzent = 100.0 / anzahlStimmen * jaStimmen
-          val neinProzent = 100.0 - jaProzent
+          val jaProzent = BigDecimal.valueOf(100.0 / abgegebeneStimmen * jaStimmen)
+            .setScale(2, RoundingMode.HALF_EVEN)
+          val neinProzent = BigDecimal.valueOf(100) - jaProzent
 
-          println(
-            """
-              |
-              |+++++ $kanton +++++
-              |
-              |Einwohner: ${absolute.format(einwohner)}
-              |Abgegebene Stimmen: ${absolute.format(anzahlStimmen)}
-              |Wahlbeteiligung: ${percent.format(wahlbeteiligung)}%
-              |
-              |Ja: ${percent.format(jaProzent)}% (${absolute.format(jaStimmen)} Stimmen)
-              |Nein: ${percent.format(neinProzent)}% (${absolute.format(neinStimmen)} Stimmen)
-              |
-            """.trimMargin()
-          )
-        }
+          val resultat = ResultatDto.Builder()
+            .einwohner(einwohner)
+            .abgegebeneStimmen(abgegebeneStimmen)
+            .wahlbeteiligungProzent(wahlbeteiligungProzent)
+            .jaStimmen(jaStimmen)
+            .neinStimmen(neinStimmen)
+            .jaProzent(jaProzent)
+            .neinProzent(neinProzent)
+            .build()
+
+          Pair(kanton, resultat)
+        }.toMap()
+
+        val bundesresultat = calculateBundesresultat(vorlage)
+
+        VorlageResultatDto(vorlage.beschreibung, bundesresultat, kantonsresultate)
       }
-      return SuccessWithDataResult("TODO")
+
+      return SuccessWithDataResult(VolksabstimmungResultatDto(datum, vorlageResultate))
     }
   }
 
-  private fun convertVorlagen(vorlagen: List<String>): List<Vorlage> {
-    return vorlagen
-      .map { vorlage -> Vorlage(vorlage) }
-      .stream()
-      .collect(Collectors.toUnmodifiableList())
+  private fun calculateBundesresultat(vorlage: Vorlage): ResultatDto {
+    val gesamtEinwohner = vorlage.wahlresultat.stimmenByKanton.map { (kanton, _) ->
+      kanton.numberOfInhabitants
+    }.sum()
+    val gesamtAbgegebeneStimmen = vorlage.wahlresultat.stimmenByKanton.map { (_, stimmen) ->
+      stimmen.size
+    }.sum()
+    val gesamtWahlbeteiligungProzent = BigDecimal.valueOf(100.0 / gesamtEinwohner * gesamtAbgegebeneStimmen)
+      .setScale(2, RoundingMode.HALF_EVEN)
+
+    val gesamtJaStimmen = vorlage.wahlresultat.stimmenByKanton.map { (_, stimmen) ->
+      stimmen.count { it == true }
+    }.sum()
+    val gesamtNeinStimmen = gesamtAbgegebeneStimmen - gesamtJaStimmen
+
+    val gesamtJaProzent = BigDecimal.valueOf(100.0 / gesamtAbgegebeneStimmen * gesamtJaStimmen)
+      .setScale(2, RoundingMode.HALF_EVEN)
+    val gesamtNeinProzent = BigDecimal.valueOf(100) - gesamtJaProzent
+
+    return ResultatDto.Builder()
+      .einwohner(gesamtEinwohner)
+      .abgegebeneStimmen(gesamtAbgegebeneStimmen)
+      .wahlbeteiligungProzent(gesamtWahlbeteiligungProzent)
+      .jaStimmen(gesamtJaStimmen)
+      .neinStimmen(gesamtNeinStimmen)
+      .jaProzent(gesamtJaProzent)
+      .neinProzent(gesamtNeinProzent)
+      .build()
+  }
+
+  private fun getVolksabstimmungUnlocked(datum: LocalDate): Volksabstimmung? {
+    return storage.getDataRoot().volksabstimmungen.find { it.datum == datum }
   }
 }

@@ -2,7 +2,7 @@ package com.melonbase.microquark.service
 
 import com.melonbase.microquark.repo.ElectionsRepo
 import com.melonbase.microquark.rest.dto.VolksabstimmungDto
-import com.melonbase.microquark.rest.mapping.mapToDto
+import com.melonbase.microquark.rest.dto.VolksabstimmungResultatDto
 import java.time.LocalDate
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
@@ -11,11 +11,11 @@ import javax.inject.Inject
 class ElectionsService @Inject constructor(val repo: ElectionsRepo) {
 
   fun getVolksabstimmungen(): Set<VolksabstimmungDto> {
-    return repo.getVolksabstimmungen().mapToDto()
+    return repo.getVolksabstimmungen()
   }
 
   fun getVolksabstimmung(datum: LocalDate): VolksabstimmungDto? {
-    return repo.getVolksabstimmung(datum)?.mapToDto()
+    return repo.getVolksabstimmung(datum)
   }
 
   fun deleteVolksabstimmung(datum: LocalDate): ServiceResult<Nothing> {
@@ -23,14 +23,14 @@ class ElectionsService @Inject constructor(val repo: ElectionsRepo) {
   }
 
   fun addVolksabstimmung(volksabstimmung: VolksabstimmungDto): ServiceResult<VolksabstimmungDto> {
-    return repo.addVolksabstimmung(volksabstimmung).mapToDto()
+    return repo.addVolksabstimmung(volksabstimmung)
   }
 
   fun performAbstimmung(datum: LocalDate): ServiceResult<Nothing> {
     return repo.performAbstimmung(datum)
   }
 
-  fun getResult(datum: LocalDate): ServiceResult<String> {
+  fun getResult(datum: LocalDate): ServiceResult<VolksabstimmungResultatDto> {
     return repo.getResult(datum)
   }
 }

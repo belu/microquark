@@ -227,7 +227,25 @@
   "fields":[{"name":"stimmenByKanton", "allowUnsafeAccess":true}]
 },
 {
+  "name":"com.melonbase.microquark.rest.dto.ResultatDto",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
+},
+{
   "name":"com.melonbase.microquark.rest.dto.VolksabstimmungDto",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
+},
+{
+  "name":"com.melonbase.microquark.rest.dto.VolksabstimmungResultatDto",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
+},
+{
+  "name":"com.melonbase.microquark.rest.dto.VorlageResultatDto",
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
   "allDeclaredConstructors":true
@@ -851,8 +869,7 @@
 {
   "name":"java.util.Optional",
   "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "fields":[{"name":"value", "allowUnsafeAccess":true}]
+  "allDeclaredMethods":true
 },
 {
   "name":"java.util.OptionalDouble",

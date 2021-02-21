@@ -29,13 +29,13 @@ public enum Kanton {
   ZUG(126_837),
   ZUERICH(1_520_968);
 
-  private final long numberOfInhabitants;
+  private final int numberOfInhabitants;
 
-  Kanton(long numberOfInhabitants) {
+  Kanton(int numberOfInhabitants) {
     this.numberOfInhabitants = numberOfInhabitants;
   }
 
-  public long getNumberOfInhabitants() {
+  public int getNumberOfInhabitants() {
     return numberOfInhabitants;
   }
 }
