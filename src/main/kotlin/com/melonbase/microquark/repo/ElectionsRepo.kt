@@ -23,7 +23,8 @@ import java.time.LocalDate
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
-import kotlin.concurrent.withLock
+import kotlin.concurrent.read
+import kotlin.concurrent.write
 import kotlin.math.roundToInt
 import kotlin.random.Random
 
@@ -32,25 +33,23 @@ private val log = KotlinLogging.logger {}
 @ApplicationScoped
 class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
 
-  private val readWriteLock = ReentrantReadWriteLock()
-  private val read = readWriteLock.readLock()
-  private val write = readWriteLock.writeLock()
+  private val lock = ReentrantReadWriteLock()
 
   fun getVolksabstimmungen(): Set<com.melonbase.microquark.rest.dto.outbound.Volksabstimmung> {
-    read.withLock {
+    lock.read {
       return storage.getDataRoot().volksabstimmungen.mapToDto()
     }
   }
 
   fun getVolksabstimmung(datum: LocalDate): com.melonbase.microquark.rest.dto.outbound.Volksabstimmung? {
-    read.withLock {
+    lock.read {
       return getVolksabstimmungUnlocked(datum)?.mapToDto()
     }
   }
 
   fun addVolksabstimmung(volksabstimmung: NeueVolksabstimmung): ServiceResult<com.melonbase.microquark.rest.dto.outbound.Volksabstimmung> {
-    write.withLock {
-      if (getVolksabstimmung(volksabstimmung.datum) != null) {
+    lock.write {
+      if (getVolksabstimmungUnlocked(volksabstimmung.datum) != null) {
         return RejectedResult("Es existiert bereits eine Volksabstimmung am '${volksabstimmung.datum}'.")
       }
 
@@ -68,7 +67,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
   }
 
   fun deleteVolksabstimmung(datum: LocalDate): ServiceResult<Nothing> {
-    write.withLock {
+    lock.write {
       val successful = storage.getDataRoot().volksabstimmungen.removeIf { v -> v.datum == datum }
       if (successful) {
         storage.store(storage.getDataRoot().volksabstimmungen)
@@ -79,7 +78,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
   }
 
   fun performAbstimmung(datum: LocalDate): ServiceResult<Nothing> {
-    write.withLock {
+    lock.write {
       val volksabstimmung = getVolksabstimmungUnlocked(datum) ?: return NotFoundResult
 
       val gewaehlt = volksabstimmung.vorlagen.any { it.wahlresultat != null }
@@ -91,7 +90,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
         log.info("Abstimmung läuft zu: ${vorlage.beschreibung}")
 
         val stimmenByKanton = Kanton.values().map { kanton ->
-          val stimmbeteiligung = Random.nextDouble(10.0, 100.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
+          val stimmbeteiligung = Random.nextDouble(60.0, 95.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
           val numVoters = (kanton.einwohner * stimmbeteiligung.toDouble() / 100.0).roundToInt()
 
           val schwelle = Random.nextDouble(0.0, 100.0)
@@ -108,11 +107,10 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
   }
 
   fun getResult(datum: LocalDate): ServiceResult<VolksabstimmungResultat> {
-    read.withLock {
+    lock.read {
       val volksabstimmung = getVolksabstimmungUnlocked(datum) ?: return NotFoundResult
 
-      val nochNichtAbgestimmt =
-        volksabstimmung.vorlagen.any { it.wahlresultat == null }
+      val nochNichtAbgestimmt = volksabstimmung.vorlagen.any { it.wahlresultat == null }
       if (nochNichtAbgestimmt) {
         return RejectedResult("Abstimmung wurde noch nicht durchgeführt.")
       }
