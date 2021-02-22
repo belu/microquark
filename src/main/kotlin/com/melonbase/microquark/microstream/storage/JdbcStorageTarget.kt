@@ -13,6 +13,7 @@ import javax.sql.DataSource
 private const val CONFIG_DATASOURCE_DB_KIND = "quarkus.datasource.db-kind"
 
 private const val DATABASE_NAME = "microstream@jdbc"
+private const val DIRECTORY_PATH = "microstream"
 
 fun loadStorageJdbc(): StorageManager {
   val datasource = CDI.current().select(DataSource::class.java).get()
@@ -29,7 +30,7 @@ fun loadStorageJdbc(): StorageManager {
     else -> throw IllegalArgumentException("Unsupported DB kind: $dbKind")
   }
   val sqlFileSystem = SqlFileSystem.New(SqlConnector.Caching(sqlProvider))
-    .ensureDirectoryPath("microstream")
+    .ensureDirectoryPath(DIRECTORY_PATH)
 
   return createStorageManager(sqlFileSystem, "$DATABASE_NAME:${dbKind}")
 }

@@ -14,5 +14,7 @@ fun loadStorageFilesystem(): StorageManager {
     .getOptionalValue(CONFIG_STORAGE_FILESYSTEM_PATH, String::class.java)
     .orElse(DEFAULT_PATH)
 
-  return createStorageManager(Paths.get(path), "$DATABASE_NAME:$path")
+  val databaseName = "$DATABASE_NAME:$path"
+
+  return createStorageManager(Paths.get(path), databaseName)
 }

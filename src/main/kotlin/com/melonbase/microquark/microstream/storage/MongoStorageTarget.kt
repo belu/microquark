@@ -10,6 +10,7 @@ import org.eclipse.microprofile.config.ConfigProvider
 private const val CONFIG_MONGODB_CONNECTION_STRING = "quarkus.mongodb.connection-string"
 
 private const val DATABASE_NAME = "microstream@mongodb"
+private const val DIRECTORY_PATH = "microstream"
 
 fun loadStorageMongoDb(): StorageManager {
   val connectionString = ConfigProvider.getConfig()
@@ -22,7 +23,7 @@ fun loadStorageMongoDb(): StorageManager {
 
   val path = BlobStoreFileSystem.New(
     MongoDbConnector.Caching(db)
-  ).ensureDirectoryPath("microstream_storage")
+  ).ensureDirectoryPath(DIRECTORY_PATH)
 
   return createStorageManager(path, DATABASE_NAME)
 }
