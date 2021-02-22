@@ -6,7 +6,7 @@
 * Doc: Data model
 * Doc: MicroStream integration
 * Doc: GraalVM integration
-* Doc: Movation (README)
+* Doc: Motivation (README)
 
 * GitHub Actions: Maven Cache to speed up build
 
