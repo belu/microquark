@@ -15,6 +15,7 @@ class LocalDateParameterConverterProvider : ParamConverterProvider {
     annotations: Array<Annotation>
   ): ParamConverter<T>? {
     return if (LocalDate::class.java == rawType) {
+      @Suppress("UNCHECKED_CAST")
       LocalDateParamConverter() as ParamConverter<T>
     } else null
   }
