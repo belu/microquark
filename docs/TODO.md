@@ -1,25 +1,21 @@
 # TODO
 
-* Lazy Loading of results -> warum dauert Storage-Start so lange (5 Sekunden)? Evtl. besser Wahlergebnis Lazy machen
-  anstatt die Map<>?
-
-* Doc: Data model
+* Lazy Loading der Wahlresultate: das pgAdmin zeigt, das ALLE Daten initial geladen.
+  Das Lazy.get() wird jedoch noch nicht aufgerufen.
+  Werden die Daten Off-Heap (binär) gespeichert?! Und erst bei Zugriff deserialisiert?
+  Ist das irgendwo dokumentiert?
+  
 * Doc: MicroStream integration
 * Doc: GraalVM integration
-* Doc: Motivation (README)
 
 * GitHub Actions: Maven Cache to speed up build
 
 * ScreenCast mit asciinema
 
-* Swagger Doku verbessern
-
 * Quarkus @NativeImageTest
 
 * Storage-Laden erst nachdem Quarkus vollständig geladen ist? Und dann Health-Ready melden wenn vollständig geladen.
   Erst danach werden Requests akzeptiert.
-
-* MicroStream Properties nicht 'gelb' (werden vom System erkannt)
 
 * weitere MicroStream Konfigurationen in `application.properties` aufnehmen (Channels, Housekeeping, Backup, etc.)
 

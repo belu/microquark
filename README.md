@@ -14,18 +14,20 @@
 A pet project to explore the integration of [MicroStream](http://microstream.one),
 [Quarkus](http://quarkus.io) and [GraalVM](http://www.graalvm.org).
 
-## Motivation
+How to work with microquark:
 
-...
+- [Data model](docs/MODEL.md) explains the example data model
+- [Getting started](docs/HOWTO.md) how to run the app and add data
+- [REST API](docs/REST.md) with cURL examples
 
-For details see the separate integration docs:
+See the integration docs for details on the different ingredients:
 
 - [MicroStream integration](docs/MICROSTREAM.md)
 - [Quarkus integration](docs/QUARKUS.md)
 - [GraalVM integration](docs/GRAALVM.md)
 
-Further docs:
+Furthermore:
 
-- [Data model](docs/MODEL.md) explains the example data model
-- [REST API](docs/REST.md) with cURL examples
 - [Interactions](docs/CONTRIBUTIONS.md) with Open Source projects
+
+TODO Thanks
