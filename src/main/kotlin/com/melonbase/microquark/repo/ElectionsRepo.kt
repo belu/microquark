@@ -55,7 +55,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
 
       val neueVolksabstimmung = Volksabstimmung(
         volksabstimmung.datum,
-        volksabstimmung.vorlagen.map { vorlage -> Vorlage(vorlage) }
+        volksabstimmung.vorlagen.map { Vorlage(it) }
       )
 
       val root = storage.getDataRoot()
@@ -68,8 +68,8 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
 
   fun deleteVolksabstimmung(datum: LocalDate): ServiceResult<Nothing> {
     lock.write {
-      val successful = storage.getDataRoot().volksabstimmungen.removeIf { v -> v.datum == datum }
-      if (successful) {
+      val deleted = storage.getDataRoot().volksabstimmungen.removeIf { v -> v.datum == datum }
+      if (deleted) {
         storage.store(storage.getDataRoot().volksabstimmungen)
         return SuccessResult
       }
@@ -89,21 +89,25 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
       volksabstimmung.vorlagen.forEach { vorlage ->
         log.info("Abstimmung läuft zu: ${vorlage.beschreibung}")
 
-        val stimmenByKanton = Kanton.values().map { kanton ->
-          val stimmbeteiligung = Random.nextDouble(60.0, 95.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
-          val numVoters = (kanton.einwohner * stimmbeteiligung.toDouble() / 100.0).roundToInt()
-
-          val schwelle = Random.nextDouble(0.0, 100.0)
-          val ergebnis = List(numVoters) { Random.nextDouble(0.0, 100.0) > schwelle }
-
-          Pair(kanton, ergebnis)
-        }.toMap()
+        val stimmenByKanton = calculateStimmenByKanton()
 
         vorlage.setWahlresultat(Wahlresultat(stimmenByKanton))
         storage.store(vorlage)
       }
     }
     return SuccessResult
+  }
+
+  private fun calculateStimmenByKanton(): Map<Kanton, List<Boolean>> {
+    return Kanton.values().map { kanton ->
+      val stimmbeteiligung = Random.nextDouble(60.0, 95.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
+      val numVoters = (kanton.einwohner * stimmbeteiligung.toDouble() / 100.0).roundToInt()
+
+      val schwelle = Random.nextDouble(0.0, 100.0)
+      val ergebnis = List(numVoters) { Random.nextDouble(0.0, 100.0) > schwelle }
+
+      Pair(kanton, ergebnis)
+    }.toMap()
   }
 
   fun getResult(datum: LocalDate): ServiceResult<VolksabstimmungResultat> {
@@ -116,32 +120,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
       }
 
       val vorlageResultate = volksabstimmung.vorlagen.map { vorlage ->
-        val kantonsresultate = vorlage.getWahlresultat()!!.stimmenByKanton.map { (kanton, stimmen) ->
-          val einwohner = kanton.einwohner
-          val abgegebeneStimmen = stimmen.size
-          val wahlbeteiligungProzent = BigDecimal.valueOf(100.0 / einwohner * abgegebeneStimmen)
-            .setScale(2, RoundingMode.HALF_EVEN)
-
-          val jaStimmen = stimmen.count { it }
-          val neinStimmen = abgegebeneStimmen - jaStimmen
-
-          val jaProzent = BigDecimal.valueOf(100.0 / abgegebeneStimmen * jaStimmen)
-            .setScale(2, RoundingMode.HALF_EVEN)
-          val neinProzent = BigDecimal.valueOf(100) - jaProzent
-
-          val resultat = Resultat.Builder()
-            .einwohner(einwohner)
-            .abgegebeneStimmen(abgegebeneStimmen)
-            .wahlbeteiligungProzent(wahlbeteiligungProzent)
-            .jaStimmen(jaStimmen)
-            .neinStimmen(neinStimmen)
-            .jaProzent(jaProzent)
-            .neinProzent(neinProzent)
-            .build()
-
-          Pair(kanton, resultat)
-        }.toMap()
-
+        val kantonsresultate = calculateKantonsresultate(vorlage)
         val bundesresultat = calculateBundesresultat(vorlage)
 
         VorlageResultat(vorlage.beschreibung, bundesresultat, kantonsresultate)
@@ -151,6 +130,38 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
     }
   }
 
+  // This calculates the result for each Kanton.
+  // We do not use pre-calculated results! Why? Because we can - with MicroStream :-)
+  private fun calculateKantonsresultate(vorlage: Vorlage): Map<Kanton, Resultat> {
+    return vorlage.getWahlresultat()!!.stimmenByKanton.map { (kanton, stimmen) ->
+      val einwohner = kanton.einwohner
+      val abgegebeneStimmen = stimmen.size
+      val wahlbeteiligungProzent = BigDecimal.valueOf(100.0 / einwohner * abgegebeneStimmen)
+        .setScale(2, RoundingMode.HALF_EVEN)
+
+      val jaStimmen = stimmen.count { it }
+      val neinStimmen = abgegebeneStimmen - jaStimmen
+
+      val jaProzent = BigDecimal.valueOf(100.0 / abgegebeneStimmen * jaStimmen)
+        .setScale(2, RoundingMode.HALF_EVEN)
+      val neinProzent = BigDecimal.valueOf(100) - jaProzent
+
+      val resultat = Resultat.Builder()
+        .einwohner(einwohner)
+        .abgegebeneStimmen(abgegebeneStimmen)
+        .wahlbeteiligungProzent(wahlbeteiligungProzent)
+        .jaStimmen(jaStimmen)
+        .neinStimmen(neinStimmen)
+        .jaProzent(jaProzent)
+        .neinProzent(neinProzent)
+        .build()
+
+      Pair(kanton, resultat)
+    }.toMap()
+  }
+
+  // This calculates the total result over all Kantone, that is the result for the whole country Switzerland.
+  // We do not use pre-calculated results! Why? Because we can - with MicroStream :-)
   private fun calculateBundesresultat(vorlage: Vorlage): Resultat {
     val wahlresultat = vorlage.getWahlresultat()!!
 
