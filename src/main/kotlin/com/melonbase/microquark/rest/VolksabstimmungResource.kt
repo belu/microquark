@@ -3,6 +3,11 @@ package com.melonbase.microquark.rest
 import com.melonbase.microquark.rest.dto.inbound.NeueVolksabstimmung
 import com.melonbase.microquark.rest.dto.outbound.Volksabstimmung
 import com.melonbase.microquark.rest.dto.outbound.VolksabstimmungResultat
+import com.melonbase.microquark.rest.util.accepted
+import com.melonbase.microquark.rest.util.badRequest
+import com.melonbase.microquark.rest.util.noContent
+import com.melonbase.microquark.rest.util.notFound
+import com.melonbase.microquark.rest.util.ok
 import com.melonbase.microquark.service.ElectionsService
 import com.melonbase.microquark.service.NotFoundResult
 import com.melonbase.microquark.service.RejectedResult
@@ -64,8 +69,7 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
     return when (val result = service.deleteVolksabstimmung(datum)) {
       NotFoundResult -> notFound()
       is RejectedResult -> badRequest(result.reason)
-      SuccessResult -> noContent()
-      is SuccessWithDataResult -> noContent()
+      SuccessResult, is SuccessWithDataResult -> noContent()
     }
   }
 
@@ -73,9 +77,9 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
   @Path("{datum}/abstimmen")
   fun performAbstimmung(@PathParam("datum") datum: LocalDate): Response {
     return when (val result = service.performAbstimmung(datum)) {
-      is SuccessResult -> accepted()
+      SuccessResult -> accepted()
       is SuccessWithDataResult -> noContent()
-      is NotFoundResult -> notFound()
+      NotFoundResult -> notFound()
       is RejectedResult -> badRequest(result.reason)
     }
   }
@@ -85,33 +89,10 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
   @Produces(MediaType.APPLICATION_JSON)
   fun getResult(@PathParam("datum") datum: LocalDate): Response {
     return when (val result = service.getResult(datum)) {
-      is SuccessResult -> accepted()
+      SuccessResult -> accepted()
       is SuccessWithDataResult<VolksabstimmungResultat> -> ok(result.entity)
-      is NotFoundResult -> notFound()
+      NotFoundResult -> notFound()
       is RejectedResult -> badRequest(result.reason)
     }
-  }
-
-  private fun ok(entity: Any?): Response {
-    return Response.ok(entity).build()
-  }
-
-  private fun accepted(): Response {
-    return Response.accepted().build()
-  }
-
-  private fun noContent(): Response {
-    return Response.noContent().build()
-  }
-
-  private fun badRequest(reason: String): Response {
-    return Response.status(Response.Status.BAD_REQUEST)
-      .type(MediaType.TEXT_PLAIN)
-      .entity(reason)
-      .build()
-  }
-
-  private fun notFound(): Response {
-    return Response.status(Response.Status.NOT_FOUND).build()
   }
 }
