@@ -4,11 +4,11 @@ import one.microstream.reference.Lazy
 
 class Vorlage(var beschreibung: String) {
 
-  private var lazyWahlresultat: Lazy<Wahlresultat> = Lazy.Reference(null)
+  private var wahlresultat: Lazy<Wahlresultat> = Lazy.Reference(null)
 
-  fun getWahlresultat(): Wahlresultat? = Lazy.get(lazyWahlresultat)
+  fun getWahlresultat(): Wahlresultat? = Lazy.get(wahlresultat)
 
   fun setWahlresultat(wahlresultat: Wahlresultat) {
-    lazyWahlresultat = Lazy.Reference(wahlresultat)
+    this.wahlresultat = Lazy.Reference(wahlresultat)
   }
 }

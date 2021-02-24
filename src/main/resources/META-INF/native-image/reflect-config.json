@@ -200,9 +200,7 @@
   "name":"com.melonbase.microquark.repo.data.Kanton",
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
-  "fields":[
-    {"name":"einwohner", "allowUnsafeAccess":true}
-  ]
+  "fields":[{"name":"einwohner", "allowUnsafeAccess":true}]
 },
 {
   "name":"com.melonbase.microquark.repo.data.Volksabstimmung",
