@@ -17,10 +17,12 @@ You have two possibilities to load data: automatically with the DataImporter or 
 ### Using the DataImporter
 
 microquark comes with a **DataImporter** that allows you to load referendums from a CSV file
-(see `data.csv` in the root folder).
-This creates the given referendums and performs a (random) election on each submission.
+(see `data.csv` in the root folder). It is a small Kotlin program that you can start in your IDE
+(e. g. IntelliJ IDEA or Eclipse). It creates all the referendums defined in the CSV file
+and performs a (random) election on every submission.
 
-In total, this generates around 2.5 GB on your disk (depending on how many people show up to vote!). 
+In total, this generates around 2.5 GB of data on your disk (depending on how many people show
+up to vote!). 
 
 ### Adding data via REST
 
