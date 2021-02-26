@@ -1,8 +1,9 @@
 # MicroStream integration
 
-TODO
+### Configuration
 
-* Lazy Checker can be configured in `appliation.properties`
-  * duration (in ISO-8601 format)
-  * memory quota
-    
+The storage target, and some properties of the Lazy Checker (duration, memory quota) can be
+configured via the `application.properties` of Quarkus.
+
+More of the configuration parameters could be added similarly.
+

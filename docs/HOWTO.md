@@ -8,11 +8,13 @@ Use the following command to run **microquark** in development mode:
 mvn quarkus:dev
 ```
 
+If you want to build and run a native image see [here](NATIVE.md).
+
 The application has fully started when you see an entry: `Listening on: http://localhost:8080`
 
 ## Getting data in
 
-You have two possibilities to load data: automatically with the DataImporter or manually via REST.
+You have two possibilities to load data: automatically with the **DataImporter** or manually via REST.
 
 ### Using the DataImporter
 

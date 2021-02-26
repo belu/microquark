@@ -1,14 +1,13 @@
 ## REST API
 
-If you start the application in **Dev Mode** with `mvn quarkus:dev` then you can use the included
-[Swagger](https://swagger.io/) to execute REST calls:
-http://127.0.0.1:8080/q/swagger-ui/
+There are several ways to use the REST API.
 
-If you run the **Native Image** then Swagger is not available. In this case you can use the following
-[cURL](https://curl.se/) commands.
-
-Use the `DataImporter` (included standalone Kotlin program) to automatically import Volksabstimmungen and
-execute the elections. This gives you a good starting ground!
+* You can use [Swagger](https://swagger.io/) which is available: http://127.0.0.1:8080/q/swagger-ui/
+* If you prefer to use [cURL](https://curl.se/) have a look at the commands below
+* The `DataImporter` (included standalone Kotlin program) is helpful to automatically import
+  several Volksabstimmungen and execute the elections. This gives you a good starting ground!
+  
+### cURL commands
 
 #### Show all Volksabstimmungen
 
