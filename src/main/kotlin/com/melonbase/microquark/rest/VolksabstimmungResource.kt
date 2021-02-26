@@ -9,10 +9,10 @@ import com.melonbase.microquark.rest.util.noContent
 import com.melonbase.microquark.rest.util.notFound
 import com.melonbase.microquark.rest.util.ok
 import com.melonbase.microquark.service.ElectionsService
-import com.melonbase.microquark.service.NotFoundResult
-import com.melonbase.microquark.service.RejectedResult
-import com.melonbase.microquark.service.SuccessResult
-import com.melonbase.microquark.service.SuccessWithDataResult
+import com.melonbase.microquark.service.NotFound
+import com.melonbase.microquark.service.Failure
+import com.melonbase.microquark.service.VoidSuccess
+import com.melonbase.microquark.service.Success
 import java.time.LocalDate
 import javax.inject.Inject
 import javax.ws.rs.Consumes
@@ -50,16 +50,16 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   fun addVolksabstimmung(volksabstimmung: NeueVolksabstimmung): Response {
-    fun success(result: SuccessWithDataResult<Volksabstimmung>): Response {
+    fun success(result: Success<Volksabstimmung>): Response {
       val location = uriInfo.absolutePathBuilder.path(result.entity.datum.toString()).build()
       return Response.created(location).build()
     }
 
     return when (val result = service.addVolksabstimmung(volksabstimmung)) {
-      NotFoundResult -> notFound()
-      is RejectedResult -> badRequest(result.reason)
-      SuccessResult -> accepted()
-      is SuccessWithDataResult -> success(result)
+      NotFound -> notFound()
+      is Failure -> badRequest(result.reason)
+      VoidSuccess -> accepted()
+      is Success -> success(result)
     }
   }
 
@@ -67,9 +67,9 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
   @Path("{datum}")
   fun deleteVolksabstimmung(@PathParam("datum") datum: LocalDate): Response {
     return when (val result = service.deleteVolksabstimmung(datum)) {
-      NotFoundResult -> notFound()
-      is RejectedResult -> badRequest(result.reason)
-      SuccessResult, is SuccessWithDataResult -> noContent()
+      NotFound -> notFound()
+      is Failure -> badRequest(result.reason)
+      VoidSuccess, is Success -> noContent()
     }
   }
 
@@ -77,10 +77,10 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
   @Path("{datum}/abstimmen")
   fun performAbstimmung(@PathParam("datum") datum: LocalDate): Response {
     return when (val result = service.performAbstimmung(datum)) {
-      SuccessResult -> accepted()
-      is SuccessWithDataResult -> noContent()
-      NotFoundResult -> notFound()
-      is RejectedResult -> badRequest(result.reason)
+      VoidSuccess -> accepted()
+      is Success -> noContent()
+      NotFound -> notFound()
+      is Failure -> badRequest(result.reason)
     }
   }
 
@@ -89,10 +89,10 @@ class VolksabstimmungResource @Inject constructor(val service: ElectionsService)
   @Produces(MediaType.APPLICATION_JSON)
   fun getResult(@PathParam("datum") datum: LocalDate): Response {
     return when (val result = service.getResult(datum)) {
-      SuccessResult -> accepted()
-      is SuccessWithDataResult<VolksabstimmungResultat> -> ok(result.entity)
-      NotFoundResult -> notFound()
-      is RejectedResult -> badRequest(result.reason)
+      VoidSuccess -> accepted()
+      is Success<VolksabstimmungResultat> -> ok(result.entity)
+      NotFound -> notFound()
+      is Failure -> badRequest(result.reason)
     }
   }
 }

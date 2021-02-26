@@ -10,11 +10,11 @@ import com.melonbase.microquark.rest.dto.outbound.Resultat
 import com.melonbase.microquark.rest.dto.outbound.VolksabstimmungResultat
 import com.melonbase.microquark.rest.dto.outbound.VorlageResultat
 import com.melonbase.microquark.rest.mapping.mapToDto
-import com.melonbase.microquark.service.NotFoundResult
-import com.melonbase.microquark.service.RejectedResult
-import com.melonbase.microquark.service.ServiceResult
-import com.melonbase.microquark.service.SuccessResult
-import com.melonbase.microquark.service.SuccessWithDataResult
+import com.melonbase.microquark.service.NotFound
+import com.melonbase.microquark.service.Failure
+import com.melonbase.microquark.service.Result
+import com.melonbase.microquark.service.VoidSuccess
+import com.melonbase.microquark.service.Success
 import mu.KotlinLogging
 import one.microstream.storage.types.StorageManager
 import java.math.BigDecimal
@@ -47,10 +47,10 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
     }
   }
 
-  fun addVolksabstimmung(volksabstimmung: NeueVolksabstimmung): ServiceResult<com.melonbase.microquark.rest.dto.outbound.Volksabstimmung> {
+  fun addVolksabstimmung(volksabstimmung: NeueVolksabstimmung): Result<com.melonbase.microquark.rest.dto.outbound.Volksabstimmung> {
     lock.write {
       if (getVolksabstimmungUnlocked(volksabstimmung.datum) != null) {
-        return RejectedResult("Es existiert bereits eine Volksabstimmung am '${volksabstimmung.datum}'.")
+        return Failure("Es existiert bereits eine Volksabstimmung am '${volksabstimmung.datum}'.")
       }
 
       val neueVolksabstimmung = Volksabstimmung(
@@ -62,28 +62,28 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
       root.volksabstimmungen.add(neueVolksabstimmung)
       storage.store(root.volksabstimmungen)
 
-      return SuccessWithDataResult(neueVolksabstimmung.mapToDto())
+      return Success(neueVolksabstimmung.mapToDto())
     }
   }
 
-  fun deleteVolksabstimmung(datum: LocalDate): ServiceResult<Nothing> {
+  fun deleteVolksabstimmung(datum: LocalDate): Result<Nothing> {
     lock.write {
       val deleted = storage.getDataRoot().volksabstimmungen.removeIf { v -> v.datum == datum }
       if (deleted) {
         storage.store(storage.getDataRoot().volksabstimmungen)
-        return SuccessResult
+        return VoidSuccess
       }
-      return NotFoundResult
+      return NotFound
     }
   }
 
-  fun performAbstimmung(datum: LocalDate): ServiceResult<Nothing> {
+  fun performAbstimmung(datum: LocalDate): Result<Nothing> {
     lock.write {
-      val volksabstimmung = getVolksabstimmungUnlocked(datum) ?: return NotFoundResult
+      val volksabstimmung = getVolksabstimmungUnlocked(datum) ?: return NotFound
 
       val gewaehlt = volksabstimmung.vorlagen.any { it.getWahlresultat() != null }
       if (gewaehlt) {
-        return RejectedResult("Es wurde bereits abgestimmt.")
+        return Failure("Es wurde bereits abgestimmt.")
       }
 
       volksabstimmung.vorlagen.forEach { vorlage ->
@@ -95,7 +95,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
         storage.store(vorlage)
       }
     }
-    return SuccessResult
+    return VoidSuccess
   }
 
   private fun calculateStimmenByKanton(): Map<Kanton, List<Boolean>> {
@@ -110,13 +110,13 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
     }.toMap()
   }
 
-  fun getResult(datum: LocalDate): ServiceResult<VolksabstimmungResultat> {
+  fun getResult(datum: LocalDate): Result<VolksabstimmungResultat> {
     lock.read {
-      val volksabstimmung = getVolksabstimmungUnlocked(datum) ?: return NotFoundResult
+      val volksabstimmung = getVolksabstimmungUnlocked(datum) ?: return NotFound
 
       val nochNichtAbgestimmt = volksabstimmung.vorlagen.any { it.getWahlresultat() == null }
       if (nochNichtAbgestimmt) {
-        return RejectedResult("Abstimmung wurde noch nicht durchgeführt.")
+        return Failure("Abstimmung wurde noch nicht durchgeführt.")
       }
 
       val vorlageResultate = volksabstimmung.vorlagen.map { vorlage ->
@@ -126,7 +126,7 @@ class ElectionsRepo @Inject constructor(private val storage: StorageManager) {
         VorlageResultat(vorlage.beschreibung, bundesresultat, kantonsresultate)
       }
 
-      return SuccessWithDataResult(VolksabstimmungResultat(datum, vorlageResultate))
+      return Success(VolksabstimmungResultat(datum, vorlageResultate))
     }
   }
 

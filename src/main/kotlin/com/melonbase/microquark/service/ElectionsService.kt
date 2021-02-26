@@ -19,19 +19,19 @@ class ElectionsService @Inject constructor(val repo: ElectionsRepo) {
     return repo.getVolksabstimmung(datum)
   }
 
-  fun deleteVolksabstimmung(datum: LocalDate): ServiceResult<Nothing> {
+  fun deleteVolksabstimmung(datum: LocalDate): Result<Nothing> {
     return repo.deleteVolksabstimmung(datum)
   }
 
-  fun addVolksabstimmung(volksabstimmung: NeueVolksabstimmung): ServiceResult<Volksabstimmung> {
+  fun addVolksabstimmung(volksabstimmung: NeueVolksabstimmung): Result<Volksabstimmung> {
     return repo.addVolksabstimmung(volksabstimmung)
   }
 
-  fun performAbstimmung(datum: LocalDate): ServiceResult<Nothing> {
+  fun performAbstimmung(datum: LocalDate): Result<Nothing> {
     return repo.performAbstimmung(datum)
   }
 
-  fun getResult(datum: LocalDate): ServiceResult<VolksabstimmungResultat> {
+  fun getResult(datum: LocalDate): Result<VolksabstimmungResultat> {
     return repo.getResult(datum)
   }
 }
