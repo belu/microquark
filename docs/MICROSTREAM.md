@@ -1,9 +1,23 @@
 # MicroStream integration
 
-### Configuration
+### Lazy Checker
 
-The storage target, and some properties of the Lazy Checker (duration, memory quota) can be
-configured via the `application.properties` of Quarkus.
+The **duration** and the **memory quota** of the Lazy Checker can be configured in the
+`application.properties` file.
 
-More of the configuration parameters could be added similarly.
+### Storage targets
 
+The default storage target is `filesystem`.
+
+You can easily switch to PostgreSQL, MariaDB, MongoDB or even an in-memory storage. See the comments in
+`application.properties` for guidance.
+
+The in-memory storage is especially useful if you run automated tests. For
+[QuarkusTest's](https://quarkus.io/guides/getting-started-testing) this is the default setting.
+
+For your convenience, a **docker-compose** file is included in the root directory. You can start
+all the databases with the following command:
+
+```shell script
+docker-compose up
+```

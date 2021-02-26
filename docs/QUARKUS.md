@@ -1,7 +1,6 @@
 # Quarkus integration
 
-The goal was to integrate, configure and use MicroStream as it would be a _normal_ Quarkus extension.
-The work done in this project could even be a good starting point for that!
+The goal was to integrate MicroStream so that it almost feels like a _normal_ Quarkus extension.
 
 ## Features
 
@@ -25,6 +24,6 @@ MicroStream storage.
 
 For testing, you can use the supported in-memory filesystem. Every `QuarkusTest` will use
 the in-memory filesystem by default. This is configured in the file
-`application.properties` under test resources.
+`application.properties` in the test resources.
 
 The in-memory filesystem is provided by [JimFS](https://github.com/google/jimfs/).

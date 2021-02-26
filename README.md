@@ -34,4 +34,7 @@ Furthermore:
 
 - [Interactions](docs/CONTRIBUTIONS.md) with Open Source projects
 
-TODO Thanks
+### Thanks
+
+* the [MicroStream team](https://microstream.one) for organizing such a great event
+* Remo for review of code/docs and testing with macOS
