@@ -21,3 +21,12 @@ all the databases with the following command:
 ```shell script
 docker-compose up
 ```
+
+### Data model
+
+The votes are simply modeled as lists of booleans. As MicroStream is very fast, it was not required
+to optimize this any further.
+If you query the outcome of a referendum, then actually all the numbers (sum, percentage etc.)
+are calculated from scratch again. You probably won't do that in a real project,
+but it is a nice demonstration that you can do that with MicroStream and get the
+results back fast enough.
