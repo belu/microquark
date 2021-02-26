@@ -14,3 +14,5 @@ for Linux and macOS only.
 **NOTE**: The generated image could be made much smaller. However, for convenience Swagger is also
 included in PROD mode. Furthermore, all the dependencies for the different storage targets are also
 added to the native-image. This makes it easier for you to try out the different storages.
+
+Go back to [Getting started](HOWTO.md) on how to add some data!
