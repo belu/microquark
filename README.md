@@ -26,6 +26,10 @@ See the integration docs for details on the different ingredients:
 - [Quarkus integration](docs/QUARKUS.md)
 - [GraalVM integration](docs/GRAALVM.md)
 
+Screencast
+
+[![asciicast](https://asciinema.org/a/j53ps4JFe21pofMoj4pPx6M7h.svg)](https://asciinema.org/a/j53ps4JFe21pofMoj4pPx6M7h)
+
 Furthermore:
 
 - [Interactions](docs/CONTRIBUTIONS.md) with Open Source projects
