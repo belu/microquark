@@ -5,6 +5,7 @@ services:
     restart: always
     ports:
     - "53306:3306"
+    command: --max_allowed_packet=100000000
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: micro
