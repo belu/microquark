@@ -9,10 +9,10 @@ import com.melonbase.microquark.rest.util.noContent
 import com.melonbase.microquark.rest.util.notFound
 import com.melonbase.microquark.rest.util.ok
 import com.melonbase.microquark.service.ElectionsService
-import com.melonbase.microquark.service.NotFound
 import com.melonbase.microquark.service.Failure
-import com.melonbase.microquark.service.VoidSuccess
+import com.melonbase.microquark.service.NotFound
 import com.melonbase.microquark.service.Success
+import com.melonbase.microquark.service.VoidSuccess
 import java.time.LocalDate
 import javax.inject.Inject
 import javax.ws.rs.Consumes
