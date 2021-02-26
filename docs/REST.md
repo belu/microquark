@@ -16,16 +16,16 @@ execute the elections. This gives you a good starting ground!
 curl "http://127.0.0.1:8080/volksabstimmungen"
 ```
 
-This lists all the Volksabstimmungen with date and the topics to vote on.
+This lists all the Volksabstimmungen with date, and the topics to vote on.
 
 #### Create a new Volksabstimmung
 
 ```shell script
-curl "http://127.0.0.1:8080/volksabstimmungen" -H "Content-Type: application/json" -d '{"datum":"2021-02-28","vorlagen":["Soll MicroStream als zuverlässige und schnelle Persistenz für alle Behörden eingeführt werden?"]}'
+curl "http://127.0.0.1:8080/volksabstimmungen" -H "Content-Type: application/json" -d '{"datum":"2021-02-28","vorlagen":["Should MicroStream be used for government projects?"]}'
 ```
 
-This inserts a new Volksabstimmung. You can define the date when the election takes place. And also a list
-of topics that the population can vote on (Vorlagen).
+This inserts a new Volksabstimmung. You can define the date when the election takes place.
+Furthermore, a list of topics that the population can vote on (Vorlagen).
 
 #### Show a single Volksabstimmung
 
@@ -62,9 +62,9 @@ are calculated on-the-fly directly from the MicroStream storage data root!
 ## cURL tips
 
 * For verbose output add the parameter `-v`,
-  e. g. `curl -v "http://127.0.0.1:8080/volksabstimmungen"`
+  e.g. `curl -v "http://127.0.0.1:8080/volksabstimmungen"`
   
-* To time the requests, add `time` at the beginning. E. g. `time curl "http://127.0.0.1:8080/volksabstimmungen"`
+* To time the requests, add `time` at the beginning. E.g. `time curl "http://127.0.0.1:8080/volksabstimmungen"`
 
 * If you want to pretty-print a JSON result, pipe it through `json_pp`,
-  e. g. `curl "http://127.0.0.1:8080/volksabstimmungen/2021-02-28/result" | json_pp`
+  e.g. `curl "http://127.0.0.1:8080/volksabstimmungen/2021-02-28/result" | json_pp`

@@ -33,7 +33,7 @@ The native executable was able to start now.
 
 ## Reflection
 
-But the joy only lasted for a short time. When the storage was started, the application crashed with an exception:
+The joy only lasted for a short time. When the storage was started, the application crashed with an exception:
 
 ```
 java.lang.IllegalArgumentException: Class one.microstream.afs.nio.NioReadableFile$Default[] is
@@ -42,7 +42,7 @@ org.graalvm.nativeimage.hosted.RuntimeReflection
 ```
 
 Seems some classes are instantiated via Reflection but have not been registered. First, I tried to register the classes
-manually (via `reflect-config.json`). But this took no end. Therefore I was searching for a better solution.
+manually (via `reflect-config.json`). This took no end, therefore I was searching for a better solution.
 
 I found the solution in another blog article by the GraalVM team...
 
@@ -53,21 +53,21 @@ One can use the Tracing Agent to generate all the necessary configs, including t
 This is explained in the following article:
 https://medium.com/graalvm/introducing-the-tracing-agent-simplifying-graalvm-native-image-configuration-c3b56c486271
 
-And also in the Native Image Manual:
+Also in the Native Image Manual:
 https://www.graalvm.org/reference-manual/native-image/BuildConfiguration/#assisted-configuration-of-native-image-builds
 
 For this to work you need GraalVM installed locally on your machine. Then you just package your application:
 ```shell script
 mvn clean package
 ```
-And run the application with the agent:
+Run the application with the agent:
 ```shell script
 java -agentlib:native-image-agent=config-merge-dir=src/main/resources/META-INF/native-image -jar target/*-runner.jar
 ```
 
-And the configs will be generated for you.
+All the configs will be generated for you.
 
-Note that whilst your application is running, you should enter every possible code path that could occure. This assures
+Note that whilst your application is running, you should enter every possible code path that could occur. This assures
 that the agent catches all required things. Ideally, this is done with automated tests.
 
 You can stop and start the application JAR several times. The configs will be merged automatically for you.
@@ -80,7 +80,7 @@ https://github.com/oracle/graal/issues/3192
 
 ## Success
 
-But in the end, MicroStream on Quarkus was running fine (and fast!) with GraalVM.
+Finally, MicroStream on Quarkus was running fine (and fast!) with GraalVM.
 
-Then I added several storage targets (PostgreSQL, MariaDB, MongoDB, etc.). All of them could be
-integrated with the help of the tracing agent.
+After this first success, I started adding different storage targets (PostgreSQL, MariaDB, MongoDB, etc.).
+All of them could be integrated with the help of the tracing agent.

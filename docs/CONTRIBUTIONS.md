@@ -2,7 +2,7 @@
 
 During the development of this project there were some interactions
 with different Open Source projects.
-Was it a bug that was found or a feature/pull request that was opened.
+Was it a bug that was found, or a feature/pull request that was opened.
 
 ### MicroStream
 
