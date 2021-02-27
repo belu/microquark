@@ -14,11 +14,12 @@ The application has fully started when you see an entry: `Listening on: http://l
 
 ## Getting data in
 
-You have two possibilities to load data: automatically with the **DataImporter** or manually via REST.
+You have two possibilities to load data: automatically with the
+[DataImporter](/src/test/kotlin/importer/DataImporter.kt) or manually via REST.
 
 ### Using the DataImporter
 
-microquark comes with a **DataImporter** that allows you to load referendums from a CSV file
+microquark comes with a [DataImporter](/src/test/kotlin/importer/DataImporter.kt) that allows you to load referendums from a CSV file
 (see `data.csv` in the root folder). It is a small Kotlin program that you can start in your IDE
 (e.g. IntelliJ IDEA or Eclipse). It creates all the referendums defined in the CSV file
 and performs a (random) election on every submission.
