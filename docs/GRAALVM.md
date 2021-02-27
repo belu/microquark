@@ -28,7 +28,8 @@ In the blog of the GraalVM team I found a solution for this problem:
 https://medium.com/graalvm/instant-netty-startup-using-graalvm-native-image-generation-ed6f14ff7692
 
 With this hint I was able to implement the correct Substitutions (see
-[MicrostreamSubstitutions.java](../src/main/kotlin/com/melonbase/microquark/microstream/graal/MicrostreamSubstitutions.java)).
+[MicrostreamSubstitutions.java](../src/main/kotlin/com/melonbase/microquark/microstream/graal/MicrostreamSubstitutions.java))
+.
 
 The native executable was able to start now.
 
@@ -58,16 +59,17 @@ https://medium.com/graalvm/introducing-the-tracing-agent-simplifying-graalvm-nat
 Also in the Native Image Manual:
 https://www.graalvm.org/reference-manual/native-image/BuildConfiguration/#assisted-configuration-of-native-image-builds
 
-For this to work you need GraalVM installed locally on your machine. Then you just package your application:
+For this to work you need [GraalVM installed locally](https://www.graalvm.org/docs/getting-started/)
+on your machine. Then you just package your application:
 
 ```shell script
 mvn clean package
 ```
 
-Run the application with the agent:
+Run the application with the agent (`java` is the one from GraalVM):
 
 ```shell script
-java -agentlib:native-image-agent=config-merge-dir=src/main/resources/META-INF/native-image -jar target/*-runner.jar
+java -agentlib:native-image-agent=config-merge-dir=src/main/resources/META-INF/native-image -jar target/quarkus-app/quarkus-run.jar
 ```
 
 All the configs will be generated for you.
