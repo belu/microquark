@@ -11,7 +11,7 @@
 
 # MicroStream Hackathon project
 
-A pet project to explore the integration of <a href="http://microstream.one" target="_blank">MicroStream</a>,
+A pet project to explore the integration of [MicroStream](http://microstream.one),
 [Quarkus](http://quarkus.io) and [GraalVM](http://www.graalvm.org).
 
 How to work with microquark
