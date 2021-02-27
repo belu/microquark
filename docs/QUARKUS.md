@@ -31,8 +31,8 @@ Easily configurable via `application.properties`.
 
 ### MicroStream health status
 
-* [readiness](http://127.0.0.1:8080/q/health/ready)
-* [liveness](http://127.0.0.1:8080/q/health/live)
+* readiness
+* liveness
 
 ![Health UI](images/health-ui.png "Health UI")
 

@@ -27,7 +27,8 @@ fault.
 In the blog of the GraalVM team I found a solution for this problem:
 https://medium.com/graalvm/instant-netty-startup-using-graalvm-native-image-generation-ed6f14ff7692
 
-With this hint I was able to implement the correct Substitutions (see `MicrostreamSubstitutions.java`).
+With this hint I was able to implement the correct Substitutions (see
+[MicrostreamSubstitutions.java](../src/main/kotlin/com/melonbase/microquark/microstream/graal/MicrostreamSubstitutions.java)).
 
 The native executable was able to start now.
 
@@ -48,7 +49,8 @@ I found the solution in another blog article by the GraalVM team...
 
 ## The Tracing Agent
 
-One can use the Tracing Agent to generate all the necessary configs, including the `reflect-config.json`.
+One can use the Tracing Agent to generate all the necessary configs, including the
+[reflect-config.json](../src/main/resources/META-INF/native-image/reflect-config.json).
 
 This is explained in the following article:
 https://medium.com/graalvm/introducing-the-tracing-agent-simplifying-graalvm-native-image-configuration-c3b56c486271
@@ -57,10 +59,13 @@ Also in the Native Image Manual:
 https://www.graalvm.org/reference-manual/native-image/BuildConfiguration/#assisted-configuration-of-native-image-builds
 
 For this to work you need GraalVM installed locally on your machine. Then you just package your application:
+
 ```shell script
 mvn clean package
 ```
+
 Run the application with the agent:
+
 ```shell script
 java -agentlib:native-image-agent=config-merge-dir=src/main/resources/META-INF/native-image -jar target/*-runner.jar
 ```
@@ -73,7 +78,7 @@ that the agent catches all required things. Ideally, this is done with automated
 You can stop and start the application JAR several times. The configs will be merged automatically for you.
 
 When trying the agent with the merge feature (`config-merge-dir`), it sometimes did not behave as expected.
-For `java.util.Optional` the `allowUnsafeAccess` for the field `value` was not merged correctly. 
+For `java.util.Optional` the `allowUnsafeAccess` for the field `value` was not merged correctly.
 
 You find details in the following bug report:
 https://github.com/oracle/graal/issues/3192
@@ -82,5 +87,5 @@ https://github.com/oracle/graal/issues/3192
 
 Finally, MicroStream on Quarkus was running fine (and fast!) with GraalVM.
 
-After this first success, I started adding different storage targets (PostgreSQL, MariaDB, MongoDB, etc.).
-All of them could be integrated with the help of the tracing agent.
+After this first success, I started adding different storage targets (PostgreSQL, MariaDB, MongoDB, etc.). All of them
+could be integrated with the help of the tracing agent.
