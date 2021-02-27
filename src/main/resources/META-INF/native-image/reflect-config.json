@@ -462,6 +462,10 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"io.quarkus.runner.GeneratedMain",
+  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
+},
+{
   "name":"io.smallrye.health.api.Wellness",
   "allDeclaredMethods":true
 },
@@ -875,8 +879,7 @@
 {
   "name":"java.util.Optional",
   "allDeclaredFields":true,
-  "allDeclaredMethods":true,
-  "fields":[{"name":"value", "allowUnsafeAccess":true}]
+  "allDeclaredMethods":true
 },
 {
   "name":"java.util.OptionalDouble",
