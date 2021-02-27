@@ -32,3 +32,46 @@ microquark comes with several REST endpoints to interact with. You can e.g. add 
 referendums, perform an election on a referendum and get the voting results.
 
 For details, see the [REST Guide](REST.md).
+
+## Deleting the data
+
+### Storage target filesystem
+
+If you want to start with an empty storage again, just run the following command:
+
+```shell script
+mvn clean
+```
+
+This deletes all the content from the folder `target/`. The data will be written to the subfolder
+`target/data/` or to `target/target/data/`. This depends on how you run the application
+(JVM dev mode, JVM JAR mode or native mode).
+
+### Storage target PostgreSQL
+
+For PostgreSQL, you can use **pgAdmin** which is included in `docker-compose.yml`.
+If you start all the databases with the following command, **pgAdmin** is also started automatically:
+
+```shell script
+docker-compose up
+```
+
+**pgAdmin** is running on the following URL: http://127.0.0.1:48080/
+
+The login credentials are:
+* Username: `admin@example.com`
+* Password: `root`
+
+Then click on `Add New Server` and use the following settings:
+* Name: `microstream`
+* On tab **Connection**:
+  * Host name/address: `postgres`
+  * Port: `5432`
+  * Username: `postgres`
+  * Password: `postgres`
+
+Then just delete both tables `microstream` and `microstream_channel_0` via right mouse-click
+`Delete/Drop`.
+    
+![pgAdmin](images/pgadmin.png "pgAdmin")
+
