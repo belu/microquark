@@ -1,4 +1,4 @@
-name: native-image macOS
+name: release-build-macos
 
 on:
   release:

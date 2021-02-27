@@ -1,4 +1,4 @@
-name: native-image Linux
+name: release-build-linux
 
 on:
   release:
