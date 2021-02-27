@@ -30,8 +30,7 @@ object DataImporter {
       val localDate = LocalDate.parse(datum)
       val vorlagen = pairs.map { it.second }
 
-      val volksabstimmung =
-        NeueVolksabstimmung(localDate, vorlagen)
+      val volksabstimmung = NeueVolksabstimmung(localDate, vorlagen)
 
       println(volksabstimmung)
 
