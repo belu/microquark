@@ -9,7 +9,7 @@ The **duration** and the **memory quota** of the Lazy Checker can be configured 
 
 The default storage target is `filesystem`.
 
-You can easily switch to PostgreSQL, MariaDB, MongoDB or even an in-memory storage. See the comments in
+You can easily switch to **PostgreSQL**, **MariaDB**, **MongoDB** or even an **in-memory** storage. See the comments in
 `application.properties` for guidance.
 
 The in-memory storage is especially useful if you run automated tests. For
@@ -21,6 +21,15 @@ all the databases with the following command:
 ```shell script
 docker-compose up
 ```
+
+#### MariaDB
+
+For MariaDB, the default settings of the database did not work. It could not deal with the big
+packets (blobs) that were written by MicroStream. After increasing the `max_allowed_packet` size
+to a much higher value, the issue was solved (see `docker-compose.yml`).
+
+@MicroStream: this could be a useful hint in the
+[MicroStream docs for MariaDB](https://manual.docs.microstream.one/data-store/storage-targets/sql-databases/mariadb).
 
 ### Data model
 
