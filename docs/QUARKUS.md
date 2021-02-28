@@ -16,6 +16,8 @@ Hibernate/ORM.
 
 Full support for Live-Reload and Hot-Deployment. Clean shutdown and re-opening of the MicroStream storage.
 
+[![asciicast](https://asciinema.org/a/N4onVbB9yCtXuF58RzV5umAnB.svg)](https://asciinema.org/a/N4onVbB9yCtXuF58RzV5umAnB)
+
 ### MicroStream Lazy Checker
 
 `Duration` and `memory quota` of the Lazy Checker can be configured via `application.properties`.
