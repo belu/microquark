@@ -1,6 +1,6 @@
 # Native Image
 
-Quick guide on how to build a native image. This has been tested for Linux and macOS only.
+Quick guide on how to build a native image.
 
 ## Build without GraalVM installed locally
 
@@ -37,7 +37,7 @@ The native image can be started with the following command:
 ./target/microquark-1.0.0-SNAPSHOT-runner
 ```
 
-Or if you built a Docker image, use:
+Or, if you built a Docker image, use:
 ```shell script
 docker run -i --rm -p 8080:8080 <username>/microquark:1.0.0-SNAPSHOT
 ```
