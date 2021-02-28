@@ -1,8 +1,7 @@
 # Open Source project interactions
 
-During the development of this project there were some interactions
-with different Open Source projects.
-Was it a bug that was found, or a feature/pull request that was opened.
+During the development of this project there were some interactions with different Open Source projects. Was it a bug
+that was found, or a feature/pull request that was opened or just additional info to an already reported bug.
 
 ### MicroStream
 
@@ -19,3 +18,7 @@ Was it a bug that was found, or a feature/pull request that was opened.
 ### GraalVM
 
 - [native-image-agent does not merge reflect-config.json as expected](https://github.com/oracle/graal/issues/3192)
+
+### Kotlin
+
+- [An illegal reflective access operation in kotlin-compiler-embeddable](https://youtrack.jetbrains.com/issue/KT-43520)
