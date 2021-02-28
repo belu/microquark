@@ -20,11 +20,12 @@ Full support for Live-Reload and Hot-Deployment. Clean shutdown and re-opening o
 
 ### MicroStream Lazy Checker
 
-`Duration` and `memory quota` of the Lazy Checker can be configured via `application.properties`.
+The `duration` and `memory quota` of the Lazy Checker can be configured
+via [application.properties](../src/main/resources/application.properties).
 
 ### MicroStream storage targets
 
-Easily configurable via `application.properties`.
+Easily configurable via [application.properties](../src/main/resources/application.properties).
 
 * in-memory
 * filesystem
@@ -42,6 +43,6 @@ Easily configurable via `application.properties`.
 
 For testing, you can use the supported in-memory filesystem. Every `QuarkusTest` will use the in-memory filesystem by
 default. This is configured in the file
-`application.properties` in the test resources.
+[application.properties](../src/test/resources/application.properties) in the test resources.
 
 The in-memory filesystem is provided by [JimFS](https://github.com/google/jimfs/).
