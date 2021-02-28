@@ -1,8 +1,8 @@
 ## REST API
 
-There are several ways to use the REST API.
+There are several ways to interact with the REST API.
 
-* You can use [Swagger](https://swagger.io/) which runs here: http://127.0.0.1:8080/q/swagger-ui/
+* You can use [Swagger](https://swagger.io/) which is accessible here: http://127.0.0.1:8080/q/swagger-ui/
   ![Swagger UI](images/swagger.png "Swagger UI")
 
 * If you prefer to use [cURL](https://curl.se/) have a look at the commands below
@@ -36,6 +36,8 @@ that the population can vote on (Vorlagen).
 curl "http://127.0.0.1:8080/volksabstimmungen/2021-02-28"
 ```
 
+Show all the submissions (Vorlagen) of this Volksabstimmung.
+
 #### Delete a Volksabstimmung
 
 ```shell script
@@ -50,8 +52,8 @@ Removes a Volksabstimmung including all the results if available.
 curl -X POST "http://127.0.0.1:8080/volksabstimmungen/2021-02-28/abstimmen" -H "Content-type: application/json"
 ```
 
-The voter turnout and the votes will be calculated randomly. Note that an election can only be executed once per
-Volksabstimmung.
+The voter turnout (up to 8.5 million) and the votes (yes/no) will be calculated randomly for _every_ submission. Note
+that an election can only be executed once per Volksabstimmung.
 
 #### Get results for a Volksabstimmung
 
@@ -59,8 +61,8 @@ Volksabstimmung.
 curl "http://127.0.0.1:8080/volksabstimmungen/2021-02-28/result"
 ```
 
-Returns the detailed results of the referendum. Note that all the results are calculated on-the-fly directly from the
-MicroStream storage data root!
+Returns the detailed results of the referendum. Note that all the results for all submissions (Vorlagen) are calculated
+on-the-fly directly from the MicroStream storage data root!
 
 ### cURL tips
 
