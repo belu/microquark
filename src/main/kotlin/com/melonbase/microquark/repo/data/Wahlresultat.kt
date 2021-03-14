@@ -1,3 +1,3 @@
 package com.melonbase.microquark.repo.data
 
-class Wahlresultat(var stimmenByKanton: Map<Kanton, List<Boolean>>)
+class Wahlresultat(val stimmenByKanton: Map<Kanton, List<Boolean>>)
