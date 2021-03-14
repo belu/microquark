@@ -6,6 +6,10 @@ import javax.ws.rs.ext.ParamConverter
 import javax.ws.rs.ext.ParamConverterProvider
 import javax.ws.rs.ext.Provider
 
+/*
+ * Obsolete when Quarkus 1.13 is released
+ * https://github.com/quarkusio/quarkus/pull/15451
+ */
 @Provider
 class LocalDateParameterConverterProvider : ParamConverterProvider {
 
