@@ -2,7 +2,7 @@ package com.melonbase.microquark.repo.data
 
 import one.microstream.reference.Lazy
 
-class Vorlage(var beschreibung: String) {
+class Vorlage(val beschreibung: String) {
 
   private var wahlresultat: Lazy<Wahlresultat> = Lazy.Reference(null)
 

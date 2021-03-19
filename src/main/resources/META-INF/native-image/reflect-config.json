@@ -879,7 +879,8 @@
 {
   "name":"java.util.Optional",
   "allDeclaredFields":true,
-  "allDeclaredMethods":true
+  "allDeclaredMethods":true,
+  "fields":[{"name":"value", "allowUnsafeAccess":true}]
 },
 {
   "name":"java.util.OptionalDouble",

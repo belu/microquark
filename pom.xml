@@ -8,7 +8,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <properties>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
-    <kotlin.version>1.4.30</kotlin.version>
+    <kotlin.version>1.4.31</kotlin.version>
     <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
     <kotlin-logging.version>2.0.4</kotlin-logging.version>
     <maven.compiler.parameters>true</maven.compiler.parameters>
@@ -17,10 +17,10 @@
     <maven.test.skip>true</maven.test.skip>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus-plugin.version>1.12.0.Final</quarkus-plugin.version>
+    <quarkus-plugin.version>1.12.2.Final</quarkus-plugin.version>
     <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>1.12.0.Final</quarkus.platform.version>
+    <quarkus.platform.version>1.12.2.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     <microstream.version>04.01.00-MS-GA</microstream.version>
     <jimfs.version>1.2</jimfs.version>
@@ -200,6 +200,7 @@
           </execution>
         </executions>
         <configuration>
+          <javaParameters>true</javaParameters>
           <compilerPlugins>
             <plugin>all-open</plugin>
           </compilerPlugins>
@@ -294,7 +295,6 @@
         <quarkus.package.type>native</quarkus.package.type>
         <quarkus.native.native-image-xmx>4G</quarkus.native.native-image-xmx>
         <quarkus.native.additional-build-args>
-          -H:ReflectionConfigurationResources=META-INF/native-image/additional-reflect-config.json,
           --allow-incomplete-classpath,
           --verbose
         </quarkus.native.additional-build-args>
