@@ -295,7 +295,6 @@
         <quarkus.package.type>native</quarkus.package.type>
         <quarkus.native.native-image-xmx>4G</quarkus.native.native-image-xmx>
         <quarkus.native.additional-build-args>
-          -H:ReflectionConfigurationResources=META-INF/native-image/additional-reflect-config.json,
           --allow-incomplete-classpath,
           --verbose
         </quarkus.native.additional-build-args>
