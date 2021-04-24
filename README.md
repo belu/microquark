@@ -11,9 +11,9 @@
 
 Winner of the [MicroStream Hackathon](https://hackathon.microstream.one) 2021:
 
-:medal_sports: 1st rank
+:medal_sports: 1st place
 
-:trophy: GraalVM Award
+:trophy: GraalVM Award Winner
 
 ## MicroStream Hackathon project
 
