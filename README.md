@@ -9,7 +9,13 @@
       MicroStream + Quarkus + GraalVM
 ```
 
-# MicroStream Hackathon project
+Winner of the [MicroStream Hackathon](https://hackathon.microstream.one) 2021:
+
+:medal_sports: 1st rank
+
+:trophy: GraalVM Award
+
+## MicroStream Hackathon project
 
 A pet project to explore the integration of [MicroStream](http://microstream.one),
 [Quarkus](http://quarkus.io) and [GraalVM](http://www.graalvm.org).
